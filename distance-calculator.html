@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Distance Calculator UK - QuickCheck UK</title>
+  <meta name="description" content="Calculate distance between two places, estimate driving distance, journey time and fuel cost, and open the route in Google Maps.">
+  <meta name="theme-color" content="#0b1220">
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/styles.css?v=10">
+  <style>
+    .distance-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}.distance-form{display:grid;gap:12px}.distance-form label{display:grid;gap:6px;color:#dbeafe;font-weight:850}.distance-form input,.distance-form select{background:rgba(7,17,31,.78);border:1px solid var(--line);border-radius:15px;color:#fff;padding:13px;font-size:16px}.distance-result{background:rgba(7,17,31,.65);border:1px solid var(--line);border-radius:24px;padding:22px;line-height:1.65}.distance-main{font-size:30px;font-weight:950;color:#86efac;margin-bottom:12px}.map-link{display:inline-flex;margin-top:12px}.osm-note{font-size:13px;color:var(--muted)}@media(max-width:850px){.distance-grid{grid-template-columns:1fr}.distance-main{font-size:24px}}
+  </style>
+</head>
+<body>
+<header class="topbar"><a class="brand" href="./"><span class="logo">QC</span><span><strong>QuickCheck UK</strong><small>Distance calculator</small></span></a><nav class="topnav"><a href="./#tools">All tools</a><a href="standard-calculator.html">Standard Calculator</a></nav></header>
+<main>
+<section class="info-page">
+  <h1>Distance Calculator</h1>
+  <p>Enter two places, towns or postcodes to estimate straight-line distance, driving distance, journey time and rough fuel cost.</p>
+  <p class="osm-note">Place search uses OpenStreetMap Nominatim and routing uses OSRM where available. Use is user-triggered, light-use only, with attribution shown below.</p>
+</section>
+<section class="tool-panel">
+  <div class="distance-grid">
+    <form id="distanceForm" class="distance-form">
+      <label><span>From</span><input id="fromPlace" autocomplete="street-address" placeholder="Example: Sheffield S6"></label>
+      <label><span>To</span><input id="toPlace" autocomplete="street-address" placeholder="Example: Skegness"></label>
+      <label><span>Route type</span><select id="routeType"><option value="driving">Driving estimate</option><option value="straight">Straight-line only</option></select></label>
+      <label><span>Vehicle MPG</span><select id="mpg"><option value="30">Poor economy 30 MPG</option><option value="45" selected>Average 45 MPG</option><option value="60">Good economy 60 MPG</option></select></label>
+      <label><span>Fuel price p/litre</span><input id="fuelPrice" type="number" step="any" value="145"></label>
+      <button class="primary" type="submit">Calculate distance</button>
+    </form>
+    <div class="distance-result">
+      <h2>Your result</h2>
+      <div id="distanceOutput"><p>Enter two places and press calculate.</p></div>
+      <div class="result-actions hidden" id="distanceActions"><button type="button" class="soft" id="copyDistance">Copy result</button><button type="button" class="soft" id="printDistance">Print</button></div>
+    </div>
+  </div>
+</section>
+<section class="info-page">
+  <h2>How this works</h2>
+  <p>The straight-line result is the direct “as the crow flies” distance. The driving estimate uses public routing where available, so it should be treated as a guide, not a guaranteed sat-nav result.</p>
+  <p>Map data © OpenStreetMap contributors. Routing by OSRM where available.</p>
+</section>
+</main>
+<footer class="footer"><a href="./">Home</a><a href="privacy.html">Privacy</a><a href="contact.html">Contact</a></footer>
+<script>
+const out=document.getElementById('distanceOutput');
+function rad(x){return x*Math.PI/180}
+function milesKm(m){return {km:m/1000,miles:m/1609.344}}
+function haversine(a,b){const R=6371000,dLat=rad(b.lat-a.lat),dLon=rad(b.lon-a.lon),lat1=rad(a.lat),lat2=rad(b.lat);const h=Math.sin(dLat/2)**2+Math.cos(lat1)*Math.cos(lat2)*Math.sin(dLon/2)**2;return 2*R*Math.atan2(Math.sqrt(h),Math.sqrt(1-h))}
+async function geocode(q){const key='qc_geo_'+q.toLowerCase().trim();const cached=localStorage.getItem(key);if(cached)return JSON.parse(cached);const url='https://nominatim.openstreetmap.org/search?format=json&limit=1&countrycodes=gb&q='+encodeURIComponent(q);const res=await fetch(url,{headers:{'Accept':'application/json'}});if(!res.ok)throw new Error('Place search failed');const data=await res.json();if(!data.length)throw new Error('Place not found: '+q);const p={lat:Number(data[0].lat),lon:Number(data[0].lon),name:data[0].display_name};localStorage.setItem(key,JSON.stringify(p));return p}
+async function route(a,b){const url=`https://router.project-osrm.org/route/v1/driving/${a.lon},${a.lat};${b.lon},${b.lat}?overview=false&alternatives=false&steps=false`;const res=await fetch(url);if(!res.ok)throw new Error('Routing failed');const data=await res.json();if(!data.routes||!data.routes[0])throw new Error('No route found');return data.routes[0]}
+function fuelCost(miles,mpg,ppl){const litres=(miles/(mpg||1))*4.54609;return {litres,cost:litres*ppl/100}}
+document.getElementById('distanceForm').addEventListener('submit',async e=>{e.preventDefault();const from=document.getElementById('fromPlace').value.trim(),to=document.getElementById('toPlace').value.trim();const type=document.getElementById('routeType').value;const mpg=Number(document.getElementById('mpg').value),fuel=Number(document.getElementById('fuelPrice').value);if(!from||!to){out.innerHTML='<p>Please enter both places.</p>';return}out.innerHTML='<p>Finding places and calculating route...</p>';try{const a=await geocode(from);await new Promise(r=>setTimeout(r,1100));const b=await geocode(to);const direct=milesKm(haversine(a,b));let routeText='',useMiles=direct.miles;if(type==='driving'){try{const r=await route(a,b);const d=milesKm(r.distance);useMiles=d.miles;routeText=`<li>Driving distance: <strong>${d.miles.toFixed(1)} miles</strong> / ${d.km.toFixed(1)} km</li><li>Estimated drive time: <strong>${Math.round(r.duration/60)} minutes</strong></li>`}catch{routeText='<li>Driving route unavailable, showing straight-line estimate only.</li>'}}const fuelResult=fuelCost(useMiles,mpg,fuel);const maps='https://www.google.com/maps/dir/?api=1&origin='+encodeURIComponent(from)+'&destination='+encodeURIComponent(to);const text=`Distance from ${from} to ${to}\nStraight-line: ${direct.miles.toFixed(1)} miles / ${direct.km.toFixed(1)} km\nFuel estimate: £${fuelResult.cost.toFixed(2)}\nGoogle Maps: ${maps}`;out.innerHTML=`<div class="distance-main">${direct.miles.toFixed(1)} miles straight-line</div><ul><li>Straight-line distance: <strong>${direct.miles.toFixed(1)} miles</strong> / ${direct.km.toFixed(1)} km</li>${routeText}<li>Fuel estimate on selected MPG: <strong>£${fuelResult.cost.toFixed(2)}</strong></li><li>Fuel used estimate: ${fuelResult.litres.toFixed(1)} litres</li></ul><a class="button primary map-link" target="_blank" rel="noopener" href="${maps}">Open route in Google Maps</a>`;document.getElementById('distanceActions').classList.remove('hidden');document.getElementById('copyDistance').onclick=async()=>{try{await navigator.clipboard.writeText(text);document.getElementById('copyDistance').textContent='Copied'}catch{alert(text)}};document.getElementById('printDistance').onclick=()=>window.print()}catch(err){out.innerHTML='<p>Could not calculate that route. Try using town names, UK postcodes, or a more specific place.</p>'}});
+if('serviceWorker'in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('/QuickCheck-UK/service-worker.js').catch(()=>null))}
+</script>
+</body>
+</html>

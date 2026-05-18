@@ -1,4 +1,4 @@
-const CACHE_NAME = 'quickcheck-uk-v6';
+const CACHE_NAME = 'quickcheck-uk-v7';
 const BASE = '/QuickCheck-UK/';
 const APP_SHELL = [
   BASE,
@@ -7,6 +7,7 @@ const APP_SHELL = [
   BASE + 'standard-calculator.html',
   BASE + 'budget-planner.html',
   BASE + 'money-profile.html',
+  BASE + 'bill-calendar.html',
   BASE + 'feedback.html',
   BASE + 'support.html',
   BASE + 'assets/styles.css?v=10',
@@ -25,6 +26,8 @@ const APP_SHELL = [
   BASE + 'assets/smart-results.js?v=1',
   BASE + 'assets/onboarding.css?v=1',
   BASE + 'assets/onboarding.js?v=1',
+  BASE + 'assets/bill-calendar.css?v=1',
+  BASE + 'assets/bill-calendar.js?v=1',
   BASE + 'assets/ads.css?v=1',
   BASE + 'assets/ads.js?v=1',
   BASE + 'assets/icon.svg',

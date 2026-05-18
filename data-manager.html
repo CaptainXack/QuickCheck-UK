@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Data Manager - QuickCheck UK</title>
+  <meta name="description" content="Export, restore and clear QuickCheck UK local app data including Money Profile, bills, saved calculations and favourites." />
+  <meta name="theme-color" content="#07111f" />
+  <link rel="manifest" href="site.webmanifest" />
+  <link rel="icon" href="assets/icon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="assets/styles.css?v=10" />
+  <link rel="stylesheet" href="assets/pro-app.css?v=5" />
+  <link rel="stylesheet" href="assets/data-manager.css?v=1" />
+  <link rel="stylesheet" href="assets/privacy-mode.css?v=1" />
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="./"><span class="logo">QC</span><span><strong>QuickCheck UK</strong><small>Data Manager</small></span></a>
+    <nav class="topnav"><a href="money-profile.html">Money Profile</a><a href="bill-calendar.html">Bill Calendar</a><a href="calculator-directory.html">Directory</a></nav>
+  </header>
+
+  <main class="launcher-home">
+    <section class="section-strip">
+      <div class="strip-head"><div><h1>Data Manager</h1><p>Back up, restore or clear the QuickCheck data saved on this device.</p></div></div>
+      <div class="trust-line"><span>Local-only</span><span>No account</span><span>You control the backup</span></div>
+      <div id="dataSummary"></div>
+    </section>
+
+    <section class="section-strip">
+      <div class="strip-head"><div><h2>Export backup</h2><p>Download a JSON backup of your local Money Profile, bills, saved calculations, favourites and settings.</p></div></div>
+      <div class="data-actions"><button class="primary" id="downloadBackup" type="button">Download backup</button><button id="copyBackup" type="button">Copy backup text</button><button id="refreshPreview" type="button">Refresh preview</button></div>
+    </section>
+
+    <section class="section-strip">
+      <div class="strip-head"><div><h2>Restore backup</h2><p>Paste a QuickCheck backup below, or choose a backup file from another device.</p></div></div>
+      <textarea id="restoreText" class="data-box" placeholder="Paste quickcheck-uk-backup.json text here..."></textarea>
+      <div class="data-actions"><button class="primary" id="restoreButton" type="button">Restore pasted backup</button><label class="data-file-label" for="backupFile">Choose backup file</label><input class="data-file" id="backupFile" type="file" accept="application/json,.json"></div>
+    </section>
+
+    <section class="section-strip">
+      <div class="strip-head"><div><h2>Clear selected data</h2><p>Remove only the parts you choose from this device.</p></div></div>
+      <div class="data-list">
+        <label class="data-row"><span><b>Money Profile</b><small>Income, outgoings and custom categories</small></span><input type="checkbox" data-clear-key="profile"></label>
+        <label class="data-row"><span><b>Bill Calendar</b><small>Payday and saved bills</small></span><input type="checkbox" data-clear-key="bills"></label>
+        <label class="data-row"><span><b>Saved calculations</b><small>Saved calculator results</small></span><input type="checkbox" data-clear-key="saved"></label>
+        <label class="data-row"><span><b>Recent checks and favourites</b><small>Recently used and starred tools</small></span><input type="checkbox" data-clear-key="recent"><input type="checkbox" data-clear-key="favs"></label>
+        <label class="data-row"><span><b>Privacy/onboarding settings</b><small>Hide amounts and first-run setup state</small></span><input type="checkbox" data-clear-key="privacy"><input type="checkbox" data-clear-key="onboarding"></label>
+      </div>
+      <div class="data-actions"><button class="danger" id="clearSelected" type="button">Clear selected data</button></div>
+    </section>
+
+    <section class="section-strip">
+      <div class="strip-head"><div><h2>Backup preview</h2><p>This is what will be exported. Keep backup files private because they can include personal money figures.</p></div></div>
+      <textarea id="dataPreview" class="data-box" readonly></textarea>
+      <p id="dataStatus" class="data-status">Ready.</p>
+    </section>
+  </main>
+
+  <nav class="app-quickbar" aria-label="Quick app navigation">
+    <a href="./"><span>🏠</span>Home</a>
+    <a href="calculator-directory.html"><span>🧭</span>Tools</a>
+    <a href="money-profile.html"><span>💷</span>Profile</a>
+    <button type="button" id="qcShareAppBtn"><span>📤</span>Share</button>
+  </nav>
+
+  <footer class="footer"><a href="./">Home</a><a href="money-profile.html">Money Profile</a><a href="bill-calendar.html">Bill Calendar</a><a href="privacy.html">Privacy</a></footer>
+  <script src="assets/data-manager.js?v=1" defer></script>
+  <script src="assets/privacy-mode.js?v=1" defer></script>
+  <script src="assets/pwa.js?v=5" defer></script>
+</body>
+</html>

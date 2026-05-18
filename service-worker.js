@@ -1,14 +1,17 @@
-const CACHE_NAME = 'quickcheck-uk-v1';
+const CACHE_NAME = 'quickcheck-uk-v4';
 const BASE = '/QuickCheck-UK/';
 const APP_SHELL = [
   BASE,
   BASE + 'index.html',
   BASE + 'standard-calculator.html',
   BASE + 'budget-planner.html',
-  BASE + 'assets/styles.css?v=8',
+  BASE + 'assets/styles.css?v=10',
+  BASE + 'assets/homepage.css?v=1',
+  BASE + 'assets/mobile-polish.css?v=1',
+  BASE + 'assets/app-mode.css?v=2',
   BASE + 'assets/app.js?v=8',
   BASE + 'assets/enhance.js?v=8',
-  BASE + 'assets/pwa.js?v=1',
+  BASE + 'assets/pwa.js?v=3',
   BASE + 'assets/icon.svg',
   BASE + 'site.webmanifest'
 ];
@@ -28,15 +31,13 @@ self.addEventListener('activate', event => {
 self.addEventListener('fetch', event => {
   const request = event.request;
   if (request.method !== 'GET') return;
+  if (request.url.includes('pagead2.googlesyndication.com')) return;
   event.respondWith(
-    caches.match(request).then(cached => {
-      if (cached) return cached;
-      return fetch(request).then(response => {
-        const copy = response.clone();
-        caches.open(CACHE_NAME).then(cache => cache.put(request, copy)).catch(() => null);
-        return response;
-      }).catch(() => caches.match(BASE + 'index.html'));
-    })
+    fetch(request).then(response => {
+      const copy = response.clone();
+      caches.open(CACHE_NAME).then(cache => cache.put(request, copy)).catch(() => null);
+      return response;
+    }).catch(() => caches.match(request).then(cached => cached || caches.match(BASE + 'index.html')))
   );
 });
 

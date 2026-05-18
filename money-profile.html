@@ -9,7 +9,8 @@
   <link rel="manifest" href="site.webmanifest" />
   <link rel="icon" href="assets/icon.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="assets/styles.css?v=10" />
-  <link rel="stylesheet" href="assets/pro-app.css?v=4" />
+  <link rel="stylesheet" href="assets/pro-app.css?v=5" />
+  <link rel="stylesheet" href="assets/smart-money.css?v=1" />
 </head>
 <body class="profile-page">
   <header class="topbar">
@@ -22,6 +23,11 @@
       <div class="strip-head"><div><h1>Money Profile</h1><p>Enter your income and regular outgoings once. QuickCheck calculators can then use these figures as smarter defaults.</p></div></div>
       <div class="trust-line"><span>Saved only on this device</span><span>No account</span><span>You can clear it anytime</span></div>
       <div id="profileSummary" class="profile-summary"></div>
+    </section>
+
+    <section class="section-strip">
+      <div class="strip-head"><div><h2>Smart money dashboard</h2><p>Safe spend, risk level and suggestions based on your saved profile.</p></div></div>
+      <div id="smartDashboard"></div>
     </section>
 
     <section class="section-strip">
@@ -67,6 +73,7 @@
 
   <footer class="footer"><a href="./">Home</a><a href="calculator-directory.html">Directory</a><a href="feedback.html">Feedback</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a></footer>
   <script src="assets/profile-core.js?v=1" defer></script>
+  <script src="assets/smart-money.js?v=1" defer></script>
   <script src="assets/pwa.js?v=5" defer></script>
 </body>
 </html>

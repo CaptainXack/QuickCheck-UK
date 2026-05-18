@@ -180,3 +180,16 @@ document.addEventListener('DOMContentLoaded', () => {
   };
   document.head.appendChild(script);
 })();
+
+(function qcLoadSmartResults(){
+  if (window.qcSmartResultsRequested) return;
+  window.qcSmartResultsRequested = true;
+  const css = document.createElement('link');
+  css.rel = 'stylesheet';
+  css.href = 'assets/smart-results.css?v=1';
+  document.head.appendChild(css);
+  const script = document.createElement('script');
+  script.src = 'assets/smart-results.js?v=1';
+  script.defer = true;
+  document.head.appendChild(script);
+})();

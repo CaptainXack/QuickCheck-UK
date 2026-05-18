@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Money Profile - QuickCheck UK</title>
+  <meta name="description" content="Create a local Money Profile for QuickCheck UK so calculators can use your income and regular outgoings as defaults." />
+  <meta name="theme-color" content="#07111f" />
+  <link rel="manifest" href="site.webmanifest" />
+  <link rel="icon" href="assets/icon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="assets/styles.css?v=10" />
+  <link rel="stylesheet" href="assets/pro-app.css?v=4" />
+</head>
+<body class="profile-page">
+  <header class="topbar">
+    <a class="brand" href="./"><span class="logo">QC</span><span><strong>QuickCheck UK</strong><small>Money Profile</small></span></a>
+    <nav class="topnav"><a href="./">Home</a><a href="calculator-directory.html">Directory</a><a href="feedback.html">Feedback</a></nav>
+  </header>
+
+  <main class="launcher-home">
+    <section class="section-strip">
+      <div class="strip-head"><div><h1>Money Profile</h1><p>Enter your income and regular outgoings once. QuickCheck calculators can then use these figures as smarter defaults.</p></div></div>
+      <div class="trust-line"><span>Saved only on this device</span><span>No account</span><span>You can clear it anytime</span></div>
+      <div id="profileSummary" class="profile-summary"></div>
+    </section>
+
+    <section class="section-strip">
+      <div class="strip-head"><div><h2>Your monthly picture</h2><p>Use monthly amounts. Leave anything blank if it does not apply.</p></div></div>
+      <form id="profileForm" class="feedback-form" onsubmit="return false">
+        <label>Monthly income after tax/benefits
+          <input name="income" type="number" min="0" step="0.01" placeholder="e.g. 2200" />
+        </label>
+        <div class="profile-grid">
+          <label>Rent or mortgage<input name="rent" type="number" min="0" step="0.01" /></label>
+          <label>Council tax<input name="council" type="number" min="0" step="0.01" /></label>
+          <label>Gas and electric<input name="energy" type="number" min="0" step="0.01" /></label>
+          <label>Water<input name="water" type="number" min="0" step="0.01" /></label>
+          <label>Broadband, TV and phones<input name="broadband" type="number" min="0" step="0.01" /></label>
+          <label>Food and household shopping<input name="food" type="number" min="0" step="0.01" /></label>
+          <label>Travel and fuel<input name="travel" type="number" min="0" step="0.01" /></label>
+          <label>Debt and credit payments<input name="debt" type="number" min="0" step="0.01" /></label>
+          <label>Subscriptions<input name="subs" type="number" min="0" step="0.01" /></label>
+          <label>Savings or emergency buffer<input name="savings" type="number" min="0" step="0.01" /></label>
+          <label>Family, school or childcare<input name="family" type="number" min="0" step="0.01" /></label>
+          <label>Other regular costs<input name="other" type="number" min="0" step="0.01" /></label>
+        </div>
+      </form>
+    </section>
+
+    <section class="section-strip">
+      <div class="strip-head"><div><h2>Custom outgoings</h2><p>Add anything that does not fit the built-in categories.</p></div><button class="soft" id="addCustom" type="button">Add custom category</button></div>
+      <div id="customRows" class="profile-custom-list"></div>
+    </section>
+
+    <section class="section-strip support-panel">
+      <div><h2>Use it in calculators</h2><p>Open a calculator and QuickCheck will try to prefill matching fields such as income, rent, food, travel, debt and essentials.</p></div>
+      <div class="quick-actions"><button class="primary" id="saveProfile" type="button">Save profile</button><button class="soft" id="copyProfile" type="button">Copy summary</button><button class="soft" id="clearProfile" type="button">Clear profile</button><a href="budget-planner.html">Open Budget Planner</a></div>
+    </section>
+  </main>
+
+  <nav class="app-quickbar" aria-label="Quick app navigation">
+    <a href="./"><span>🏠</span>Home</a>
+    <a href="calculator-directory.html"><span>🧭</span>Tools</a>
+    <a href="money-profile.html"><span>💷</span>Profile</a>
+    <button type="button" id="qcShareAppBtn"><span>📤</span>Share</button>
+  </nav>
+
+  <footer class="footer"><a href="./">Home</a><a href="calculator-directory.html">Directory</a><a href="feedback.html">Feedback</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a></footer>
+  <script src="assets/profile-core.js?v=1" defer></script>
+  <script src="assets/pwa.js?v=5" defer></script>
+</body>
+</html>

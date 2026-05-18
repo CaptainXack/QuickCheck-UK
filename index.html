@@ -7,7 +7,7 @@
   <meta name="description" content="QuickCheck UK gives fast everyday calculators and checkers for bills, rent, moving, broadband, subscriptions, TV, fuel, caravan costs and household decisions." />
   <meta name="theme-color" content="#0b1220" />
   <link rel="canonical" href="https://captainxack.github.io/QuickCheck-UK/" />
-  <link rel="stylesheet" href="assets/styles.css" />
+  <link rel="stylesheet" href="assets/styles.css?v=3" />
 </head>
 <body>
   <header class="topbar">
@@ -57,7 +57,16 @@
         </div>
         <input id="searchBox" class="search" placeholder="Search calculators..." />
       </div>
-      <div id="toolGrid" class="tool-grid"></div>
+      <div id="toolGrid" class="tool-grid">
+        <button class="tool-card" data-id="electricity"><span>⚡</span><b>Electricity Running Cost</b><em class="category">Energy</em><p>Estimate appliance running costs from watts, hours and kWh price.</p></button>
+        <button class="tool-card" data-id="rent"><span>🏠</span><b>Rent Affordability</b><em class="category">Housing</em><p>Check rent and bills against monthly income.</p></button>
+        <button class="tool-card" data-id="moving"><span>📦</span><b>Moving Cost</b><em class="category">Housing</em><p>Estimate deposit, first rent, removals and setup costs.</p></button>
+        <button class="tool-card" data-id="broadband"><span>📡</span><b>Broadband Speed Needs</b><em class="category">Tech</em><p>Estimate sensible broadband speed for your home.</p></button>
+        <button class="tool-card" data-id="phone"><span>📱</span><b>Phone Contract Total Cost</b><em class="category">Tech</em><p>See the full cost of a phone contract.</p></button>
+        <button class="tool-card" data-id="subscriptions"><span>🧾</span><b>Subscription Cost</b><em class="category">Money</em><p>Add up monthly and yearly subscriptions.</p></button>
+        <button class="tool-card" data-id="caravan"><span>🏕️</span><b>Static Caravan Yearly Cost</b><em class="category">Lifestyle</em><p>Estimate annual static caravan ownership costs.</p></button>
+        <button class="tool-card" data-id="fuel"><span>⛽</span><b>Fuel Trip Cost</b><em class="category">Travel</em><p>Estimate petrol or diesel trip costs.</p></button>
+      </div>
     </section>
 
     <section id="appPanel" class="tool-panel hidden">
@@ -86,6 +95,6 @@
     <span>© QuickCheck UK</span>
   </footer>
 
-  <script src="assets/app.js"></script>
+  <script src="assets/app.js?v=3" defer></script>
 </body>
 </html>

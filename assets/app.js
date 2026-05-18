@@ -1,189 +1,125 @@
 const tools = [
-  {
-    id: 'electricity', icon: '⚡', title: 'Appliance Running Cost', cat: 'Bills',
-    desc: 'Pick a common appliance or enter watts to estimate daily, monthly and yearly cost.',
-    fields: [
-      { name:'watts', label:'Appliance', type:'select', value:1000, help:'Choose a rough appliance power if you do not know the watts.', options:[['Kettle / air fryer high power',3000],['Electric heater',2000],['Tumble dryer',2500],['Washing machine cycle average',700],['Fridge freezer average',150],['Games console / TV setup',250],['Laptop',65],['Custom 1000W',1000]] },
-      { name:'hours', label:'Hours used each time/day', type:'number', value:1, help:'Use decimals if needed, for example 0.5 for 30 minutes.' },
-      { name:'days', label:'Days used per week', type:'number', value:7, help:'Use 7 if it is used daily.' },
-      { name:'price', label:'Electricity unit rate p/kWh', type:'number', value:25, help:'If unsure, leave this as a rough estimate and update later.' }
-    ]
-  },
-  {
-    id: 'rent', icon: '🏠', title: 'Rent Affordability Check', cat: 'Housing',
-    desc: 'Enter income, rent and rough living costs to see how tight a move may feel.',
-    fields: [
-      { name:'income', label:'Monthly household income after tax/benefits', type:'number', value:2200, help:'Use the money actually coming in each month.' },
-      { name:'rent', label:'Monthly rent', type:'number', value:900, help:'The advertised rent.' },
-      { name:'bills', label:'Bills estimate', type:'select', value:500, help:'Use a preset if you do not know the exact bills yet.', options:[['Low estimate £350',350],['Average estimate £500',500],['High estimate £700',700],['Very high estimate £900',900]] },
-      { name:'foodTravel', label:'Food and travel estimate', type:'select', value:650, help:'Rough household essentials outside rent/bills.', options:[['Low £450',450],['Average £650',650],['High £850',850],['Very high £1100',1100]] }
-    ]
-  },
-  {
-    id: 'moving', icon: '📦', title: 'Moving Money Needed', cat: 'Housing',
-    desc: 'A clearer moving-cost checker that works from rent and common upfront costs.',
-    fields: [
-      { name:'rent', label:'Monthly rent', type:'number', value:900, help:'Used to estimate first rent and deposit.' },
-      { name:'depositWeeks', label:'Deposit weeks', type:'select', value:5, help:'Many private rentals use up to five weeks rent as deposit.', options:[['No deposit',0],['2 weeks',2],['4 weeks',4],['5 weeks',5]] },
-      { name:'holding', label:'Holding deposit / admin buffer', type:'number', value:150, help:'Put 0 if not needed.' },
-      { name:'moveCosts', label:'Van, removals and setup', type:'select', value:400, help:'Use a preset if you do not know yet.', options:[['Very low £150',150],['Basic £400',400],['Medium £800',800],['Heavy move £1500',1500]] }
-    ]
-  },
-  {
-    id: 'broadband', icon: '📡', title: 'Broadband Speed Needed', cat: 'Tech',
-    desc: 'Estimate a sensible broadband speed from actual household use.',
-    fields: [
-      { name:'people', label:'People using internet', type:'number', value:3, help:'Count phones, tablets, consoles and TVs too.' },
-      { name:'usage', label:'Usage level', type:'select', value:20, help:'Pick the closest household style.', options:[['Light browsing',8],['Normal family use',20],['Heavy streaming/gaming',35],['Busy home / lots of devices',55]] },
-      { name:'streams', label:'4K streams at once', type:'number', value:1, help:'Netflix/YouTube/Prime in 4K.' },
-      { name:'workers', label:'Video calls / home workers', type:'number', value:1, help:'Teams, Zoom, remote work etc.' }
-    ]
-  },
-  {
-    id: 'phone', icon: '📱', title: 'Phone Contract Real Cost', cat: 'Tech',
-    desc: 'See the full cost of a phone deal instead of only the monthly price.',
-    fields: [
-      { name:'upfront', label:'Upfront cost', type:'number', value:49, help:'Anything paid today.' },
-      { name:'monthly', label:'Monthly payment', type:'number', value:35, help:'The advertised monthly cost.' },
-      { name:'months', label:'Contract length', type:'select', value:24, help:'Most phone deals are 24 or 36 months.', options:[['12 months',12],['18 months',18],['24 months',24],['36 months',36]] },
-      { name:'tradein', label:'Trade-in / cashback', type:'number', value:0, help:'Put 0 if none.' }
-    ]
-  },
-  {
-    id: 'subscriptions', icon: '🧾', title: 'Subscription Cost Check', cat: 'Money',
-    desc: 'Add up streaming, apps and memberships so the yearly total is obvious.',
-    fields: [
-      { name:'tv', label:'TV / streaming total', type:'number', value:18, help:'Netflix, Disney, Prime, NOW etc.' },
-      { name:'music', label:'Music / audio', type:'number', value:11, help:'Spotify, Apple Music, Audible etc.' },
-      { name:'cloud', label:'Cloud / storage / apps', type:'number', value:5, help:'iCloud, Google, Microsoft, apps.' },
-      { name:'other', label:'Other subscriptions', type:'number', value:0, help:'Gym, gaming, Patreon, extra apps.' }
-    ]
-  },
-  {
-    id: 'caravan', icon: '🏕️', title: 'Static Caravan Real Yearly Cost', cat: 'Lifestyle',
-    desc: 'A fuller yearly cost estimate including site fees, finance and extras.',
-    fields: [
-      { name:'site', label:'Annual site fees', type:'number', value:6500, help:'Usually the biggest yearly cost.' },
-      { name:'insurance', label:'Insurance and safety checks', type:'number', value:450, help:'Use a rough combined figure if unsure.' },
-      { name:'utilities', label:'Gas, electric, water', type:'number', value:900, help:'Rough yearly utility estimate.' },
-      { name:'finance', label:'Caravan finance per month', type:'number', value:0, help:'Put 0 if bought outright.' },
-      { name:'extras', label:'Maintenance, travel and extras', type:'select', value:1000, help:'Cleaning, repairs, fuel, passes and surprise costs.', options:[['Low £500',500],['Average £1000',1000],['High £2000',2000],['Very high £3500',3500]] }
-    ]
-  },
-  {
-    id: 'fuel', icon: '⛽', title: 'Journey Fuel Cost', cat: 'Travel',
-    desc: 'Estimate trip fuel cost without needing exact litres.',
-    fields: [
-      { name:'miles', label:'Journey miles one way', type:'number', value:50, help:'Use one-way miles then choose single or return.' },
-      { name:'returnTrip', label:'Trip type', type:'select', value:2, help:'Choose return if you are coming back.', options:[['Single journey',1],['Return journey',2]] },
-      { name:'mpg', label:'Car MPG', type:'select', value:45, help:'Use a rough preset if you do not know.', options:[['Poor economy 30 MPG',30],['Average 45 MPG',45],['Good 60 MPG',60]] },
-      { name:'price', label:'Fuel price p/litre', type:'number', value:145, help:'Pump price in pence.' }
-    ]
-  },
-  {
-    id: 'pay', icon: '💷', title: 'Hourly Pay to Yearly Pay', cat: 'Work',
-    desc: 'Convert hourly pay into weekly, monthly and yearly gross pay.',
-    fields: [
-      { name:'rate', label:'Hourly rate', type:'number', value:12.21, help:'Your hourly pay.' },
-      { name:'hours', label:'Hours per week', type:'select', value:37.5, help:'Pick common full/part time hours.', options:[['16 hours',16],['24 hours',24],['30 hours',30],['37.5 hours',37.5],['40 hours',40]] },
-      { name:'weeks', label:'Paid weeks per year', type:'select', value:52, help:'Use 52 for year-round work.', options:[['52 weeks',52],['48 weeks',48],['39 school-term weeks',39]] }
-    ]
-  },
-  {
-    id: 'loan', icon: '🏦', title: 'Loan Payment Estimate', cat: 'Money',
-    desc: 'Estimate the monthly payment and total repaid on a loan.',
-    fields: [
-      { name:'amount', label:'Amount borrowed', type:'number', value:5000, help:'Loan amount.' },
-      { name:'apr', label:'APR %', type:'number', value:9.9, help:'Use the advertised APR.' },
-      { name:'years', label:'Repayment length', type:'select', value:3, help:'Longer terms lower monthly payments but usually cost more overall.', options:[['1 year',1],['2 years',2],['3 years',3],['5 years',5],['7 years',7]] }
-    ]
-  },
-  {
-    id: 'savings', icon: '🐖', title: 'Savings Goal Time', cat: 'Money',
-    desc: 'See how long a savings target may take.',
-    fields: [
-      { name:'target', label:'Target amount', type:'number', value:1000, help:'What you want to save.' },
-      { name:'saved', label:'Already saved', type:'number', value:100, help:'Current savings.' },
-      { name:'monthly', label:'Can save per month', type:'number', value:50, help:'A realistic amount you can stick to.' }
-    ]
-  },
-  {
-    id: 'emergencyfund', icon: '🛟', title: 'Emergency Fund Target', cat: 'Money',
-    desc: 'Work out a simple safety buffer for essential costs.',
-    fields: [
-      { name:'essentials', label:'Monthly essentials', type:'number', value:1200, help:'Rent, bills, food, transport.' },
-      { name:'months', label:'Months of cover', type:'select', value:3, help:'Three months is a common starter target.', options:[['1 month',1],['3 months',3],['6 months',6]] }
-    ]
-  },
-  {
-    id: 'unitprice', icon:'⚖️', title:'Unit Price Compare', cat:'Shopping',
-    desc:'Compare two packs when sizes are different.',
-    fields:[
-      {name:'priceA',label:'Item A price',type:'number',value:2.50,help:'First item price.'},
-      {name:'amountA',label:'Item A amount',type:'number',value:500,help:'Size, grams, ml or count.'},
-      {name:'priceB',label:'Item B price',type:'number',value:3.20,help:'Second item price.'},
-      {name:'amountB',label:'Item B amount',type:'number',value:750,help:'Use the same unit as Item A.'}
-    ]
-  }
+  {id:'budgetplanner',icon:'📊',title:'Budget Planner vs Bills',cat:'Money',desc:'See what is left after rent, bills, food, travel and debts.',fields:[
+    {n:'income',l:'Monthly income after tax/benefits',t:'number',v:2400,h:'Total money coming in each month.'},
+    {n:'rent',l:'Rent or mortgage',t:'number',v:900,h:'Your biggest housing payment.'},
+    {n:'bills',l:'Household bills estimate',t:'select',v:550,h:'Council tax, energy, water, broadband, phones.',o:[['Low £350',350],['Average £550',550],['High £750',750],['Very high £1000',1000]]},
+    {n:'food',l:'Food and household shopping',t:'select',v:500,h:'Use a rough monthly food/shop amount.',o:[['Low £350',350],['Average £500',500],['High £700',700],['Very high £900',900]]},
+    {n:'travel',l:'Travel / fuel / bus',t:'number',v:180,h:'Monthly travel costs.'},
+    {n:'debt',l:'Debt / credit payments',t:'number',v:0,h:'Loans, cards, catalogues etc.'}
+  ]},
+  {id:'rent',icon:'🏠',title:'Rent Affordability Check',cat:'Housing',desc:'Check if rent looks manageable against income and essentials.',fields:[{n:'income',l:'Monthly household income',t:'number',v:2200,h:'Use take-home income and benefits.'},{n:'rent',l:'Monthly rent',t:'number',v:900,h:'Advertised rent.'},{n:'essentials',l:'Essentials estimate',t:'select',v:1000,h:'Bills, food and travel estimate.',o:[['Low £700',700],['Average £1000',1000],['High £1300',1300],['Very high £1600',1600]]}]},
+  {id:'moving',icon:'📦',title:'Moving Money Needed',cat:'Housing',desc:'Estimate deposit, first rent, removals and setup costs.',fields:[{n:'rent',l:'Monthly rent',t:'number',v:900,h:'Used for first rent and deposit estimate.'},{n:'weeks',l:'Deposit weeks',t:'select',v:5,h:'Many UK rentals use up to 5 weeks.',o:[['No deposit',0],['2 weeks',2],['4 weeks',4],['5 weeks',5]]},{n:'move',l:'Moving and setup costs',t:'select',v:500,h:'Van, furniture, connection fees, cleaning.',o:[['Very low £200',200],['Basic £500',500],['Medium £1000',1000],['Heavy £2000',2000]]},{n:'buffer',l:'Safety buffer',t:'number',v:300,h:'Money kept back for surprises.'}]},
+  {id:'rentdeposit',icon:'🔐',title:'Rent Deposit Helper',cat:'Housing',desc:'Estimate a 5-week rent deposit from monthly rent.',fields:[{n:'rent',l:'Monthly rent',t:'number',v:900,h:'Enter monthly rent.'}]},
+  {id:'council',icon:'🏛️',title:'Council Tax Split',cat:'Bills',desc:'Split council tax yearly amount into monthly payments.',fields:[{n:'yearly',l:'Yearly council tax',t:'number',v:1800,h:'Annual bill.'},{n:'months',l:'Paid over',t:'select',v:10,h:'Councils often use 10 or 12 payments.',o:[['10 months',10],['12 months',12]]}]},
+  {id:'electricity',icon:'⚡',title:'Appliance Running Cost',cat:'Bills',desc:'Pick an appliance or watts and estimate running cost.',fields:[{n:'watts',l:'Appliance',t:'select',v:1000,h:'Choose rough power if you do not know watts.',o:[['Kettle / air fryer high power 3000W',3000],['Electric heater 2000W',2000],['Tumble dryer 2500W',2500],['Washing machine average 700W',700],['Fridge freezer average 150W',150],['TV + console 250W',250],['Laptop 65W',65],['Custom 1000W',1000]]},{n:'hours',l:'Hours used per day',t:'number',v:1,h:'0.5 means half an hour.'},{n:'days',l:'Days per week',t:'number',v:7,h:'Use 7 if daily.'},{n:'price',l:'Electricity p/kWh',t:'number',v:25,h:'Unit rate in pence.'}]},
+  {id:'appliance',icon:'🔌',title:'Appliance Yearly Cost',cat:'Bills',desc:'Estimate yearly cost from weekly use.',fields:[{n:'watts',l:'Watts',t:'number',v:1000,h:'Appliance wattage.'},{n:'hours',l:'Hours per week',t:'number',v:7,h:'Weekly use.'},{n:'price',l:'p/kWh',t:'number',v:25,h:'Electricity unit rate.'}]},
+  {id:'gas',icon:'🔥',title:'Gas Usage Cost',cat:'Bills',desc:'Estimate gas cost from kWh and unit rate.',fields:[{n:'kwh',l:'Gas kWh used',t:'number',v:100,h:'Usage in kWh.'},{n:'price',l:'Gas p/kWh',t:'number',v:7,h:'Unit rate in pence.'}]},
+  {id:'water',icon:'🚿',title:'Water Bill Split',cat:'Bills',desc:'Split a water bill across months.',fields:[{n:'amount',l:'Bill amount',t:'number',v:180,h:'Bill total.'},{n:'months',l:'Months covered',t:'number',v:6,h:'How many months this bill covers.'}]},
+  {id:'energycompare',icon:'🔁',title:'Energy Tariff Compare',cat:'Bills',desc:'Compare two electricity unit rates on monthly usage.',fields:[{n:'kwh',l:'Monthly kWh usage',t:'number',v:250,h:'Electricity used per month.'},{n:'old',l:'Current p/kWh',t:'number',v:28,h:'Old/current rate.'},{n:'new',l:'New p/kWh',t:'number',v:24,h:'New rate.'},{n:'standing',l:'Standing charge difference per day',t:'number',v:0,h:'Positive if new is more expensive.'}]},
+  {id:'heating',icon:'🌡️',title:'Room Heating Cost',cat:'Bills',desc:'Estimate electric heater cost for a room.',fields:[{n:'watts',l:'Heater power',t:'select',v:2000,h:'Common heater ratings.',o:[['Small 1000W',1000],['Medium 1500W',1500],['Large 2000W',2000],['Very large 3000W',3000]]},{n:'hours',l:'Hours per day',t:'number',v:3,h:'Daily heating time.'},{n:'days',l:'Days per month',t:'number',v:30,h:'Days used.'},{n:'price',l:'p/kWh',t:'number',v:25,h:'Electricity unit rate.'}]},
+  {id:'broadband',icon:'📡',title:'Broadband Speed Needed',cat:'Tech',desc:'Estimate speed needed for people, streaming and work.',fields:[{n:'people',l:'People using internet',t:'number',v:3,h:'Household users.'},{n:'usage',l:'Usage level per person',t:'select',v:20,h:'Pick nearest usage style.',o:[['Light browsing',8],['Normal family use',20],['Heavy streaming/gaming',35],['Very busy home',55]]},{n:'streams',l:'4K streams at once',t:'number',v:1,h:'4K TVs streaming at the same time.'},{n:'workers',l:'Video calls/home workers',t:'number',v:1,h:'People on video calls.'}]},
+  {id:'mobilebill',icon:'📶',title:'Mobile Plan Check',cat:'Tech',desc:'See yearly cost and whether data allowance fits.',fields:[{n:'monthly',l:'Monthly plan cost',t:'number',v:12,h:'SIM/mobile cost.'},{n:'data',l:'Data allowance GB',t:'number',v:30,h:'Monthly data.'},{n:'used',l:'Typical data used GB',t:'number',v:20,h:'Check phone settings for rough usage.'}]},
+  {id:'phone',icon:'📱',title:'Phone Contract Real Cost',cat:'Tech',desc:'See total contract cost, not just monthly price.',fields:[{n:'upfront',l:'Upfront cost',t:'number',v:49,h:'Paid today.'},{n:'monthly',l:'Monthly payment',t:'number',v:35,h:'Advertised monthly cost.'},{n:'months',l:'Contract length',t:'select',v:24,h:'Common contract lengths.',o:[['12 months',12],['18 months',18],['24 months',24],['36 months',36]]},{n:'tradein',l:'Trade-in/cashback',t:'number',v:0,h:'Put 0 if none.'}]},
+  {id:'tv',icon:'📺',title:'TV Upgrade Loss Checker',cat:'TV',desc:'Check if a TV package change may be worse value.',fields:[{n:'lost',l:'Features/channels lost',t:'number',v:3,h:'Count important losses.'},{n:'gained',l:'Features/channels gained',t:'number',v:2,h:'Count useful gains.'},{n:'price',l:'Monthly price change',t:'number',v:5,h:'Positive if more expensive.'},{n:'months',l:'Contract months',t:'select',v:18,h:'New contract length.',o:[['12 months',12],['18 months',18],['24 months',24]]}]},
+  {id:'subscriptions',icon:'🧾',title:'Subscription Cost Check',cat:'Money',desc:'Add up monthly and yearly subscriptions.',fields:[{n:'tv',l:'TV/streaming total',t:'number',v:18,h:'Netflix, Disney, NOW etc.'},{n:'music',l:'Music/audio',t:'number',v:11,h:'Spotify, Audible etc.'},{n:'cloud',l:'Cloud/apps',t:'number',v:5,h:'Storage and apps.'},{n:'other',l:'Other subscriptions',t:'number',v:0,h:'Gym, gaming, Patreon etc.'}]},
+  {id:'streaming',icon:'🎬',title:'Streaming Bundle Cost',cat:'Entertainment',desc:'Quick yearly streaming bundle cost.',fields:[{n:'a',l:'Service 1',t:'number',v:10.99,h:'Monthly cost.'},{n:'b',l:'Service 2',t:'number',v:8.99,h:'Monthly cost.'},{n:'c',l:'Service 3',t:'number',v:6.99,h:'Monthly cost.'},{n:'d',l:'Service 4',t:'number',v:0,h:'Optional.'}]},
+  {id:'foodbudget',icon:'🛒',title:'Food Budget Planner',cat:'Money',desc:'Estimate weekly and monthly food budget per household.',fields:[{n:'people',l:'People in household',t:'number',v:4,h:'Adults and children.'},{n:'level',l:'Spending level per person/week',t:'select',v:45,h:'Rough food/shop level.',o:[['Tight £30',30],['Basic £45',45],['Comfortable £65',65],['High £90',90]]},{n:'extras',l:'Extra household items/month',t:'number',v:50,h:'Cleaning, toiletries etc.'}]},
+  {id:'fuel',icon:'⛽',title:'Journey Fuel Cost',cat:'Travel',desc:'Estimate trip fuel cost.',fields:[{n:'miles',l:'Miles one way',t:'number',v:50,h:'One-way distance.'},{n:'returnTrip',l:'Trip type',t:'select',v:2,h:'Single or return.',o:[['Single',1],['Return',2]]},{n:'mpg',l:'Car MPG',t:'select',v:45,h:'Rough economy.',o:[['Poor 30 MPG',30],['Average 45 MPG',45],['Good 60 MPG',60]]},{n:'price',l:'Fuel p/litre',t:'number',v:145,h:'Pump price in pence.'}]},
+  {id:'commute',icon:'🚆',title:'Commuting Cost',cat:'Travel',desc:'Estimate monthly and yearly commuting cost.',fields:[{n:'daily',l:'Daily commute cost',t:'number',v:6,h:'Return cost per working day.'},{n:'days',l:'Days per week',t:'number',v:5,h:'Working days.'},{n:'weeks',l:'Weeks per year',t:'select',v:46,h:'Allow for holidays if needed.',o:[['52 weeks',52],['48 weeks',48],['46 weeks',46],['39 school-term weeks',39]]}]},
+  {id:'busvscar',icon:'🚌',title:'Bus vs Car Commute',cat:'Travel',desc:'Compare public transport with fuel-only car cost.',fields:[{n:'bus',l:'Bus/train daily cost',t:'number',v:6,h:'Return public transport cost.'},{n:'miles',l:'Car miles per day',t:'number',v:20,h:'Return miles.'},{n:'mpg',l:'Car MPG',t:'select',v:45,h:'Rough economy.',o:[['Poor 30 MPG',30],['Average 45 MPG',45],['Good 60 MPG',60]]},{n:'fuel',l:'Fuel p/litre',t:'number',v:145,h:'Pump price.'},{n:'days',l:'Days per month',t:'number',v:22,h:'Commute days.'}]},
+  {id:'schoolrun',icon:'🎒',title:'School Run Cost',cat:'Family',desc:'Estimate yearly school-run fuel costs.',fields:[{n:'miles',l:'Miles per school day',t:'number',v:6,h:'Total daily school-run miles.'},{n:'days',l:'School days/year',t:'number',v:190,h:'UK school year rough figure.'},{n:'mpg',l:'MPG',t:'select',v:45,h:'Rough car MPG.',o:[['Poor 30 MPG',30],['Average 45 MPG',45],['Good 60 MPG',60]]},{n:'price',l:'Fuel p/litre',t:'number',v:145,h:'Pump price.'}]},
+  {id:'childcare',icon:'🧸',title:'Childcare Cost',cat:'Family',desc:'Estimate monthly childcare cost.',fields:[{n:'hourly',l:'Hourly cost',t:'number',v:6,h:'Childcare hourly rate.'},{n:'hours',l:'Hours per week',t:'number',v:20,h:'Weekly hours.'},{n:'weeks',l:'Weeks per year',t:'select',v:39,h:'Term time or full year.',o:[['39 weeks',39],['48 weeks',48],['52 weeks',52]]}]},
+  {id:'caravan',icon:'🏕️',title:'Static Caravan Real Yearly Cost',cat:'Lifestyle',desc:'Estimate yearly static caravan ownership costs.',fields:[{n:'site',l:'Annual site fees',t:'number',v:6500,h:'Usually biggest yearly cost.'},{n:'insurance',l:'Insurance/safety checks',t:'number',v:450,h:'Rough yearly figure.'},{n:'utilities',l:'Gas/electric/water',t:'number',v:900,h:'Yearly estimate.'},{n:'finance',l:'Finance per month',t:'number',v:0,h:'Put 0 if bought outright.'},{n:'extras',l:'Maintenance/travel/extras',t:'select',v:1000,h:'Rough extra cost.',o:[['Low £500',500],['Average £1000',1000],['High £2000',2000],['Very high £3500',3500]]}]},
+  {id:'holiday',icon:'🏖️',title:'Holiday Saving Planner',cat:'Money',desc:'Work out how much to save monthly for a trip.',fields:[{n:'cost',l:'Total holiday cost',t:'number',v:1500,h:'Flights, hotel, spending etc.'},{n:'saved',l:'Already saved',t:'number',v:100,h:'Current savings.'},{n:'months',l:'Months until trip',t:'number',v:10,h:'Time left.'}]},
+  {id:'christmas',icon:'🎄',title:'Christmas / Birthday Budget',cat:'Money',desc:'Plan gifts and food budget without nasty surprises.',fields:[{n:'people',l:'People to buy for',t:'number',v:8,h:'Gift count.'},{n:'gift',l:'Average gift spend',t:'number',v:25,h:'Per person.'},{n:'food',l:'Food/party extra',t:'number',v:150,h:'Extra event cost.'},{n:'months',l:'Months to save',t:'number',v:6,h:'Time to spread cost.'}]},
+  {id:'loan',icon:'🏦',title:'Loan Payment Estimate',cat:'Money',desc:'Estimate monthly payment and total repaid.',fields:[{n:'amount',l:'Amount borrowed',t:'number',v:5000,h:'Loan amount.'},{n:'apr',l:'APR %',t:'number',v:9.9,h:'Advertised APR.'},{n:'years',l:'Repayment length',t:'select',v:3,h:'Loan term.',o:[['1 year',1],['2 years',2],['3 years',3],['5 years',5],['7 years',7]]}]},
+  {id:'creditcard',icon:'💳',title:'Credit Card Payoff',cat:'Money',desc:'Estimate how long a card balance may take to clear.',fields:[{n:'balance',l:'Card balance',t:'number',v:1000,h:'Current balance.'},{n:'payment',l:'Monthly payment',t:'number',v:100,h:'Amount paid monthly.'},{n:'interest',l:'Monthly interest %',t:'number',v:2,h:'Rough monthly interest.'}]},
+  {id:'debtfree',icon:'🧹',title:'Debt Free Date',cat:'Money',desc:'Estimate months to clear a debt.',fields:[{n:'debt',l:'Debt amount',t:'number',v:1000,h:'Balance owed.'},{n:'payment',l:'Monthly payment',t:'number',v:100,h:'Payment amount.'},{n:'interest',l:'Monthly interest %',t:'number',v:1,h:'Put 0 if interest-free.'}]},
+  {id:'savings',icon:'🐖',title:'Savings Goal Time',cat:'Money',desc:'See how long a savings target may take.',fields:[{n:'target',l:'Target amount',t:'number',v:1000,h:'Savings target.'},{n:'saved',l:'Already saved',t:'number',v:100,h:'Current savings.'},{n:'monthly',l:'Can save per month',t:'number',v:50,h:'Realistic monthly saving.'}]},
+  {id:'emergencyfund',icon:'🛟',title:'Emergency Fund Target',cat:'Money',desc:'Work out a safety buffer for essentials.',fields:[{n:'essentials',l:'Monthly essentials',t:'number',v:1200,h:'Rent, bills, food, travel.'},{n:'months',l:'Months of cover',t:'select',v:3,h:'Starter target.',o:[['1 month',1],['3 months',3],['6 months',6]]}]},
+  {id:'mortgage',icon:'🏡',title:'Mortgage Rough Payment',cat:'Housing',desc:'Rough repayment mortgage estimate.',fields:[{n:'amount',l:'Mortgage amount',t:'number',v:180000,h:'Loan amount.'},{n:'rate',l:'Interest rate %',t:'number',v:5.5,h:'Annual interest.'},{n:'years',l:'Years',t:'select',v:25,h:'Mortgage term.',o:[['15 years',15],['20 years',20],['25 years',25],['30 years',30],['35 years',35]]}]},
+  {id:'remortgage',icon:'🔄',title:'Mortgage Rate Difference',cat:'Housing',desc:'Compare current and new mortgage rates roughly.',fields:[{n:'amount',l:'Mortgage balance',t:'number',v:180000,h:'Remaining mortgage.'},{n:'old',l:'Old rate %',t:'number',v:3,h:'Current/old rate.'},{n:'new',l:'New rate %',t:'number',v:5.5,h:'New rate.'},{n:'years',l:'Years left',t:'number',v:25,h:'Remaining term.'}]},
+  {id:'pay',icon:'💷',title:'Hourly Pay to Yearly Pay',cat:'Work',desc:'Convert hourly wage to yearly gross pay.',fields:[{n:'rate',l:'Hourly rate',t:'number',v:12.21,h:'Hourly pay.'},{n:'hours',l:'Hours per week',t:'select',v:37.5,h:'Weekly hours.',o:[['16 hours',16],['24 hours',24],['30 hours',30],['37.5 hours',37.5],['40 hours',40]]},{n:'weeks',l:'Paid weeks/year',t:'select',v:52,h:'52 if year-round.',o:[['52 weeks',52],['48 weeks',48],['39 weeks',39]]}]},
+  {id:'takehome',icon:'🧾',title:'Rough Take-home Pay',cat:'Work',desc:'Very rough monthly take-home estimate.',fields:[{n:'salary',l:'Gross yearly salary',t:'number',v:26000,h:'Before deductions.'},{n:'allowance',l:'Tax-free allowance',t:'number',v:12570,h:'Editable rough allowance.'},{n:'tax',l:'Tax %',t:'number',v:20,h:'Basic rough tax.'},{n:'ni',l:'NI %',t:'number',v:8,h:'Rough NI.'}]},
+  {id:'overtime',icon:'🕒',title:'Overtime Pay',cat:'Work',desc:'Estimate overtime earnings.',fields:[{n:'rate',l:'Hourly rate',t:'number',v:12.21,h:'Base hourly pay.'},{n:'hours',l:'Overtime hours',t:'number',v:8,h:'Extra hours.'},{n:'multi',l:'Multiplier',t:'select',v:1.5,h:'Overtime rate.',o:[['Normal x1',1],['Time and a quarter x1.25',1.25],['Time and a half x1.5',1.5],['Double time x2',2]]}]},
+  {id:'annualleave',icon:'🌴',title:'Holiday Pay Hours',cat:'Work',desc:'Estimate holiday hours from weekly hours.',fields:[{n:'hours',l:'Hours per week',t:'number',v:37.5,h:'Weekly working hours.'},{n:'weeks',l:'Holiday weeks equivalent',t:'number',v:5.6,h:'UK statutory full-time equivalent is often 5.6 weeks.'}]},
+  {id:'splitbill',icon:'🍽️',title:'Split Bill Calculator',cat:'Money',desc:'Split a bill between people.',fields:[{n:'bill',l:'Bill total',t:'number',v:60,h:'Total bill.'},{n:'people',l:'People',t:'number',v:4,h:'Number splitting.'},{n:'tip',l:'Tip %',t:'number',v:10,h:'Optional tip.'}]},
+  {id:'unitprice',icon:'⚖️',title:'Unit Price Compare',cat:'Shopping',desc:'Compare two packs when sizes differ.',fields:[{n:'priceA',l:'Item A price',t:'number',v:2.50,h:'First item price.'},{n:'amountA',l:'Item A amount',t:'number',v:500,h:'Size, grams, ml or count.'},{n:'priceB',l:'Item B price',t:'number',v:3.20,h:'Second item price.'},{n:'amountB',l:'Item B amount',t:'number',v:750,h:'Same unit as item A.'}]},
+  {id:'discount',icon:'🏷️',title:'Discount Calculator',cat:'Shopping',desc:'Calculate sale price and saving.',fields:[{n:'price',l:'Original price',t:'number',v:50,h:'Before discount.'},{n:'discount',l:'Discount %',t:'number',v:20,h:'Percentage off.'}]},
+  {id:'vat',icon:'🧮',title:'VAT Calculator',cat:'Money',desc:'Add VAT to a price.',fields:[{n:'amount',l:'Amount',t:'number',v:100,h:'Original amount.'},{n:'vat',l:'VAT %',t:'number',v:20,h:'VAT rate.'}]},
+  {id:'percent',icon:'％',title:'Percentage Calculator',cat:'Math',desc:'Find a percentage of a number.',fields:[{n:'number',l:'Number',t:'number',v:200,h:'Main number.'},{n:'percent',l:'Percent %',t:'number',v:15,h:'Percentage.'}]},
+  {id:'priceincrease',icon:'📈',title:'Price Increase Calculator',cat:'Shopping',desc:'See the true effect of a price rise.',fields:[{n:'old',l:'Old price',t:'number',v:100,h:'Previous price.'},{n:'new',l:'New price',t:'number',v:115,h:'New price.'}]},
+  {id:'parcel',icon:'📮',title:'Parcel Size Helper',cat:'Shopping',desc:'Roughly classify parcel size.',fields:[{n:'length',l:'Length cm',t:'number',v:30,h:'Longest side.'},{n:'width',l:'Width cm',t:'number',v:20,h:'Width.'},{n:'height',l:'Height cm',t:'number',v:10,h:'Height.'},{n:'weight',l:'Weight kg',t:'number',v:1,h:'Weight.'}]},
+  {id:'paint',icon:'🎨',title:'Paint Needed',cat:'DIY',desc:'Estimate paint litres needed.',fields:[{n:'width',l:'Wall width m',t:'number',v:4,h:'Width.'},{n:'height',l:'Wall height m',t:'number',v:2.4,h:'Height.'},{n:'walls',l:'Number of walls',t:'number',v:4,h:'How many walls.'},{n:'coats',l:'Coats',t:'number',v:2,h:'Usually 2.'},{n:'coverage',l:'Coverage m²/litre',t:'number',v:10,h:'Paint tin coverage.'}]},
+  {id:'flooring',icon:'🪵',title:'Flooring Area',cat:'DIY',desc:'Estimate flooring area and waste.',fields:[{n:'length',l:'Room length m',t:'number',v:4,h:'Length.'},{n:'width',l:'Room width m',t:'number',v:3,h:'Width.'},{n:'waste',l:'Waste %',t:'number',v:10,h:'Extra for cuts.'}]},
+  {id:'tiles',icon:'⬜',title:'Tile Calculator',cat:'DIY',desc:'Estimate number of tiles needed.',fields:[{n:'area',l:'Area m²',t:'number',v:10,h:'Floor/wall area.'},{n:'tileW',l:'Tile width cm',t:'number',v:30,h:'Tile width.'},{n:'tileH',l:'Tile height cm',t:'number',v:30,h:'Tile height.'},{n:'waste',l:'Waste %',t:'number',v:10,h:'Extra tiles.'}]},
+  {id:'storage',icon:'💾',title:'Storage Converter',cat:'Tech',desc:'Convert GB to MB and TB.',fields:[{n:'gb',l:'GB amount',t:'number',v:500,h:'Storage in GB.'}]},
+  {id:'downloadtime',icon:'⬇️',title:'Download Time Estimate',cat:'Tech',desc:'Estimate file download time.',fields:[{n:'size',l:'File size GB',t:'number',v:50,h:'Game/file size.'},{n:'speed',l:'Download speed Mbps',t:'number',v:100,h:'Broadband speed.'}]},
+  {id:'petcost',icon:'🐾',title:'Pet Monthly Cost',cat:'Lifestyle',desc:'Estimate monthly pet costs.',fields:[{n:'food',l:'Food per month',t:'number',v:40,h:'Pet food.'},{n:'insurance',l:'Insurance per month',t:'number',v:20,h:'Insurance.'},{n:'extras',l:'Vet/toys/extras',t:'number',v:25,h:'Rough extras.'}]},
+  {id:'insurance',icon:'🛡️',title:'Insurance Monthly vs Annual',cat:'Money',desc:'Compare paying monthly against annual upfront.',fields:[{n:'annual',l:'Annual price',t:'number',v:500,h:'Pay-in-full price.'},{n:'monthly',l:'Monthly price',t:'number',v:48,h:'Monthly payment.'},{n:'deposit',l:'Monthly plan deposit',t:'number',v:0,h:'Upfront deposit if any.'}]},
+  {id:'breakdown',icon:'🧰',title:'Car Running Cost Monthly',cat:'Travel',desc:'Estimate monthly car ownership costs.',fields:[{n:'insurance',l:'Insurance monthly',t:'number',v:50,h:'Monthly insurance.'},{n:'tax',l:'Road tax yearly',t:'number',v:180,h:'Vehicle tax.'},{n:'fuel',l:'Fuel monthly',t:'number',v:160,h:'Fuel estimate.'},{n:'maintenance',l:'Maintenance/MOT yearly',t:'number',v:500,h:'Repairs, tyres, servicing.'}]}
 ];
 
 function money(value){return new Intl.NumberFormat('en-GB',{style:'currency',currency:'GBP'}).format(Number(value)||0)}
-function byName(values,name){return Number(values[name])||0}
-function result(title,lines,tip){return {title,lines,tip}}
+function v(o,n){return Number(o[n])||0}
+function res(title,lines=[],tip=''){return {title,lines,tip}}
+function monthlyLoan(P,apr,years){const months=years*12,rate=apr/100/12;return rate?P*rate/(1-Math.pow(1+rate,-months)):P/(months||1)}
+function debtMonths(balance,payment,interest){let b=balance,m=0;while(b>0&&m<600){b=b*(1+interest/100)-payment;m++;if(b>=balance&&m>2)return 999}return m}
+function fuelCost(miles,mpg,ppl){const litres=(miles/(mpg||1))*4.54609;return {litres,cost:litres*ppl/100}}
+function calculate(id,a){switch(id){
+case'budgetplanner':{const out=v(a,'rent')+v(a,'bills')+v(a,'food')+v(a,'travel')+v(a,'debt'),left=v(a,'income')-out,pct=v(a,'income')?out/v(a,'income')*100:0;return res(`${money(left)} left after basics`,[`Total essentials: ${money(out)}`,`Essentials use ${pct.toFixed(1)}% of income`,`Weekly leftover: ${money(left/4.33)}`],left<0?'This budget is short. Reduce costs or increase income before committing.':pct>85?'Very tight. A small surprise bill could cause problems.':pct>70?'Tight but possible if spending is controlled.':'Healthier breathing room on these figures.')}
+case'rent':{const total=v(a,'rent')+v(a,'essentials'),left=v(a,'income')-total,pct=v(a,'income')?total/v(a,'income')*100:0;return res(`${pct.toFixed(1)}% of income`,[`Rent: ${money(v(a,'rent'))}`,`Essentials estimate: ${money(v(a,'essentials'))}`,`Leftover: ${money(left)}`],pct>75?'Risky unless other support is available.':pct>60?'Tight. Check food, travel and debts carefully.':'Looks more manageable.')}
+case'moving':{const weekly=v(a,'rent')*12/52,dep=weekly*v(a,'weeks'),total=v(a,'rent')+dep+v(a,'move')+v(a,'buffer');return res(`${money(total)} needed upfront`,[`First rent: ${money(v(a,'rent'))}`,`Deposit estimate: ${money(dep)}`,`Moving/setup: ${money(v(a,'move'))}`,`Safety buffer: ${money(v(a,'buffer'))}`],'Keep the buffer separate so the move does not swallow every penny.')}
+case'rentdeposit':{const dep=v(a,'rent')*12/52*5;return res(`${money(dep)} estimated 5-week deposit`,[`Weekly rent estimate: ${money(v(a,'rent')*12/52)}`],'This is a rough cap-style estimate from monthly rent.')}
+case'council':return res(`${money(v(a,'yearly')/(v(a,'months')||1))} per payment`,[`Yearly bill: ${money(v(a,'yearly'))}`],'Some councils allow 12 payments instead of 10.');
+case'electricity':{const daily=(v(a,'watts')/1000)*v(a,'hours')*(v(a,'price')/100),weekly=daily*v(a,'days');return res(`${money(daily)} per used day`,[`Weekly: ${money(weekly)}`,`Monthly: ${money(weekly*52/12)}`,`Yearly: ${money(weekly*52)}`],'Actual usage can vary by thermostat, cycle length and appliance age.')}
+case'appliance':{const y=(v(a,'watts')/1000)*v(a,'hours')*52*v(a,'price')/100;return res(`${money(y)} per year`,[`Monthly equivalent: ${money(y/12)}`],'Useful for always-on or weekly-use items.')}
+case'gas':{const cost=v(a,'kwh')*v(a,'price')/100;return res(`${money(cost)} estimated gas cost`,[`Usage: ${v(a,'kwh')} kWh`],'Standing charges are not included.')}
+case'water':return res(`${money(v(a,'amount')/(v(a,'months')||1))} per month`,[`Bill total: ${money(v(a,'amount'))}`],'Put the real bill amount in when you have it.');
+case'energycompare':{const diff=(v(a,'new')-v(a,'old'))*v(a,'kwh')/100+v(a,'standing')*30.44/100;return res(`${diff>=0?'+':''}${money(diff)} per month difference`,[`Yearly difference: ${money(diff*12)}`],diff>0?'The new tariff looks more expensive on these figures.':'The new tariff looks cheaper on these figures.')}
+case'heating':{const m=(v(a,'watts')/1000)*v(a,'hours')*v(a,'days')*v(a,'price')/100;return res(`${money(m)} per month`,[`Daily when used: ${money((v(a,'watts')/1000)*v(a,'hours')*v(a,'price')/100)}`],'Electric heating costs climb quickly with hours used.')}
+case'broadband':{const mb=Math.ceil(v(a,'people')*v(a,'usage')+v(a,'streams')*35+v(a,'workers')*20);return res(`${mb} Mbps suggested minimum`,[`Comfort target: ${Math.ceil(mb*1.3)} Mbps`],mb>180?'Very fast fibre/gigabit may be worth it.':mb>80?'Fast fibre recommended.':'Standard fibre may be enough.')}
+case'mobilebill':{const cost=v(a,'monthly')*12,ok=v(a,'data')>=v(a,'used');return res(`${money(cost)} per year`,[`Data allowance: ${v(a,'data')} GB`,`Typical use: ${v(a,'used')} GB`],ok?'Allowance looks enough.':'You may need more data or Wi-Fi use.')}
+case'phone':{const total=v(a,'upfront')+v(a,'monthly')*v(a,'months')-v(a,'tradein');return res(`${money(total)} total`,[`True monthly equivalent: ${money(total/(v(a,'months')||1))}`],'Compare against buying outright plus SIM-only.')}
+case'tv':{const extra=v(a,'price')*v(a,'months'),score=v(a,'gained')-v(a,'lost')-(v(a,'price')>0?1:0);return res(`${money(extra)} contract price impact`,[`Score: ${score}`],score<=-2?'Likely downgrade/risky.':score>=2?'Looks positive if gains matter.':'Mixed. Check exactly what is lost.')}
+case'subscriptions':case'streaming':{const m=Object.values(a).reduce((s,x)=>s+Number(x||0),0);return res(`${money(m)} per month`,[`Yearly: ${money(m*12)}`,`Two-year: ${money(m*24)}`],m>80?'This is a serious monthly bill. Cancel unused items.':'Small monthly costs look bigger yearly.')}
+case'foodbudget':{const weekly=v(a,'people')*v(a,'level'),monthly=weekly*52/12+v(a,'extras');return res(`${money(monthly)} per month`,[`Weekly food estimate: ${money(weekly)}`,`Extras per month: ${money(v(a,'extras'))}`],'Use this as a planning number, then adjust with real receipts.')}
+case'fuel':{const miles=v(a,'miles')*v(a,'returnTrip'),f=fuelCost(miles,v(a,'mpg'),v(a,'price'));return res(`${money(f.cost)} trip fuel cost`,[`Miles counted: ${miles}`,`Litres: ${f.litres.toFixed(1)}`],'Traffic and short trips can cost more.')}
+case'commute':{const y=v(a,'daily')*v(a,'days')*v(a,'weeks');return res(`${money(y/12)} per month`,[`Yearly: ${money(y)}`],'Commuting quietly eats wages.')}
+case'busvscar':{const bus=v(a,'bus')*v(a,'days'),f=fuelCost(v(a,'miles')*v(a,'days'),v(a,'mpg'),v(a,'fuel')).cost;return res(bus<f?'Bus/train cheaper':'Car fuel cheaper',[`Public transport/month: ${money(bus)}`,`Car fuel/month: ${money(f)}`],'Car result excludes insurance, tax, repairs and parking.')}
+case'schoolrun':{const f=fuelCost(v(a,'miles')*v(a,'days'),v(a,'mpg'),v(a,'price'));return res(`${money(f.cost)} per school year`,[`Litres: ${f.litres.toFixed(1)}`],'This only estimates fuel, not time or parking.')}
+case'childcare':{const y=v(a,'hourly')*v(a,'hours')*v(a,'weeks');return res(`${money(y/12)} average per month`,[`Yearly: ${money(y)}`],'Check any free hours or support separately.')}
+case'caravan':{const y=v(a,'site')+v(a,'insurance')+v(a,'utilities')+v(a,'finance')*12+v(a,'extras');return res(`${money(y)} per year`,[`Monthly equivalent: ${money(y/12)}`,`Finance per year: ${money(v(a,'finance')*12)}`],'Ask for site rules, age limits and sale commission in writing.')}
+case'holiday':{const left=Math.max(0,v(a,'cost')-v(a,'saved'));return res(`${money(left/(v(a,'months')||1))} to save per month`,[`Amount still needed: ${money(left)}`],'Round up to cover passports, transfers and extras.')}
+case'christmas':{const total=v(a,'people')*v(a,'gift')+v(a,'food');return res(`${money(total)} total budget`,[`Save ${money(total/(v(a,'months')||1))} per month`],'Set the limit before buying gifts.')}
+case'loan':{const pay=monthlyLoan(v(a,'amount'),v(a,'apr'),v(a,'years')),months=v(a,'years')*12;return res(`${money(pay)} per month`,[`Total repaid: ${money(pay*months)}`,`Interest: ${money(pay*months-v(a,'amount'))}`],'Longer terms reduce monthly cost but increase total interest.')}
+case'creditcard':case'debtfree':{const bal=v(a,'balance')||v(a,'debt'),m=debtMonths(bal,v(a,'payment'),v(a,'interest'));return res(m===999?'Payment too low':`${m} months to clear`,[`Balance: ${money(bal)}`,`Monthly payment: ${money(v(a,'payment'))}`],m>60?'This may drag on. Increase payments if possible.':'Avoid adding new spending while clearing it.')}
+case'savings':{const left=Math.max(0,v(a,'target')-v(a,'saved'));return res(`${Math.ceil(left/(v(a,'monthly')||1))} months`,[`Still needed: ${money(left)}`],'Use a smaller first target if motivation drops.')}
+case'emergencyfund':return res(`${money(v(a,'essentials')*v(a,'months'))} target`,[`Monthly essentials: ${money(v(a,'essentials'))}`],'Start with one month if the full target feels too big.');
+case'mortgage':{const p=monthlyLoan(v(a,'amount'),v(a,'rate'),v(a,'years'));return res(`${money(p)} per month`,[`Total over term: ${money(p*v(a,'years')*12)}`],'This is rough and excludes fees.')}
+case'remortgage':{const old=monthlyLoan(v(a,'amount'),v(a,'old'),v(a,'years')),nw=monthlyLoan(v(a,'amount'),v(a,'new'),v(a,'years'));return res(`${money(nw-old)} per month difference`,[`Old rough payment: ${money(old)}`,`New rough payment: ${money(nw)}`],nw>old?'Payment may rise. Check affordability.':'Payment may fall. Check fees too.')}
+case'pay':{const y=v(a,'rate')*v(a,'hours')*v(a,'weeks');return res(`${money(y)} gross yearly`,[`Weekly gross: ${money(v(a,'rate')*v(a,'hours'))}`,`Average monthly gross: ${money(y/12)}`],'Gross means before deductions.')}
+case'takehome':{const taxable=Math.max(0,v(a,'salary')-v(a,'allowance')),take=v(a,'salary')-taxable*v(a,'tax')/100-taxable*v(a,'ni')/100;return res(`${money(take/12)} rough monthly take-home`,[`Yearly rough take-home: ${money(take)}`],'Simplified estimate only.')}
+case'overtime':return res(`${money(v(a,'rate')*v(a,'hours')*v(a,'multi'))} overtime pay`,[`Before tax/deductions.`],'Use your payslip rules for exact payment.');
+case'annualleave':return res(`${(v(a,'hours')*v(a,'weeks')).toFixed(1)} holiday hours`,[`Equivalent days at 7.5h/day: ${((v(a,'hours')*v(a,'weeks'))/7.5).toFixed(1)}`],'Contract rules can vary.');
+case'splitbill':{const total=v(a,'bill')*(1+v(a,'tip')/100);return res(`${money(total/(v(a,'people')||1))} each`,[`Total with tip: ${money(total)}`],'Check service charge before adding extra tip.')}
+case'unitprice':{const A=v(a,'priceA')/(v(a,'amountA')||1),B=v(a,'priceB')/(v(a,'amountB')||1);return res(A<B?'Item A is cheaper':'Item B is cheaper',[`Item A per unit: ${money(A)}`,`Item B per unit: ${money(B)}`],'Use the same unit for both items.')}
+case'discount':{const save=v(a,'price')*v(a,'discount')/100;return res(`${money(v(a,'price')-save)} sale price`,[`Saving: ${money(save)}`],'A discount only helps if you needed it anyway.')}
+case'vat':return res(`${money(v(a,'amount')*(1+v(a,'vat')/100))} including VAT`,[`VAT amount: ${money(v(a,'amount')*v(a,'vat')/100)}`],'Standard UK VAT is often 20%, but not always.');
+case'percent':return res(`${(v(a,'number')*v(a,'percent')/100).toFixed(2)}`,[],`${v(a,'percent')}% of ${v(a,'number')}.`);
+case'priceincrease':{const diff=v(a,'new')-v(a,'old'),pct=v(a,'old')?diff/v(a,'old')*100:0;return res(`${pct.toFixed(1)}% increase`,[`Price change: ${money(diff)}`],pct>20?'That is a large jump.':'Useful for spotting sneaky rises.')}
+case'parcel':{const vol=v(a,'length')*v(a,'width')*v(a,'height');return res(vol>45000||v(a,'weight')>2?'Likely medium/large parcel':'Likely small parcel',[`Volume: ${vol.toFixed(0)} cm³`,`Weight: ${v(a,'weight')} kg`],'Check the courier size rules before posting.')}
+case'paint':{const litres=(v(a,'width')*v(a,'height')*v(a,'walls')*v(a,'coats'))/(v(a,'coverage')||1);return res(`${litres.toFixed(1)} litres needed`,[`Round up to the next tin size.`],'Dark colours or rough walls may need more.')}
+case'flooring':{const area=v(a,'length')*v(a,'width'),total=area*(1+v(a,'waste')/100);return res(`${total.toFixed(2)} m² to buy`,[`Room area: ${area.toFixed(2)} m²`],'Waste helps cover cuts and mistakes.')}
+case'tiles':{const tile=(v(a,'tileW')/100)*(v(a,'tileH')/100),count=Math.ceil((v(a,'area')*(1+v(a,'waste')/100))/(tile||1));return res(`${count} tiles needed`,[`Tile area: ${tile.toFixed(3)} m²`],'Buy a few spare for breakages.')}
+case'storage':return res(`${v(a,'gb')} GB`,[`${(v(a,'gb')*1024).toFixed(0)} MB`,`${(v(a,'gb')/1024).toFixed(2)} TB`],'Useful for game downloads and drives.');
+case'downloadtime':{const seconds=v(a,'size')*8*1024/(v(a,'speed')||1);return res(`${(seconds/60).toFixed(1)} minutes`,[`About ${(seconds/3600).toFixed(2)} hours`],'Real speeds are often lower than advertised.')}
+case'petcost':{const m=v(a,'food')+v(a,'insurance')+v(a,'extras');return res(`${money(m)} per month`,[`Yearly: ${money(m*12)}`],'Vet bills can exceed normal monthly estimates.')}
+case'insurance':{const monthlyTotal=v(a,'monthly')*12+v(a,'deposit'),diff=monthlyTotal-v(a,'annual');return res(`${money(diff)} extra if paying monthly`,[`Annual upfront: ${money(v(a,'annual'))}`,`Monthly plan total: ${money(monthlyTotal)}`],diff>0?'Monthly payments cost more overall.':'Monthly looks no more expensive on these figures.')}
+case'breakdown':{const m=v(a,'insurance')+v(a,'fuel')+v(a,'tax')/12+v(a,'maintenance')/12;return res(`${money(m)} per month`,[`Yearly: ${money(m*12)}`],'This excludes finance and depreciation.')}
+default:return res('Ready',[],'Enter your numbers.')}}
 
-function calculate(id,v){
-  switch(id){
-    case 'electricity':{const daily=(byName(v,'watts')/1000)*byName(v,'hours')*(byName(v,'price')/100);const weekly=daily*byName(v,'days');return result(`${money(daily)} per used day`,[`Weekly estimate: ${money(weekly)}`,`Monthly estimate: ${money(weekly*52/12)}`,`Yearly estimate: ${money(weekly*52)}`],'If the result looks high, reduce hours used or check the appliance wattage label.')} 
-    case 'rent':{const total=byName(v,'rent')+byName(v,'bills')+byName(v,'foodTravel');const left=byName(v,'income')-total;const pct=byName(v,'income')?total/byName(v,'income')*100:0;return result(`${pct.toFixed(1)}% of income used`,[`Rent: ${money(byName(v,'rent'))}`,`Bills + essentials estimate: ${money(byName(v,'bills')+byName(v,'foodTravel'))}`,`Money left after these basics: ${money(left)}`],pct>75?'Very tight. This may be risky unless other support or income is available.':pct>60?'Tight. Build a careful monthly budget before committing.':'Looks more manageable on the figures entered.')} 
-    case 'moving':{const rent=byName(v,'rent');const weekly=rent*12/52;const deposit=weekly*byName(v,'depositWeeks');const total=rent+deposit+byName(v,'holding')+byName(v,'moveCosts');return result(`${money(total)} likely upfront`,[`First month rent: ${money(rent)}`,`Estimated deposit: ${money(deposit)}`,`Holding/admin buffer: ${money(byName(v,'holding'))}`,`Move/setup costs: ${money(byName(v,'moveCosts'))}`],'Add extra buffer for food, travel and anything missing on move-in day.')} 
-    case 'broadband':{const mb=Math.ceil(byName(v,'people')*byName(v,'usage')+byName(v,'streams')*35+byName(v,'workers')*20);return result(`${mb} Mbps suggested minimum`,[`For comfort, look one package above this if many devices run at once.`,`Upload speed matters for video calls and cloud backups.`],mb>180?'Gigabit or very fast fibre may be worth it.':mb>80?'Fast fibre is sensible.':'Standard fibre may be enough.')} 
-    case 'phone':{const total=byName(v,'upfront')+byName(v,'monthly')*byName(v,'months')-byName(v,'tradein');return result(`${money(total)} total contract cost`,[`True monthly equivalent: ${money(total/(byName(v,'months')||1))}`,`Amount paid over contract before trade-in: ${money(byName(v,'upfront')+byName(v,'monthly')*byName(v,'months'))}`],'Compare this with buying the phone outright plus a SIM-only plan.')} 
-    case 'subscriptions':{const m=byName(v,'tv')+byName(v,'music')+byName(v,'cloud')+byName(v,'other');return result(`${money(m)} per month`,[`Yearly cost: ${money(m*12)}`,`Two-year cost: ${money(m*24)}`],m>80?'This is becoming a serious monthly bill. Cancel anything unused.':'A yearly total makes small subscriptions easier to judge.')} 
-    case 'caravan':{const y=byName(v,'site')+byName(v,'insurance')+byName(v,'utilities')+byName(v,'finance')*12+byName(v,'extras');return result(`${money(y)} estimated yearly cost`,[`Monthly equivalent: ${money(y/12)}`,`Finance per year: ${money(byName(v,'finance')*12)}`,`Non-finance yearly costs: ${money(y-byName(v,'finance')*12)}`],'Ask the site for written fees, selling rules, age limits and commission before buying.')} 
-    case 'fuel':{const miles=byName(v,'miles')*byName(v,'returnTrip');const litres=(miles/(byName(v,'mpg')||1))*4.54609;const cost=litres*byName(v,'price')/100;return result(`${money(cost)} estimated fuel cost`,[`Total miles counted: ${miles}`,`Fuel used: ${litres.toFixed(1)} litres`],'Real cost may be higher in traffic, hills or short stop-start journeys.')} 
-    case 'pay':{const yearly=byName(v,'rate')*byName(v,'hours')*byName(v,'weeks');return result(`${money(yearly)} gross yearly pay`,[`Gross weekly pay: ${money(byName(v,'rate')*byName(v,'hours'))}`,`Average gross monthly pay: ${money(yearly/12)}`],'This is gross pay before tax, NI, pension or deductions.')} 
-    case 'loan':{const P=byName(v,'amount'),rate=byName(v,'apr')/100/12,months=byName(v,'years')*12;const pay=rate?P*rate/(1-Math.pow(1+rate,-months)):P/(months||1);return result(`${money(pay)} estimated monthly payment`,[`Total repaid: ${money(pay*months)}`,`Estimated interest: ${money(pay*months-P)}`],'A longer loan can look cheaper monthly but cost more overall.')} 
-    case 'savings':{const left=Math.max(0,byName(v,'target')-byName(v,'saved'));const months=byName(v,'monthly')?Math.ceil(left/byName(v,'monthly')):0;return result(`${months} months to target`,[`Amount still needed: ${money(left)}`,`Monthly saving: ${money(byName(v,'monthly'))}`],months>24?'Try a smaller first target so it feels achievable.':'Keep the monthly amount realistic so you actually stick with it.')} 
-    case 'emergencyfund':{const total=byName(v,'essentials')*byName(v,'months');return result(`${money(total)} emergency fund target`,[`Monthly essentials: ${money(byName(v,'essentials'))}`,`Cover length: ${byName(v,'months')} months`],'Start with one month if the full target feels impossible.')} 
-    case 'unitprice':{const A=byName(v,'priceA')/(byName(v,'amountA')||1),B=byName(v,'priceB')/(byName(v,'amountB')||1);return result(A<B?'Item A is cheaper':'Item B is cheaper',[`Item A unit price: ${money(A)}`,`Item B unit price: ${money(B)}`,`Difference per unit: ${money(Math.abs(A-B))}`],'Use the same units for both items, for example grams vs grams or ml vs ml.')} 
-    default:return result('Calculator ready',[],'Choose a tool and enter your numbers.');
-  }
-}
-
-function renderCards(list=tools){
-  const grid=document.getElementById('toolGrid');
-  if(!grid)return;
-  grid.innerHTML=list.map(t=>`<button class="tool-card" type="button" data-id="${t.id}"><span>${t.icon}</span><b>${t.title}</b><em class="category">${t.cat}</em><p>${t.desc}</p></button>`).join('');
-}
-
-function fieldHtml(field){
-  if(field.type==='select'){
-    return `<label><span>${field.label}</span><select name="${field.name}">${field.options.map(o=>`<option value="${o[1]}" ${Number(o[1])===Number(field.value)?'selected':''}>${o[0]}</option>`).join('')}</select><small>${field.help}</small></label>`;
-  }
-  return `<label><span>${field.label}</span><input name="${field.name}" type="number" step="any" value="${field.value}"><small>${field.help}</small></label>`;
-}
-
-function openTool(id){
-  const tool=tools.find(t=>t.id===id),panel=document.getElementById('appPanel'),mount=document.getElementById('toolMount');
-  if(!tool||!panel||!mount)return;
-  mount.innerHTML=`<h2>${tool.icon} ${tool.title}</h2><p class="tool-desc">${tool.desc}</p><div class="calc-wrap"><form class="form" id="calcForm">${tool.fields.map(fieldHtml).join('')}<button class="primary" type="submit">Calculate</button></form><div class="result"><h3>Your result</h3><div id="resultText"><p>Fill in what you know. Use the built-in presets when you are unsure.</p></div></div></div>`;
-  panel.classList.remove('hidden');
-  panel.scrollIntoView({behavior:'smooth',block:'start'});
-  const form=document.getElementById('calcForm');
-  form.addEventListener('submit',e=>{
-    e.preventDefault();
-    const values=Object.fromEntries(new FormData(form).entries());
-    const r=calculate(id,values);
-    document.getElementById('resultText').innerHTML=`<div class="result-main">${r.title}</div><ul class="result-lines">${r.lines.map(x=>`<li>${x}</li>`).join('')}</ul><p class="result-tip">${r.tip}</p>`;
-  });
-}
-
-document.addEventListener('DOMContentLoaded',()=>{
-  renderCards(tools);
-  const grid=document.getElementById('toolGrid');
-  if(grid)grid.addEventListener('click',e=>{const card=e.target.closest('.tool-card');if(card)openTool(card.dataset.id)});
-  const close=document.getElementById('closeTool');
-  if(close)close.addEventListener('click',()=>document.getElementById('appPanel').classList.add('hidden'));
-  const search=document.getElementById('searchBox');
-  if(search)search.addEventListener('input',e=>{const q=e.target.value.toLowerCase();renderCards(tools.filter(t=>`${t.title} ${t.cat} ${t.desc}`.toLowerCase().includes(q)))});
-});
+function renderCards(list=tools){const grid=document.getElementById('toolGrid');if(!grid)return;grid.innerHTML=list.map(t=>`<button class="tool-card" type="button" data-id="${t.id}"><span>${t.icon}</span><b>${t.title}</b><em class="category">${t.cat}</em><p>${t.desc}</p></button>`).join('')}
+function fieldHtml(f){if(f.t==='select')return `<label><span>${f.l}</span><select name="${f.n}">${f.o.map(o=>`<option value="${o[1]}" ${Number(o[1])===Number(f.v)?'selected':''}>${o[0]}</option>`).join('')}</select><small>${f.h}</small></label>`;return `<label><span>${f.l}</span><input name="${f.n}" type="number" step="any" value="${f.v}"><small>${f.h}</small></label>`}
+function openTool(id){const tool=tools.find(t=>t.id===id),panel=document.getElementById('appPanel'),mount=document.getElementById('toolMount');if(!tool||!panel||!mount)return;mount.innerHTML=`<h2>${tool.icon} ${tool.title}</h2><p class="tool-desc">${tool.desc}</p><div class="calc-wrap"><form class="form" id="calcForm">${tool.fields.map(fieldHtml).join('')}<button class="primary" type="submit">Calculate</button></form><div class="result"><h3>Your result</h3><div id="resultText"><p>Fill in what you know. Use the built-in presets when you are unsure.</p></div></div></div>`;panel.classList.remove('hidden');panel.scrollIntoView({behavior:'smooth',block:'start'});const form=document.getElementById('calcForm');form.addEventListener('submit',e=>{e.preventDefault();const values=Object.fromEntries(new FormData(form).entries());const r=calculate(id,values);document.getElementById('resultText').innerHTML=`<div class="result-main">${r.title}</div><ul class="result-lines">${r.lines.map(x=>`<li>${x}</li>`).join('')}</ul><p class="result-tip">${r.tip}</p>`})}
+document.addEventListener('DOMContentLoaded',()=>{renderCards(tools);const grid=document.getElementById('toolGrid');if(grid)grid.addEventListener('click',e=>{const card=e.target.closest('.tool-card');if(card)openTool(card.dataset.id)});const close=document.getElementById('closeTool');if(close)close.addEventListener('click',()=>document.getElementById('appPanel').classList.add('hidden'));const search=document.getElementById('searchBox');if(search)search.addEventListener('input',e=>{const q=e.target.value.toLowerCase();renderCards(tools.filter(t=>`${t.title} ${t.cat} ${t.desc}`.toLowerCase().includes(q)))})});

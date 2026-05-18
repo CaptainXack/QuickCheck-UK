@@ -1,4 +1,4 @@
-const CACHE_NAME = 'quickcheck-uk-v5';
+const CACHE_NAME = 'quickcheck-uk-v6';
 const BASE = '/QuickCheck-UK/';
 const APP_SHELL = [
   BASE,
@@ -6,11 +6,25 @@ const APP_SHELL = [
   BASE + 'calculator-directory.html',
   BASE + 'standard-calculator.html',
   BASE + 'budget-planner.html',
+  BASE + 'money-profile.html',
+  BASE + 'feedback.html',
+  BASE + 'support.html',
   BASE + 'assets/styles.css?v=10',
-  BASE + 'assets/pro-app.css?v=2',
+  BASE + 'assets/pro-app.css?v=5',
   BASE + 'assets/app-mode.css?v=2',
   BASE + 'assets/pwa.js?v=5',
-  BASE + 'assets/home-routes.js?v=1',
+  BASE + 'assets/home-routes.js?v=2',
+  BASE + 'assets/profile-core.js?v=2',
+  BASE + 'assets/smart-money.css?v=3',
+  BASE + 'assets/smart-money.js?v=2',
+  BASE + 'assets/saved-calcs.js?v=1',
+  BASE + 'assets/recent-tools.js?v=1',
+  BASE + 'assets/privacy-mode.css?v=1',
+  BASE + 'assets/privacy-mode.js?v=1',
+  BASE + 'assets/smart-results.css?v=1',
+  BASE + 'assets/smart-results.js?v=1',
+  BASE + 'assets/onboarding.css?v=1',
+  BASE + 'assets/onboarding.js?v=1',
   BASE + 'assets/ads.css?v=1',
   BASE + 'assets/ads.js?v=1',
   BASE + 'assets/icon.svg',

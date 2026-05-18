@@ -112,7 +112,12 @@ if (typeof openTool !== 'undefined') {
       const values = Object.fromEntries(new FormData(form).entries());
       const r = calculate(id, values);
       const text = `${tool.title}\n${r.title}\n${r.lines.join('\n')}\n${r.tip}`;
-      document.getElementById('resultText').innerHTML = `<div class="result-main">${r.title}</div><ul class="result-lines">${r.lines.map(x => `<li>${x}</li>`).join('')}</ul><p class="result-tip">${r.tip}</p>`;
+      const profileContext = typeof qcProfileSummary === 'function' ? (() => {
+        const s = qcProfileSummary();
+        if (!s.income && !s.out) return '';
+        return `<div class="profile-hint"><strong>Money Profile context</strong><p>Saved income: ${money(s.income)} · regular outgoings: ${money(s.out)} · left each month: ${money(s.left)}.</p><div><a href="money-profile.html">Edit Money Profile</a></div></div>`;
+      })() : '';
+      document.getElementById('resultText').innerHTML = `<div class="result-main">${r.title}</div><ul class="result-lines">${r.lines.map(x => `<li>${x}</li>`).join('')}</ul><p class="result-tip">${r.tip}</p>${profileContext}`;
       const actions = document.getElementById('resultActions');
       actions.classList.remove('hidden');
       document.getElementById('copyResult').onclick = async () => {
@@ -121,6 +126,9 @@ if (typeof openTool !== 'undefined') {
       };
       document.getElementById('printResult').onclick = () => window.print();
     });
+    setTimeout(() => {
+      if (typeof qcProfileApplyToForm === 'function') qcProfileApplyToForm(id);
+    }, 180);
   };
 }
 
@@ -159,3 +167,16 @@ document.addEventListener('DOMContentLoaded', () => {
   const autoTool = document.body?.dataset?.openTool;
   if (autoTool) setTimeout(() => openTool(autoTool), 80);
 });
+
+(function qcLoadMoneyProfileEverywhere(){
+  if (window.qcProfileCoreRequested || typeof qcProfileApplyToForm === 'function') return;
+  window.qcProfileCoreRequested = true;
+  const script = document.createElement('script');
+  script.src = 'assets/profile-core.js?v=2';
+  script.defer = true;
+  script.onload = () => {
+    const autoTool = document.body?.dataset?.openTool;
+    if (autoTool && typeof qcProfileApplyToForm === 'function') setTimeout(() => qcProfileApplyToForm(autoTool), 250);
+  };
+  document.head.appendChild(script);
+})();

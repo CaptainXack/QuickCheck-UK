@@ -3,154 +3,126 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>QuickCheck UK - Free UK Calculators for Bills, Budgets, Travel and Everyday Costs</title>
-  <meta name="description" content="Free UK calculators for bills, budgets, rent, travel, shopping, family costs, work, DIY, tech and everyday money decisions." />
-  <meta name="theme-color" content="#0b1220" />
+  <title>QuickCheck UK - Free UK Calculators for Bills, Budgets and Everyday Costs</title>
+  <meta name="description" content="Free UK calculators for bills, budgets, rent, travel, shopping, work, family costs and everyday money decisions." />
+  <meta name="theme-color" content="#07111f" />
   <link rel="canonical" href="https://captainxack.github.io/QuickCheck-UK/" />
   <link rel="manifest" href="site.webmanifest" />
   <link rel="icon" href="assets/icon.svg" type="image/svg+xml" />
   <link rel="apple-touch-icon" href="assets/icon.svg" />
   <link rel="stylesheet" href="assets/styles.css?v=10" />
-  <link rel="stylesheet" href="assets/homepage.css?v=1" />
-  <link rel="stylesheet" href="assets/mobile-polish.css?v=1" />
-  <link rel="stylesheet" href="assets/app-mode.css?v=2" />
   <link rel="stylesheet" href="assets/ads.css?v=1" />
-  <link rel="stylesheet" href="assets/ux-2026.css?v=1" />
+  <link rel="stylesheet" href="assets/app-mode.css?v=2" />
+  <link rel="stylesheet" href="assets/pro-app.css?v=2" />
 </head>
 <body>
   <header class="topbar">
-    <a class="brand" href="./">
+    <a class="brand" href="./" aria-label="QuickCheck UK home">
       <span class="logo">QC</span>
-      <span><strong>QuickCheck UK</strong><small>Free everyday calculators</small></span>
+      <span><strong>QuickCheck UK</strong><small>Fast UK cost tools</small></span>
     </a>
     <nav class="topnav">
       <a href="calculator-directory.html">Directory</a>
-      <a href="#tools">Tools</a>
-      <a href="distance-calculator.html">Distance</a>
-      <a href="standard-calculator.html">Standard</a>
+      <a href="feedback.html">Feedback</a>
       <a href="privacy.html">Privacy</a>
     </nav>
   </header>
 
-  <main>
-    <section class="hero compact-hero">
-      <div>
-        <span class="pill">Free · no signup · UK-focused</span>
-        <h1>Free UK calculators for real-life costs.</h1>
-        <p>QuickCheck UK helps you estimate bills, budgets, rent, travel, work pay, shopping, DIY, family costs, tech costs and everyday money decisions without building a spreadsheet.</p>
-        <div class="hero-actions">
-          <a class="button primary" href="calculator-directory.html">Browse all calculators</a>
-          <a class="button soft" href="#popular">Popular tools</a>
-          <a class="button soft" href="distance-calculator.html">Distance calculator</a>
+  <main class="app-home">
+    <section class="app-hero">
+      <div class="app-panel">
+        <span class="app-kicker">Free · UK-focused · no signup</span>
+        <h1 class="app-title">What do you want to check?</h1>
+        <p class="app-subtitle">Search a cost, bill or money question and jump straight to the right calculator.</p>
+        <div class="app-search">
+          <span class="app-search-icon">🔎</span>
+          <input id="homeSearchInput" placeholder="Try rent, fuel, electric, school, phone..." autocomplete="off" />
+          <button class="primary" id="homeSearchBtn" type="button">Search</button>
+        </div>
+        <div class="app-chip-row">
+          <a href="budget-planner.html">Budget</a>
+          <a href="rent-affordability-calculator.html">Rent</a>
+          <a href="electricity-running-cost-calculator.html">Electric</a>
+          <a href="fuel-cost-calculator.html">Fuel</a>
+          <a href="calculator-directory.html">All tools</a>
         </div>
       </div>
-      <aside class="hero-card helpful-card">
-        <h2>Built for rough figures</h2>
-        <p>Most calculators use simple presets like low, average and high, so you can still get a useful estimate when you do not know the exact number.</p>
-      </aside>
+      <div class="app-panel">
+        <div class="app-section-title"><div><h2>Start here</h2><p>The tools most people need first.</p></div></div>
+        <div class="app-feature-grid">
+          <a class="app-feature" href="budget-planner.html"><span>📊</span><b>Budget Planner</b><small>Income, bills and leftover money</small></a>
+          <a class="app-feature" href="rent-affordability-calculator.html"><span>🏠</span><b>Rent Check</b><small>See if rent is workable</small></a>
+          <a class="app-feature" href="electricity-running-cost-calculator.html"><span>⚡</span><b>Electric Cost</b><small>Appliance running costs</small></a>
+          <a class="app-feature" href="fuel-cost-calculator.html"><span>⛽</span><b>Fuel Cost</b><small>Trip and mileage estimates</small></a>
+        </div>
+      </div>
     </section>
 
     <div data-ad-slot="home-top"></div>
 
-    <section class="home-stats" aria-label="QuickCheck UK site summary">
-      <div class="home-stat"><b>100+</b><span>tools and calculators</span></div>
-      <div class="home-stat"><b>80+</b><span>SEO calculator pages</span></div>
-      <div class="home-stat"><b>10</b><span>category hubs</span></div>
-      <div class="home-stat"><b>0</b><span>signup required</span></div>
-    </section>
-
-    <section id="popular" class="section">
-      <div class="section-head"><div><h2>Popular calculators</h2><p>Fast links to the tools people are most likely to need first.</p></div></div>
-      <div class="home-grid">
-        <a class="home-card" href="budget-planner.html"><span>📊</span><b>Budget Planner</b><p>Check income against bills, essentials and leftover money.</p></a>
-        <a class="home-card" href="distance-calculator.html"><span>🗺️</span><b>Distance Calculator</b><p>Calculate place-to-place distance, route estimate and fuel cost.</p></a>
-        <a class="home-card" href="weekly-budget-calculator.html"><span>📅</span><b>Weekly Budget</b><p>Turn monthly money into a weekly spending limit.</p></a>
-        <a class="home-card" href="electricity-running-cost-calculator.html"><span>⚡</span><b>Electricity Cost</b><p>Estimate appliance running costs and energy use.</p></a>
-        <a class="home-card" href="rent-affordability-calculator.html"><span>🏠</span><b>Rent Affordability</b><p>Check rent against income and household costs.</p></a>
-        <a class="home-card" href="fuel-cost-calculator.html"><span>⛽</span><b>Fuel Cost</b><p>Estimate journey fuel costs with simple car presets.</p></a>
+    <section class="app-panel">
+      <div class="app-section-title">
+        <div><h2>Quick calculators</h2><p>Clean shortcuts, no digging through a giant list.</p></div>
+        <a class="button soft" href="calculator-directory.html">View all</a>
+      </div>
+      <div class="app-card-grid">
+        <a class="app-card" href="weekly-budget-calculator.html"><span>📅</span><b>Weekly Budget</b><small>Monthly money into weeks</small></a>
+        <a class="app-card" href="school-uniform-budget-calculator.html"><span>🎒</span><b>School Costs</b><small>Uniform and family planning</small></a>
+        <a class="app-card" href="sim-only-vs-contract-calculator.html"><span>📱</span><b>SIM vs Contract</b><small>Compare phone costs</small></a>
+        <a class="app-card" href="tumble-dryer-cost-calculator.html"><span>🧺</span><b>Tumble Dryer</b><small>Laundry energy cost</small></a>
+        <a class="app-card" href="multi-buy-deal-calculator.html"><span>🛒</span><b>Deal Checker</b><small>Check if offers are cheaper</small></a>
+        <a class="app-card" href="standard-calculator.html"><span>🧮</span><b>Standard Calculator</b><small>Simple quick sums</small></a>
+        <a class="app-card" href="distance-calculator.html"><span>🗺️</span><b>Distance</b><small>Place-to-place estimates</small></a>
+        <a class="app-card" href="feedback.html"><span>💬</span><b>Feedback</b><small>Send ideas or report issues</small></a>
       </div>
     </section>
 
-    <section class="section">
-      <div class="section-head"><div><h2>Browse by category</h2><p>Topic hubs help you find the right calculator faster.</p></div><a class="button soft" href="calculator-directory.html">Full directory</a></div>
-      <div class="home-grid">
-        <a class="home-card" href="money-calculators.html"><span>💷</span><b>Money</b><p>Budgets, loans, savings, debt and monthly costs.</p></a>
-        <a class="home-card" href="bills-calculators.html"><span>🔌</span><b>Bills</b><p>Energy, gas, water, council tax and appliance costs.</p></a>
-        <a class="home-card" href="travel-calculators.html"><span>🚗</span><b>Travel</b><p>Distance, fuel, parking, commuting and road trips.</p></a>
-        <a class="home-card" href="family-calculators.html"><span>👨‍👩‍👧‍👦</span><b>Family</b><p>School, baby, childcare, food and family event costs.</p></a>
-        <a class="home-card" href="work-calculators.html"><span>🧰</span><b>Work</b><p>Pay rises, second jobs, travel vs wage and tax pots.</p></a>
-        <a class="home-card" href="shopping-calculators.html"><span>🛒</span><b>Shopping</b><p>Discounts, unit prices, cashback and delivery splits.</p></a>
-        <a class="home-card" href="diy-calculators.html"><span>🧱</span><b>DIY</b><p>Rooms, paint, flooring, tiles, fencing and concrete.</p></a>
-        <a class="home-card" href="tech-calculators.html"><span>📱</span><b>Tech</b><p>Broadband, mobile, storage and download time.</p></a>
-        <a class="home-card" href="housing-calculators.html"><span>🏘️</span><b>Housing</b><p>Rent, moving, mortgages, house shares and caravans.</p></a>
+    <section class="app-panel">
+      <div class="app-section-title"><div><h2>Browse by need</h2><p>Use categories when you do not know the calculator name.</p></div></div>
+      <div class="app-card-grid">
+        <a class="app-card" href="bills-calculators.html"><span>🔌</span><b>Bills</b><small>Energy, water, council tax</small></a>
+        <a class="app-card" href="money-calculators.html"><span>💷</span><b>Money</b><small>Budgets, savings, loans</small></a>
+        <a class="app-card" href="housing-calculators.html"><span>🏘️</span><b>Housing</b><small>Rent, moving, caravan</small></a>
+        <a class="app-card" href="travel-calculators.html"><span>🚗</span><b>Travel</b><small>Fuel, commute, parking</small></a>
+        <a class="app-card" href="family-calculators.html"><span>👨‍👩‍👧‍👦</span><b>Family</b><small>School, food, childcare</small></a>
+        <a class="app-card" href="shopping-calculators.html"><span>🛍️</span><b>Shopping</b><small>Deals, discounts, unit prices</small></a>
+        <a class="app-card" href="work-calculators.html"><span>🧰</span><b>Work</b><small>Pay, hours, second jobs</small></a>
+        <a class="app-card" href="tech-calculators.html"><span>💻</span><b>Tech</b><small>Mobile, broadband, storage</small></a>
       </div>
     </section>
 
     <div data-ad-slot="home-middle"></div>
 
-    <section class="home-note">
-      <h2>Made for quick decisions, not complicated forms.</h2>
-      <p>Use the nearest preset, calculate, then copy or print the result. These tools are practical estimates for planning, comparing and spotting hidden costs.</p>
-    </section>
-
-    <section class="section">
-      <div class="section-head"><div><h2>How it works</h2><p>Three quick steps, no maze, no account, no spreadsheet goblin.</p></div></div>
-      <div class="home-steps">
-        <div class="home-step"><b>Choose a calculator</b><p>Use the directory, category hubs, search box or popular links.</p></div>
-        <div class="home-step"><b>Pick simple figures</b><p>Most tools include presets when you do not know exact values.</p></div>
-        <div class="home-step"><b>Copy or print</b><p>Save the result for budgeting, planning or comparing options.</p></div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="section-head"><div><h2>Quick links</h2><p>Jump straight into common everyday checks.</p></div></div>
-      <div class="home-strip">
-        <a href="council-tax-monthly-calculator.html">Council tax monthly</a>
-        <a href="tumble-dryer-cost-calculator.html">Tumble dryer cost</a>
-        <a href="car-insurance-monthly-vs-annual-calculator.html">Car insurance compare</a>
-        <a href="school-uniform-budget-calculator.html">School uniform budget</a>
-        <a href="salary-to-hourly-calculator.html">Salary to hourly</a>
-        <a href="multi-buy-deal-calculator.html">Multi-buy checker</a>
-        <a href="download-time-calculator.html">Download time</a>
-        <a href="room-size-calculator.html">Room size</a>
-      </div>
-    </section>
-
-    <section id="tools" class="section">
-      <div class="section-head">
-        <div>
-          <h2>All calculators and checkers</h2>
-          <p>Search the full tool list. Use the presets if you do not know every exact number.</p>
+    <section class="app-secondary">
+      <div class="app-panel">
+        <div class="app-section-title"><div><h2>Helpful guides</h2><p>Short answers that lead into the calculators.</p></div></div>
+        <div class="app-card-grid">
+          <a class="app-card" href="guides/weekly-budget-from-monthly-income.html"><b>Weekly budget from monthly income</b><small>Simple budgeting method</small></a>
+          <a class="app-card" href="guides/electric-heater-running-cost.html"><b>Electric heater running cost</b><small>Watts, hours and unit rates</small></a>
+          <a class="app-card" href="guides/check-if-rent-is-affordable.html"><b>Check if rent is affordable</b><small>Rent plus real-life bills</small></a>
+          <a class="app-card" href="guides/multibuy-deals.html"><b>Are multi-buys cheaper?</b><small>Compare price per item</small></a>
         </div>
-        <input id="searchBox" class="search" placeholder="Search calculators..." />
       </div>
-      <div id="toolGrid" class="tool-grid">
-        <a class="tool-card" href="standard-calculator.html"><span>🧮</span><b>Standard Calculator</b><em class="category">Math</em><p>Simple everyday calculator for quick sums.</p></a>
-        <a class="tool-card" href="distance-calculator.html"><span>🗺️</span><b>Distance Calculator</b><em class="category">Travel</em><p>Calculate distance, drive estimate and fuel cost between places.</p></a>
-        <button class="tool-card" type="button" data-id="budgetplanner"><span>📊</span><b>Budget Planner vs Bills</b><em class="category">Money</em><p>See what is left after bills and essentials.</p></button>
-        <button class="tool-card" type="button" data-id="electricity"><span>⚡</span><b>Appliance Running Cost</b><em class="category">Bills</em><p>Pick an appliance and estimate running costs.</p></button>
-      </div>
-    </section>
-
-    <section id="appPanel" class="tool-panel hidden">
-      <button class="close" id="closeTool" type="button">Close ×</button>
-      <div id="toolMount"></div>
-    </section>
-
-    <section id="guides" class="section">
-      <div class="section-head"><h2>Helpful UK cost guides</h2><p>Traffic-friendly guides that answer common questions and link to the calculators.</p></div>
-      <div class="guide-grid">
-        <a href="guides/weekly-budget-from-monthly-income.html">How to work out a weekly budget</a>
-        <a href="guides/electric-heater-running-cost.html">Electric heater running cost</a>
-        <a href="guides/check-if-rent-is-affordable.html">How to check rent affordability</a>
-        <a href="guides/school-uniform-costs.html">School uniform cost guide</a>
-        <a href="guides/commuting-costs.html">How much commuting really costs</a>
-        <a href="guides/multibuy-deals.html">Are multi-buy deals cheaper?</a>
-        <a href="guides/sim-only-vs-contract.html">SIM only vs phone contract</a>
-        <a href="guides/static-caravan-costs.html">Static caravan ownership costs</a>
+      <div class="app-panel">
+        <div class="app-section-title"><div><h2>Keep improving it</h2><p>Found a broken result or want a new calculator?</p></div></div>
+        <p class="app-subtitle">Feedback opens your email app and sends the message straight through.</p>
+        <div class="app-chip-row">
+          <a href="feedback.html">Send feedback</a>
+          <a href="contact.html">Contact</a>
+          <a href="advertising.html">Advertising</a>
+          <button class="soft" type="button" data-share-app>Share site</button>
+          <button class="soft" type="button" data-install-app hidden>Install app</button>
+        </div>
       </div>
     </section>
   </main>
+
+  <nav class="app-quickbar" aria-label="Quick app navigation">
+    <a href="./"><span>🏠</span>Home</a>
+    <a href="calculator-directory.html"><span>🧭</span>Tools</a>
+    <a href="feedback.html"><span>💬</span>Feedback</a>
+    <button type="button" id="qcShareAppBtn"><span>📤</span>Share</button>
+  </nav>
 
   <footer class="footer">
     <a href="calculator-directory.html">Directory</a>
@@ -160,25 +132,12 @@
     <a href="privacy.html">Privacy</a>
     <a href="terms.html">Terms</a>
     <a href="advertising.html">Advertising</a>
-    <a href="standard-calculator.html">Standard Calculator</a>
-    <a href="distance-calculator.html">Distance Calculator</a>
     <span>© QuickCheck UK</span>
   </footer>
 
-  <script src="assets/app.js?v=8" defer></script>
-  <script src="assets/enhance.js?v=8" defer></script>
-  <script src="assets/epic.js?v=1" defer></script>
-  <script src="assets/stage2.js?v=1" defer></script>
-  <script src="assets/stage2-complete.js?v=1" defer></script>
-  <script src="assets/stage2-final.js?v=1" defer></script>
-  <script src="assets/stage2-100.js?v=1" defer></script>
-  <script src="assets/pwa.js?v=3" defer></script>
-  <script src="assets/stability.js?v=1" defer></script>
-  <script src="assets/distance-link.js?v=1" defer></script>
-  <script src="assets/seo-links.js?v=1" defer></script>
-  <script src="assets/stage5-fixes.js?v=1" defer></script>
+  <script src="assets/home-routes.js?v=1" defer></script>
+  <script src="assets/pwa.js?v=4" defer></script>
   <script src="assets/ads.js?v=1" defer></script>
-  <script src="assets/ux-2026.js?v=1" defer></script>
   <script src="assets/mobile-polish.js?v=1" defer></script>
 </body>
 </html>

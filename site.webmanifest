@@ -1,0 +1,44 @@
+{
+  "name": "QuickCheck UK",
+  "short_name": "QuickCheck",
+  "description": "Fast everyday UK calculators and checkers for bills, rent, moving, broadband, subscriptions and household costs.",
+  "start_url": "/QuickCheck-UK/?source=pwa",
+  "scope": "/QuickCheck-UK/",
+  "display": "standalone",
+  "display_override": ["window-controls-overlay", "standalone", "browser"],
+  "background_color": "#07111f",
+  "theme_color": "#0b1220",
+  "orientation": "portrait-primary",
+  "categories": ["finance", "utilities", "productivity"],
+  "icons": [
+    {
+      "src": "assets/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Budget Planner",
+      "short_name": "Budget",
+      "description": "Open the budget planner calculator.",
+      "url": "/QuickCheck-UK/budget-planner.html",
+      "icons": [{ "src": "assets/icon.svg", "sizes": "any", "type": "image/svg+xml" }]
+    },
+    {
+      "name": "Standard Calculator",
+      "short_name": "Calculator",
+      "description": "Open the standard calculator.",
+      "url": "/QuickCheck-UK/standard-calculator.html",
+      "icons": [{ "src": "assets/icon.svg", "sizes": "any", "type": "image/svg+xml" }]
+    },
+    {
+      "name": "Rent Affordability",
+      "short_name": "Rent",
+      "description": "Open the rent affordability calculator.",
+      "url": "/QuickCheck-UK/rent-affordability-calculator.html",
+      "icons": [{ "src": "assets/icon.svg", "sizes": "any", "type": "image/svg+xml" }]
+    }
+  ]
+}

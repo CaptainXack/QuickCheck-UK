@@ -13,7 +13,7 @@
   <link rel="stylesheet" href="assets/styles.css?v=10" />
   <link rel="stylesheet" href="assets/ads.css?v=1" />
   <link rel="stylesheet" href="assets/app-mode.css?v=2" />
-  <link rel="stylesheet" href="assets/pro-app.css?v=3" />
+  <link rel="stylesheet" href="assets/pro-app.css?v=4" />
 </head>
 <body>
   <header class="topbar">
@@ -29,105 +29,75 @@
     </nav>
   </header>
 
-  <main class="app-home">
-    <section class="app-hero">
-      <div class="app-panel">
-        <span class="app-kicker">Free · UK-focused · no signup</span>
-        <h1 class="app-title">What do you want to check?</h1>
-        <p class="app-subtitle">Search a cost, bill or money question and jump straight to the right calculator.</p>
-        <div class="app-search">
-          <span class="app-search-icon">🔎</span>
-          <input id="homeSearchInput" placeholder="Try rent, fuel, electricity, school, phone..." autocomplete="off" />
-          <button class="primary" id="homeSearchBtn" type="button">Search</button>
-        </div>
-        <div id="searchSuggestions" class="search-suggestions" aria-label="Search suggestions"></div>
-        <div class="trust-line"><span>Rough estimates only</span><span>No signup</span><span>No personal data needed</span></div>
-        <div class="app-chip-row">
-          <a href="budget-planner.html">Budget</a>
-          <a href="rent-affordability-calculator.html">Rent</a>
-          <a href="electricity-running-cost-calculator.html">Electricity</a>
-          <a href="fuel-cost-calculator.html">Fuel cost</a>
-          <a href="calculator-directory.html">All tools</a>
-        </div>
+  <main class="launcher-home">
+    <section class="launcher-hero">
+      <span class="launcher-kicker">Free · UK-focused · no signup</span>
+      <h1 class="launcher-title">What do you want to check?</h1>
+      <p class="launcher-subtitle">Search rent, bills, fuel, budget, school costs, phone contracts or everyday money questions.</p>
+      <div class="launcher-search">
+        <span class="launcher-search-icon">🔎</span>
+        <input id="homeSearchInput" placeholder="Search anything..." autocomplete="off" />
+        <button class="primary" id="homeSearchBtn" type="button">Search</button>
       </div>
-      <div class="app-panel">
-        <div class="app-section-title"><div><h2>Start here</h2><p>The tools most people need first.</p></div></div>
-        <div class="app-feature-grid">
-          <a class="app-feature" href="budget-planner.html"><span>📊</span><b>Budget Planner</b><small>Income, bills and leftover money</small></a>
-          <a class="app-feature" href="rent-affordability-calculator.html"><span>🏠</span><b>Rent Check</b><small>See if rent is workable</small></a>
-          <a class="app-feature" href="electricity-running-cost-calculator.html"><span>⚡</span><b>Electricity Cost</b><small>Appliance running costs</small></a>
-          <a class="app-feature" href="fuel-cost-calculator.html"><span>⛽</span><b>Fuel Cost</b><small>Trip and mileage estimates</small></a>
-        </div>
+      <div id="searchSuggestions" class="search-suggestions" aria-label="Search suggestions"></div>
+      <div class="trust-line"><span>Rough estimates only</span><span>No signup</span><span>No personal data needed</span></div>
+      <div class="quick-actions" aria-label="Popular quick actions">
+        <a href="budget-planner.html">Budget Planner</a>
+        <a href="rent-affordability-calculator.html">Rent Check</a>
+        <a href="electricity-running-cost-calculator.html">Electricity Cost</a>
+        <a href="fuel-cost-calculator.html">Fuel Cost</a>
+        <a href="calculator-directory.html">All Tools</a>
       </div>
     </section>
 
     <div data-ad-slot="home-top"></div>
 
-    <section class="app-panel">
-      <div class="app-section-title"><div><h2>Useful for</h2><p>Quick checks for everyday situations.</p></div></div>
-      <div class="for-grid">
-        <div class="for-pill"><b>Students</b><small>Budget rent, food and travel.</small></div>
-        <div class="for-pill"><b>Families</b><small>Plan bills, school costs and food.</small></div>
-        <div class="for-pill"><b>Drivers</b><small>Estimate fuel, parking and trips.</small></div>
-        <div class="for-pill"><b>Shoppers</b><small>Compare deals and unit prices.</small></div>
+    <section class="section-strip">
+      <div class="strip-head"><div><h2>I’m trying to...</h2><p>Pick the situation, not the calculator name.</p></div></div>
+      <div class="situation-grid">
+        <a class="situation-button" href="money-calculators.html"><span>💷</span><span><b>Save money</b><small>Budgets, bills, deals and savings goals</small></span></a>
+        <a class="situation-button" href="housing-calculators.html"><span>🏠</span><span><b>Move house</b><small>Rent, deposits, moving costs and bills</small></span></a>
+        <a class="situation-button" href="bills-calculators.html"><span>🔌</span><span><b>Work out bills</b><small>Energy, water, council tax and appliances</small></span></a>
+        <a class="situation-button" href="shopping-calculators.html"><span>🛒</span><span><b>Compare a deal</b><small>Discounts, unit prices and multi-buys</small></span></a>
+        <a class="situation-button" href="travel-calculators.html"><span>🚗</span><span><b>Plan travel</b><small>Fuel, distance, commute and journey costs</small></span></a>
+        <a class="situation-button" href="family-calculators.html"><span>🎒</span><span><b>Plan family costs</b><small>School, food, childcare and events</small></span></a>
       </div>
     </section>
 
-    <section class="app-panel">
-      <div class="app-section-title">
-        <div><h2>Quick calculators</h2><p>Clean shortcuts, no digging through a giant list.</p></div>
-        <a class="button soft" href="calculator-directory.html">View all</a>
-      </div>
-      <div class="app-card-grid">
-        <a class="app-card" href="weekly-budget-calculator.html"><span>📅</span><b>Weekly Budget</b><small>Monthly money into weeks</small></a>
-        <a class="app-card" href="school-uniform-budget-calculator.html"><span>🎒</span><b>School Costs</b><small>Uniform and family planning</small></a>
-        <a class="app-card" href="sim-only-vs-contract-calculator.html"><span>📱</span><b>SIM vs Contract</b><small>Compare phone costs</small></a>
-        <a class="app-card" href="tumble-dryer-cost-calculator.html"><span>🧺</span><b>Tumble Dryer</b><small>Laundry energy cost</small></a>
-        <a class="app-card" href="multi-buy-deal-calculator.html"><span>🛒</span><b>Deal checker</b><small>Check if offers are cheaper</small></a>
-        <a class="app-card" href="standard-calculator.html"><span>🧮</span><b>Standard Calculator</b><small>Simple quick sums</small></a>
-        <a class="app-card" href="distance-calculator.html"><span>🗺️</span><b>Distance</b><small>Place-to-place estimates</small></a>
-        <a class="app-card" href="feedback.html"><span>💬</span><b>Feedback</b><small>Send ideas or report issues</small></a>
-      </div>
-    </section>
-
-    <section class="app-panel">
-      <div class="app-section-title"><div><h2>Browse by need</h2><p>Use categories when you do not know the calculator name.</p></div></div>
-      <div class="app-card-grid">
-        <a class="app-card" href="bills-calculators.html"><span>🔌</span><b>Bills</b><small>Energy, water, council tax</small></a>
-        <a class="app-card" href="money-calculators.html"><span>💷</span><b>Money</b><small>Budgets, savings, loans</small></a>
-        <a class="app-card" href="housing-calculators.html"><span>🏘️</span><b>Housing</b><small>Rent, moving, caravan</small></a>
-        <a class="app-card" href="travel-calculators.html"><span>🚗</span><b>Travel</b><small>Fuel, commute, parking</small></a>
-        <a class="app-card" href="family-calculators.html"><span>👨‍👩‍👧‍👦</span><b>Family</b><small>School, food, childcare</small></a>
-        <a class="app-card" href="shopping-calculators.html"><span>🛍️</span><b>Shopping</b><small>Deals, discounts, unit prices</small></a>
-        <a class="app-card" href="work-calculators.html"><span>🧰</span><b>Work</b><small>Pay, hours, second jobs</small></a>
-        <a class="app-card" href="tech-calculators.html"><span>💻</span><b>Tech</b><small>Mobile, broadband, storage</small></a>
+    <section class="section-strip">
+      <div class="strip-head"><div><h2>Tool launcher</h2><p>Rows are faster than a wall of cards. Start what you need.</p></div><a class="button soft" href="calculator-directory.html">Full directory</a></div>
+      <div class="tool-board">
+        <div class="tool-group"><h3>Money</h3>
+          <a class="tool-row" href="budget-planner.html"><span><b>Budget Planner</b><small>Income, bills and leftover money</small></span><span class="start-link">Start →</span></a>
+          <a class="tool-row" href="weekly-budget-calculator.html"><span><b>Weekly Budget</b><small>Turn monthly money into weekly spending</small></span><span class="start-link">Start →</span></a>
+          <a class="tool-row" href="savings-goal-calculator.html"><span><b>Savings Goal</b><small>Plan how much to save each month</small></span><span class="start-link">Start →</span></a>
+        </div>
+        <div class="tool-group"><h3>Home and bills</h3>
+          <a class="tool-row" href="rent-affordability-calculator.html"><span><b>Rent Check</b><small>Check rent against income and bills</small></span><span class="start-link">Start →</span></a>
+          <a class="tool-row" href="electricity-running-cost-calculator.html"><span><b>Electricity Cost</b><small>Estimate appliance running costs</small></span><span class="start-link">Start →</span></a>
+          <a class="tool-row" href="council-tax-monthly-calculator.html"><span><b>Council Tax Monthly</b><small>Split yearly council tax into months</small></span><span class="start-link">Start →</span></a>
+        </div>
+        <div class="tool-group"><h3>Travel and shopping</h3>
+          <a class="tool-row" href="fuel-cost-calculator.html"><span><b>Fuel Cost</b><small>Estimate petrol or diesel for a journey</small></span><span class="start-link">Start →</span></a>
+          <a class="tool-row" href="distance-calculator.html"><span><b>Distance Calculator</b><small>Place-to-place distance and route estimate</small></span><span class="start-link">Start →</span></a>
+          <a class="tool-row" href="multi-buy-deal-calculator.html"><span><b>Deal Checker</b><small>See if a multi-buy is actually cheaper</small></span><span class="start-link">Start →</span></a>
+        </div>
       </div>
     </section>
 
     <div data-ad-slot="home-middle"></div>
 
-    <section class="app-secondary">
-      <div class="app-panel">
-        <div class="app-section-title"><div><h2>Helpful guides</h2><p>Short answers that lead into the calculators.</p></div></div>
-        <div class="app-card-grid">
-          <a class="app-card" href="guides/weekly-budget-from-monthly-income.html"><b>Weekly budget from monthly income</b><small>Simple budgeting method</small></a>
-          <a class="app-card" href="guides/electric-heater-running-cost.html"><b>Electric heater running cost</b><small>Watts, hours and unit rates</small></a>
-          <a class="app-card" href="guides/check-if-rent-is-affordable.html"><b>Check if rent is affordable</b><small>Rent plus real-life bills</small></a>
-          <a class="app-card" href="guides/multibuy-deals.html"><b>Are multi-buys cheaper?</b><small>Compare price per item</small></a>
-        </div>
-      </div>
-      <div class="app-panel">
-        <div class="app-section-title"><div><h2>Keep improving it</h2><p>Found a broken result or want a new calculator?</p></div></div>
-        <p class="app-subtitle">Send feedback with the page details included, so it is easier to fix.</p>
-        <div class="app-chip-row">
-          <a href="feedback.html">Send feedback</a>
-          <a href="support.html">Tip on Ko-fi</a>
-          <a href="contact.html">Contact</a>
-          <a href="advertising.html">Advertising</a>
-          <button class="soft" type="button" data-share-app>Share site</button>
-          <button class="soft" type="button" data-install-app hidden>Install app</button>
-        </div>
-      </div>
+    <section class="section-strip">
+      <div class="strip-head"><div><h2>Helpful guides</h2><p>Short pages that answer common cost questions.</p></div></div>
+      <a class="guide-row" href="guides/weekly-budget-from-monthly-income.html"><span><b>Weekly budget from monthly income</b><small>Simple method for payday planning</small></span><span class="start-link">Read →</span></a>
+      <a class="guide-row" href="guides/electric-heater-running-cost.html"><span><b>Electric heater running cost</b><small>Watts, hours and unit rates explained</small></span><span class="start-link">Read →</span></a>
+      <a class="guide-row" href="guides/check-if-rent-is-affordable.html"><span><b>Check if rent is affordable</b><small>Rent plus bills, food and travel</small></span><span class="start-link">Read →</span></a>
+      <a class="guide-row" href="guides/multibuy-deals.html"><span><b>Are multi-buys cheaper?</b><small>Compare price per item before buying</small></span><span class="start-link">Read →</span></a>
+    </section>
+
+    <section class="section-strip support-panel">
+      <div><h2>Help improve QuickCheck</h2><p>Found a broken result or want a new calculator? Send feedback with page details included. You can also support the site on Ko-fi.</p></div>
+      <div class="quick-actions"><a href="feedback.html">Send feedback</a><a href="support.html">Tip on Ko-fi</a><button class="soft" type="button" data-share-app>Share site</button><button class="soft" type="button" data-install-app hidden>Install app</button></div>
     </section>
   </main>
 

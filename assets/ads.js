@@ -1,4 +1,4 @@
-window.QC_ADSENSE_CLIENT='ca-pub-6774225698160800';
+window.QC_ADSENSE_CLIENT='ca-pub-6774225609816080';
 window.QC_ADSENSE_SLOT=window.QC_ADSENSE_SLOT||'';
 function qcLoadAdSenseScript(){
   if(document.querySelector('script[src*="pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"]'))return;

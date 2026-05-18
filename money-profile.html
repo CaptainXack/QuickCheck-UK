@@ -10,7 +10,7 @@
   <link rel="icon" href="assets/icon.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="assets/styles.css?v=10" />
   <link rel="stylesheet" href="assets/pro-app.css?v=5" />
-  <link rel="stylesheet" href="assets/smart-money.css?v=1" />
+  <link rel="stylesheet" href="assets/smart-money.css?v=2" />
 </head>
 <body class="profile-page">
   <header class="topbar">
@@ -28,6 +28,22 @@
     <section class="section-strip">
       <div class="strip-head"><div><h2>Smart money dashboard</h2><p>Safe spend, risk level and suggestions based on your saved profile.</p></div></div>
       <div id="smartDashboard"></div>
+    </section>
+
+    <section class="section-strip" id="whatIfSimulator">
+      <div class="strip-head"><div><h2>What-if simulator</h2><p>Test changes before they happen. Use minus numbers for cuts, like -25 for cancelled subscriptions.</p></div></div>
+      <div class="whatif-form">
+        <div class="whatif-grid">
+          <label>Income change<input id="whatIncome" type="number" step="0.01" placeholder="e.g. 200"></label>
+          <label>Rent change<input id="whatRent" type="number" step="0.01" placeholder="e.g. 100"></label>
+          <label>Energy change<input id="whatEnergy" type="number" step="0.01" placeholder="e.g. -40"></label>
+          <label>Subscriptions change<input id="whatSubs" type="number" step="0.01" placeholder="e.g. -25"></label>
+          <label>Travel change<input id="whatTravel" type="number" step="0.01" placeholder="e.g. 60"></label>
+          <label>Other change<input id="whatOther" type="number" step="0.01" placeholder="e.g. -30"></label>
+        </div>
+        <div id="whatIfResult" class="whatif-result"></div>
+        <div class="whatif-actions"><button type="button" id="whatIfReset">Reset what-if</button></div>
+      </div>
     </section>
 
     <section class="section-strip">
@@ -73,7 +89,7 @@
 
   <footer class="footer"><a href="./">Home</a><a href="calculator-directory.html">Directory</a><a href="feedback.html">Feedback</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a></footer>
   <script src="assets/profile-core.js?v=1" defer></script>
-  <script src="assets/smart-money.js?v=1" defer></script>
+  <script src="assets/smart-money.js?v=2" defer></script>
   <script src="assets/pwa.js?v=5" defer></script>
 </body>
 </html>

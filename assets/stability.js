@@ -1,184 +1,37 @@
 const qcExistingSeoPages = {
-  budgetplanner: 'budget-planner.html',
-  rent: 'rent-affordability-calculator.html',
-  moving: 'moving-cost-calculator.html',
-  electricity: 'electricity-running-cost-calculator.html',
-  broadband: 'broadband-speed-calculator.html',
-  phone: 'phone-contract-cost-calculator.html',
-  caravan: 'static-caravan-cost-calculator.html',
-  fuel: 'fuel-cost-calculator.html',
-  subscriptions: 'subscription-cost-calculator.html',
-  mortgage: 'mortgage-payment-calculator.html',
-  takehome: 'take-home-pay-calculator.html',
-  foodbudget: 'food-budget-calculator.html'
+  budgetplanner:'budget-planner.html',rent:'rent-affordability-calculator.html',moving:'moving-cost-calculator.html',electricity:'electricity-running-cost-calculator.html',broadband:'broadband-speed-calculator.html',phone:'phone-contract-cost-calculator.html',caravan:'static-caravan-cost-calculator.html',fuel:'fuel-cost-calculator.html',subscriptions:'subscription-cost-calculator.html',mortgage:'mortgage-payment-calculator.html',takehome:'take-home-pay-calculator.html',foodbudget:'food-budget-calculator.html',
+  weeklybudget:'weekly-budget-calculator.html',paydaybudget:'payday-budget-calculator.html',billpayday:'bill-split-by-payday-calculator.html',rentincrease:'rent-increase-calculator.html',council:'council-tax-monthly-calculator.html',airfryeroven:'air-fryer-vs-oven-calculator.html',tumbledryer:'tumble-dryer-cost-calculator.html',washingmachine:'washing-machine-cost-calculator.html',electricblanket:'electric-blanket-cost-calculator.html',standbycost:'standby-electricity-cost-calculator.html',boilerrun:'boiler-running-cost-calculator.html',energydd:'energy-direct-debit-calculator.html',prepaymeter:'prepayment-meter-weekly-cost-calculator.html',mobilebill:'mobile-plan-calculator.html',simvscontract:'sim-only-vs-contract-calculator.html',tvpackagecost:'tv-package-cost-calculator.html',streamingsave:'streaming-cancellation-savings-calculator.html',schooluniform:'school-uniform-budget-calculator.html',packedlunch:'packed-lunch-vs-school-dinner-calculator.html',babymonthly:'baby-monthly-cost-calculator.html',nappycost:'nappy-cost-calculator.html',carinscompare:'car-insurance-monthly-vs-annual-calculator.html',motbudget:'mot-repair-budget-calculator.html',roadtripsplit:'road-trip-cost-splitter.html',parkingcost:'parking-cost-calculator.html',taxivbus:'taxi-vs-bus-cost-calculator.html',commute:'commuting-cost-calculator.html',secondjob:'second-job-income-calculator.html',worktravelwage:'work-travel-vs-wage-calculator.html',payrise:'pay-rise-calculator.html',weeklytomonthly:'weekly-pay-to-monthly-calculator.html',salarytohourly:'salary-to-hourly-calculator.html',multibuy:'multi-buy-deal-calculator.html',priceper100g:'price-per-100g-calculator.html',cashbackvalue:'cashback-calculator.html',deliverysplit:'delivery-cost-splitter.html',roomsize:'room-size-calculator.html',wallpaper:'wallpaper-roll-calculator.html',fencecost:'garden-fence-cost-calculator.html',concrete:'concrete-volume-calculator.html',loan:'loan-payment-calculator.html',creditcard:'credit-card-payoff-calculator.html',debtfree:'debt-free-date-calculator.html',savings:'savings-goal-calculator.html',emergencyfund:'emergency-fund-calculator.html',loanoverpay:'loan-overpayment-calculator.html',savingsinterest:'savings-interest-calculator.html',inflationimpact:'inflation-price-change-calculator.html',breakeven:'break-even-calculator.html',monthlytoyearly:'monthly-cost-to-yearly-calculator.html',holiday:'holiday-saving-calculator.html',christmas:'christmas-budget-calculator.html',splitbill:'split-bill-calculator.html',discount:'discount-calculator.html',vat:'vat-calculator.html',percent:'percentage-calculator.html',unitprice:'unit-price-calculator.html',parcel:'parcel-size-calculator.html',storage:'storage-converter.html',downloadtime:'download-time-calculator.html',petcost:'pet-cost-calculator.html',insurance:'insurance-monthly-vs-annual-calculator.html',breakdown:'car-running-cost-calculator.html',gas:'gas-bill-cost-calculator.html',energycompare:'energy-tariff-comparison-calculator.html',heating:'room-heating-cost-calculator.html',water:'water-bill-monthly-calculator.html',tv:'tv-package-value-calculator.html',busvscar:'bus-vs-car-cost-calculator.html',childcare:'childcare-monthly-cost-calculator.html',annualleave:'holiday-hours-calculator.html',selfemployedtaxpot:'self-employed-tax-pot-calculator.html',invoicevat:'invoice-vat-calculator.html',flooring:'flooring-area-calculator.html',paint:'paint-needed-calculator.html',tiles:'tile-amount-calculator.html',rentsplit:'house-share-rent-split-calculator.html'
 };
+const qcOldPageAliases = {multibuy:'multi-buy-deal-calculator.html',monthlytoyearly:'monthly-cost-to-yearly-calculator.html',rentsplit:'house-share-rent-split-calculator.html'};
 
-function qcToolCount() {
-  return (typeof tools !== 'undefined' ? tools.length : 0) + 1;
+function qcToolCount(){return (typeof tools!=='undefined'?tools.length:0)+1}
+function qcN(x){const n=Number(x);return Number.isFinite(n)?n:0}
+function qcStandardMatches(q,activeCat){if(activeCat&&activeCat!=='All'&&activeCat!=='Math')return false;if(!q)return true;return 'standard calculator simple everyday maths math sums'.includes(String(q).toLowerCase())}
+function qcSafeResult(title,lines,tip){return {title:title||'Result ready',lines:Array.isArray(lines)?lines:['Calculation completed.'],tip:tip||'Use this as a rough estimate.'}}
+function qcDeduplicateTools(){if(typeof tools==='undefined'||!Array.isArray(tools))return;const seen=new Set(),unique=[];for(const t of tools){if(!t||!t.id||seen.has(t.id))continue;seen.add(t.id);unique.push(t)}tools.splice(0,tools.length,...unique)}
+function qcFixToolFields(){if(typeof tools==='undefined')return;const takehome=tools.find(t=>t.id==='takehome');if(takehome){takehome.title='Simple Take-home Pay Estimate';takehome.desc='Use hourly pay and weekly hours if you do not know an annual salary.';takehome.fields=[{n:'rate',l:'Hourly rate',t:'number',v:12.21,h:'Use your hourly wage.'},{n:'hours',l:'Hours per week',t:'select',v:37.5,h:'Pick the closest weekly hours.',o:[['16 hours',16],['24 hours',24],['30 hours',30],['37.5 hours',37.5],['40 hours',40]]},{n:'weeks',l:'Paid weeks per year',t:'select',v:52,h:'Use 52 for year-round work.',o:[['52 weeks',52],['48 weeks',48],['39 school-term weeks',39]]},{n:'tax',l:'Rough tax % above allowance',t:'number',v:20,h:'Leave as 20 if unsure.'},{n:'ni',l:'Rough NI % above allowance',t:'number',v:8,h:'Leave as 8 if unsure.'}]}}
+function qcPatchPageMaps(){try{if(typeof qcStage3SeoPages!=='undefined')Object.assign(qcStage3SeoPages,qcExistingSeoPages,qcOldPageAliases);if(typeof epicPages!=='undefined')Object.assign(epicPages,qcOldPageAliases);if(typeof seoPages!=='undefined')Object.assign(seoPages,qcExistingSeoPages,qcOldPageAliases)}catch(e){console.warn('Map repair skipped',e)}}
+
+if(typeof calculate!=='undefined'){
+  const qcPreviousCalculate=calculate;
+  calculate=function(id,a={}){try{
+    if(id==='takehome'){const yearlyGross=qcN(a.rate)*qcN(a.hours)*qcN(a.weeks),allowance=12570,taxable=Math.max(0,yearlyGross-allowance),take=yearlyGross-taxable*qcN(a.tax)/100-taxable*qcN(a.ni)/100;return qcSafeResult(`${money(take/12)} rough monthly take-home`,[`Gross yearly pay: ${money(yearlyGross)}`,`Rough yearly take-home: ${money(take)}`,`Rough weekly take-home: ${money(take/52)}`],'This is a simplified estimate. Real payslips can differ because of pension, tax code, benefits, student loans or deductions.')}
+    const r=qcPreviousCalculate(id,a);if(!r||!r.title||!Array.isArray(r.lines))return qcSafeResult('Result ready',['The calculator completed but returned a basic result.'],'Use this as a rough estimate.');return r;
+  }catch(error){console.warn('Calculator repaired after error',id,error);return qcSafeResult('Calculator recovered',['This tool hit a calculation error, but the page stayed working.','Check the figures and try again.'],'I have trapped the error so one faulty calculator does not break the whole site.')}}
 }
 
-function qcStandardMatches(q, activeCat) {
-  if (activeCat && activeCat !== 'All' && activeCat !== 'Math') return false;
-  if (!q) return true;
-  return 'standard calculator simple everyday maths math sums'.includes(q.toLowerCase());
-}
+function qcCardHtml(t){const inner=`<span>${t.icon||'🧮'}</span><b>${t.title||'Calculator'}</b><em class="category">${t.cat||'Tools'}</em><p>${t.desc||'Quick everyday calculation.'}</p>`;const href=qcExistingSeoPages[t.id]||(typeof qcStage3SeoPages!=='undefined'?qcStage3SeoPages[t.id]:null);return href?`<a class="tool-card" href="${href}" data-id="${t.id}">${inner}</a>`:`<button class="tool-card" type="button" data-id="${t.id}">${inner}</button>`}
+function qcStandardCard(){return `<a class="tool-card" href="standard-calculator.html" data-standard="true"><span>🧮</span><b>Standard Calculator</b><em class="category">Math</em><p>Simple everyday calculator for quick sums.</p></a>`}
+function qcFilteredTools(){if(typeof tools==='undefined')return[];const activeCat=document.querySelector('.category-chip.active')?.dataset.cat||'All',q=(document.getElementById('searchBox')?.value||'').trim().toLowerCase();let list=activeCat==='All'?tools:tools.filter(t=>t.cat===activeCat);if(q)list=list.filter(t=>`${t.title} ${t.cat} ${t.desc}`.toLowerCase().includes(q));return list}
+function qcUpdateCount(){if(typeof tools==='undefined')return;document.querySelectorAll('#toolCount').forEach((el,i)=>{if(i>0)el.remove()});let count=document.getElementById('toolCount');const heading=document.querySelector('#tools .section-head div');if(!count&&heading){count=document.createElement('p');count.id='toolCount';count.className='tool-count';heading.appendChild(count)}if(count)count.textContent=`${qcToolCount()} total tools: ${tools.length} guided calculators plus the standard calculator`}
+function renderCards(list=qcFilteredTools()){const grid=document.getElementById('toolGrid');if(!grid||typeof tools==='undefined')return;const activeCat=document.querySelector('.category-chip.active')?.dataset.cat||'All',q=(document.getElementById('searchBox')?.value||'').trim().toLowerCase(),showStandard=qcStandardMatches(q,activeCat);grid.innerHTML=(showStandard?qcStandardCard():'')+list.map(qcCardHtml).join('');qcUpdateCount()}
 
-function qcPatchTools() {
-  if (typeof tools === 'undefined') return;
-  const takehome = tools.find(t => t.id === 'takehome');
-  if (takehome) {
-    takehome.title = 'Simple Take-home Pay Estimate';
-    takehome.desc = 'Use hourly pay and weekly hours if you do not know an annual salary.';
-    takehome.fields = [
-      {n:'rate', l:'Hourly rate', t:'number', v:12.21, h:'Use your hourly wage.'},
-      {n:'hours', l:'Hours per week', t:'select', v:37.5, h:'Pick the closest weekly hours.', o:[['16 hours',16],['24 hours',24],['30 hours',30],['37.5 hours',37.5],['40 hours',40]]},
-      {n:'weeks', l:'Paid weeks per year', t:'select', v:52, h:'Use 52 for year-round work.', o:[['52 weeks',52],['48 weeks',48],['39 school-term weeks',39]]},
-      {n:'tax', l:'Rough tax % above allowance', t:'number', v:20, h:'Leave as 20 if unsure.'},
-      {n:'ni', l:'Rough NI % above allowance', t:'number', v:8, h:'Leave as 8 if unsure.'}
-    ];
-  }
-}
-
-if (typeof calculate !== 'undefined') {
-  const qcPreviousCalculate = calculate;
-  calculate = function(id, a) {
-    try {
-      if (id === 'takehome') {
-        const yearlyGross = v(a,'rate') * v(a,'hours') * v(a,'weeks');
-        const allowance = 12570;
-        const taxable = Math.max(0, yearlyGross - allowance);
-        const take = yearlyGross - taxable * v(a,'tax') / 100 - taxable * v(a,'ni') / 100;
-        return res(
-          `${money(take / 12)} rough monthly take-home`,
-          [`Gross yearly pay: ${money(yearlyGross)}`, `Rough yearly take-home: ${money(take)}`, `Rough weekly take-home: ${money(take / 52)}`],
-          'This is a simplified estimate. Real payslips can differ because of pension, tax code, benefits, student loans or deductions.'
-        );
-      }
-      return qcPreviousCalculate(id, a);
-    } catch (error) {
-      return res('Something needs checking', ['This calculator hit a calculation error.'], 'Try checking the figures. I have trapped the error so the site keeps working.');
-    }
-  };
-}
-
-function qcCardHtml(t) {
-  const inner = `<span>${t.icon}</span><b>${t.title}</b><em class="category">${t.cat}</em><p>${t.desc}</p>`;
-  const href = qcExistingSeoPages[t.id];
-  if (href) return `<a class="tool-card" href="${href}" data-id="${t.id}">${inner}</a>`;
-  return `<button class="tool-card" type="button" data-id="${t.id}">${inner}</button>`;
-}
-
-function qcStandardCard() {
-  return `<a class="tool-card" href="standard-calculator.html" data-standard="true"><span>🧮</span><b>Standard Calculator</b><em class="category">Math</em><p>Simple everyday calculator for quick sums.</p></a>`;
-}
-
-renderCards = function(list = tools) {
-  const grid = document.getElementById('toolGrid');
-  if (!grid || typeof tools === 'undefined') return;
-  const activeCat = document.querySelector('.category-chip.active')?.dataset.cat || 'All';
-  const q = (document.getElementById('searchBox')?.value || '').trim().toLowerCase();
-  const showStandard = qcStandardMatches(q, activeCat);
-  grid.innerHTML = (showStandard ? qcStandardCard() : '') + list.map(qcCardHtml).join('');
-  qcUpdateCount();
-};
-
-openTool = function(id) {
-  const tool = tools.find(t => t.id === id);
-  const panel = document.getElementById('appPanel');
-  const mount = document.getElementById('toolMount');
-  if (!tool || !panel || !mount) return;
-
-  try {
-    const recent = JSON.parse(localStorage.getItem('qc_recent_tools') || '[]').filter(x => x !== id);
-    recent.unshift(id);
-    localStorage.setItem('qc_recent_tools', JSON.stringify(recent.slice(0, 6)));
-  } catch {}
-
-  mount.innerHTML = `<h2>${tool.icon} ${tool.title}</h2><p class="tool-desc">${tool.desc}</p><button id="favToolBtn" type="button" class="soft">Save to favourites</button><div class="calc-wrap"><form class="form" id="calcForm">${tool.fields.map(fieldHtml).join('')}<button class="primary" type="submit">Calculate</button></form><div class="result" id="printArea"><h3>Your result</h3><div id="resultText"><p>Fill in what you know. Use the built-in presets when you are unsure.</p></div><div class="result-actions hidden" id="resultActions"><button type="button" class="soft" id="copyResult">Copy result</button><button type="button" class="soft" id="printResult">Print result</button></div></div></div>`;
-
-  panel.classList.remove('hidden');
-  panel.scrollIntoView({behavior:'smooth', block:'start'});
-
-  document.getElementById('favToolBtn').onclick = () => {
-    try {
-      const favs = JSON.parse(localStorage.getItem('qc_favs') || '[]').filter(x => x !== id);
-      favs.unshift(id);
-      localStorage.setItem('qc_favs', JSON.stringify(favs.slice(0, 12)));
-      document.getElementById('favToolBtn').textContent = 'Saved';
-      if (typeof renderEpicPanel === 'function') renderEpicPanel();
-    } catch {}
-  };
-
-  const form = document.getElementById('calcForm');
-  form.addEventListener('submit', e => {
-    e.preventDefault();
-    const values = Object.fromEntries(new FormData(form).entries());
-    const r = calculate(id, values);
-    const resultText = `${tool.title}\n${r.title}\n${r.lines.join('\n')}\n${r.tip}`;
-    document.getElementById('resultText').innerHTML = `<div class="result-main">${r.title}</div><ul class="result-lines">${r.lines.map(x => `<li>${x}</li>`).join('')}</ul><p class="result-tip">${r.tip}</p>`;
-    document.getElementById('resultActions').classList.remove('hidden');
-    document.getElementById('copyResult').onclick = async () => {
-      try { await navigator.clipboard.writeText(resultText); document.getElementById('copyResult').textContent = 'Copied'; }
-      catch { alert(resultText); }
-    };
-    document.getElementById('printResult').onclick = () => window.print();
-    try {
-      const saved = JSON.parse(localStorage.getItem('qc_results') || '[]');
-      saved.unshift({ id, title: tool.title, text: resultText, date: new Date().toLocaleString() });
-      localStorage.setItem('qc_results', JSON.stringify(saved.slice(0, 8)));
-    } catch {}
-  });
-};
-
-function qcUpdateCount() {
-  document.querySelectorAll('#toolCount').forEach((el, i) => { if (i > 0) el.remove(); });
-  let count = document.getElementById('toolCount');
-  const heading = document.querySelector('#tools .section-head div');
-  if (!count && heading) {
-    count = document.createElement('p');
-    count.id = 'toolCount';
-    count.className = 'tool-count';
-    heading.appendChild(count);
-  }
-  if (count) count.textContent = `${qcToolCount()} total tools: ${tools.length} guided calculators plus the standard calculator`;
-}
-
-function qcFilteredTools() {
-  const activeCat = document.querySelector('.category-chip.active')?.dataset.cat || 'All';
-  const q = (document.getElementById('searchBox')?.value || '').trim().toLowerCase();
-  let list = activeCat === 'All' ? tools : tools.filter(t => t.cat === activeCat);
-  if (q) list = list.filter(t => `${t.title} ${t.cat} ${t.desc}`.toLowerCase().includes(q));
-  return list;
-}
-
-function qcRewireControls() {
-  const oldSearch = document.getElementById('searchBox');
-  if (oldSearch) {
-    const freshSearch = oldSearch.cloneNode(true);
-    oldSearch.replaceWith(freshSearch);
-    freshSearch.addEventListener('input', () => renderCards(qcFilteredTools()));
-  }
-  const oldBar = document.getElementById('categoryBar');
-  if (oldBar) {
-    const freshBar = oldBar.cloneNode(true);
-    oldBar.replaceWith(freshBar);
-    freshBar.querySelectorAll('.category-chip').forEach(btn => {
-      btn.addEventListener('click', () => {
-        freshBar.querySelectorAll('.category-chip').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        renderCards(qcFilteredTools());
-      });
-    });
-  }
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-  qcPatchTools();
-  setTimeout(() => {
-    qcRewireControls();
-    renderCards(qcFilteredTools());
-    qcUpdateCount();
-    const autoTool = document.body?.dataset?.openTool;
-    if (autoTool) openTool(autoTool);
-  }, 120);
-});
+function openTool(id){if(typeof tools==='undefined')return;const tool=tools.find(t=>t.id===id),panel=document.getElementById('appPanel'),mount=document.getElementById('toolMount');if(!panel||!mount)return;if(!tool){mount.innerHTML=`<h2>Calculator not found</h2><p class="tool-desc">This calculator link needs checking.</p>`;panel.classList.remove('hidden');return}
+  try{const recent=JSON.parse(localStorage.getItem('qc_recent_tools')||'[]').filter(x=>x!==id);recent.unshift(id);localStorage.setItem('qc_recent_tools',JSON.stringify(recent.slice(0,6)))}catch{}
+  mount.innerHTML=`<h2>${tool.icon||'🧮'} ${tool.title}</h2><p class="tool-desc">${tool.desc||''}</p><button id="favToolBtn" type="button" class="soft">Save to favourites</button><div class="calc-wrap"><form class="form" id="calcForm">${(tool.fields||[]).map(fieldHtml).join('')}<button class="primary" type="submit">Calculate</button></form><div class="result" id="printArea"><h3>Your result</h3><div id="resultText"><p>Fill in what you know. Use the built-in presets when you are unsure.</p></div><div class="result-actions hidden" id="resultActions"><button type="button" class="soft" id="copyResult">Copy result</button><button type="button" class="soft" id="printResult">Print result</button></div></div></div>`;
+  panel.classList.remove('hidden');panel.scrollIntoView({behavior:'smooth',block:'start'});
+  document.getElementById('favToolBtn').onclick=()=>{try{const favs=JSON.parse(localStorage.getItem('qc_favs')||'[]').filter(x=>x!==id);favs.unshift(id);localStorage.setItem('qc_favs',JSON.stringify(favs.slice(0,12)));document.getElementById('favToolBtn').textContent='Saved';if(typeof renderEpicPanel==='function')renderEpicPanel()}catch{}};
+  const form=document.getElementById('calcForm');form.addEventListener('submit',e=>{e.preventDefault();const values=Object.fromEntries(new FormData(form).entries()),r=calculate(id,values),safe=qcSafeResult(r.title,r.lines,r.tip),resultText=`${tool.title}\n${safe.title}\n${safe.lines.join('\n')}\n${safe.tip}`;document.getElementById('resultText').innerHTML=`<div class="result-main">${safe.title}</div><ul class="result-lines">${safe.lines.map(x=>`<li>${x}</li>`).join('')}</ul><p class="result-tip">${safe.tip}</p>`;document.getElementById('resultActions').classList.remove('hidden');document.getElementById('copyResult').onclick=async()=>{try{await navigator.clipboard.writeText(resultText);document.getElementById('copyResult').textContent='Copied'}catch{alert(resultText)}};document.getElementById('printResult').onclick=()=>window.print();try{const saved=JSON.parse(localStorage.getItem('qc_results')||'[]');saved.unshift({id,title:tool.title,text:resultText,date:new Date().toLocaleString()});localStorage.setItem('qc_results',JSON.stringify(saved.slice(0,8)))}catch{}})}
+function qcRewireControls(){const oldSearch=document.getElementById('searchBox');if(oldSearch){const fresh=oldSearch.cloneNode(true);oldSearch.replaceWith(fresh);fresh.addEventListener('input',()=>renderCards(qcFilteredTools()))}const oldBar=document.getElementById('categoryBar');if(oldBar){const fresh=oldBar.cloneNode(true);oldBar.replaceWith(fresh);fresh.querySelectorAll('.category-chip').forEach(btn=>btn.addEventListener('click',()=>{fresh.querySelectorAll('.category-chip').forEach(b=>b.classList.remove('active'));btn.classList.add('active');renderCards(qcFilteredTools())}))}}
+function qcStage5Boot(){qcPatchPageMaps();qcFixToolFields();qcDeduplicateTools();qcRewireControls();renderCards(qcFilteredTools());qcUpdateCount();const autoTool=document.body?.dataset?.openTool;if(autoTool)setTimeout(()=>openTool(autoTool),50)}
+document.addEventListener('DOMContentLoaded',()=>setTimeout(qcStage5Boot,180));

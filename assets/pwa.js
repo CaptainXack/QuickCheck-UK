@@ -1,77 +1,14 @@
-let deferredInstallPrompt = null;
-
-function createInstallPanel() {
-  if (document.getElementById('pwaPanel')) return;
-  const panel = document.createElement('section');
-  panel.id = 'pwaPanel';
-  panel.className = 'pwa-panel';
-  panel.innerHTML = `
-    <div>
-      <strong>Use QuickCheck like an app</strong>
-      <p>Add it to your phone or desktop for faster access and offline use.</p>
-    </div>
-    <div class="pwa-actions">
-      <button type="button" class="soft" id="installAppBtn">Install app</button>
-      <button type="button" class="soft" id="notifyBtn">Enable result alerts</button>
-    </div>`;
-  const main = document.querySelector('main');
-  if (main) main.insertBefore(panel, main.firstChild.nextSibling);
-
-  const installBtn = document.getElementById('installAppBtn');
-  installBtn.addEventListener('click', async () => {
-    if (deferredInstallPrompt) {
-      deferredInstallPrompt.prompt();
-      await deferredInstallPrompt.userChoice;
-      deferredInstallPrompt = null;
-      installBtn.textContent = 'Install ready';
-    } else {
-      installBtn.textContent = 'Use browser menu → Install app';
-    }
-  });
-
-  const notifyBtn = document.getElementById('notifyBtn');
-  notifyBtn.addEventListener('click', async () => {
-    if (!('Notification' in window)) {
-      notifyBtn.textContent = 'Notifications unsupported';
-      return;
-    }
-    const permission = await Notification.requestPermission();
-    notifyBtn.textContent = permission === 'granted' ? 'Alerts enabled' : 'Alerts blocked';
-    if (permission === 'granted') {
-      new Notification('QuickCheck UK alerts enabled', {
-        body: 'You can now get local result alerts while using the app.',
-        icon: 'assets/icon.svg'
-      });
-    }
-  });
-}
-
-window.addEventListener('beforeinstallprompt', event => {
-  event.preventDefault();
-  deferredInstallPrompt = event;
-  const btn = document.getElementById('installAppBtn');
-  if (btn) btn.textContent = 'Install app';
-});
-
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/QuickCheck-UK/service-worker.js').catch(() => null);
-  });
-}
-
-function notifyResult(title, body) {
-  if (!('Notification' in window)) return;
-  if (Notification.permission !== 'granted') return;
-  try {
-    new Notification(title, { body, icon: 'assets/icon.svg' });
-  } catch {}
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-  createInstallPanel();
-  document.addEventListener('click', event => {
-    if (event.target && event.target.id === 'copyResult') {
-      notifyResult('QuickCheck result copied', 'Your calculation result is ready to paste or save.');
-    }
-  });
-});
+let deferredInstallPrompt=null;
+function qcIsStandalone(){return window.matchMedia('(display-mode: standalone)').matches||window.navigator.standalone===true||localStorage.getItem('qc_installed')==='yes'}
+function qcToast(text){const old=document.querySelector('.qc-toast');if(old)old.remove();const t=document.createElement('div');t.className='qc-toast';t.textContent=text;document.body.appendChild(t);setTimeout(()=>t.remove(),2600)}
+function qcLoadAppModeCss(){if(document.querySelector('link[href*="app-mode.css"]'))return;const l=document.createElement('link');l.rel='stylesheet';l.href='assets/app-mode.css?v=1';document.head.appendChild(l)}
+function qcApplyAppMode(){qcLoadAppModeCss();if(qcIsStandalone())document.body.classList.add('qc-installed');else document.body.classList.remove('qc-installed');if(document.body.classList.contains('qc-installed'))createAppQuickbar()}
+function createAppQuickbar(){if(document.querySelector('.app-quickbar'))return;const bar=document.createElement('nav');bar.className='app-quickbar';bar.setAttribute('aria-label','Installed app navigation');bar.innerHTML=`<a href="./"><span>🏠</span>Home</a><a href="calculator-directory.html"><span>🧭</span>Directory</a><a href="./#tools"><span>🔎</span>Search</a><button type="button" id="qcShareAppBtn"><span>📤</span>Share</button>`;document.body.appendChild(bar);document.getElementById('qcShareAppBtn')?.addEventListener('click',qcShareSite)}
+async function qcShareSite(){const data={title:'QuickCheck UK',text:'Free UK calculators for bills, budgets, travel and everyday costs.',url:'https://captainxack.github.io/QuickCheck-UK/'};try{if(navigator.share){await navigator.share(data);qcToast('Share opened')}else{await navigator.clipboard.writeText(data.url);qcToast('Link copied')}}catch{}}
+function createInstallPanel(){if(qcIsStandalone())return;if(document.getElementById('pwaPanel'))return;const panel=document.createElement('section');panel.id='pwaPanel';panel.className='pwa-panel';panel.innerHTML=`<div><strong>Use QuickCheck like an app</strong><p>Add it to your phone or desktop for faster access.</p></div><div class="pwa-actions"><button type="button" class="soft" id="installAppBtn">Install app</button><button type="button" class="soft" id="shareSiteBtn">Share site</button><button type="button" class="soft" id="hidePwaBtn">Not now</button></div>`;const main=document.querySelector('main');if(main)main.insertBefore(panel,main.firstChild.nextSibling);document.getElementById('installAppBtn')?.addEventListener('click',async()=>{const installBtn=document.getElementById('installAppBtn');if(deferredInstallPrompt){deferredInstallPrompt.prompt();const choice=await deferredInstallPrompt.userChoice;if(choice?.outcome==='accepted'){localStorage.setItem('qc_installed','yes');panel.remove();qcApplyAppMode()}deferredInstallPrompt=null}else{installBtn.textContent='Use browser menu → Install app';qcToast('Use your browser menu to install')}});document.getElementById('shareSiteBtn')?.addEventListener('click',qcShareSite);document.getElementById('hidePwaBtn')?.addEventListener('click',()=>{localStorage.setItem('qc_hide_install','yes');panel.remove()})}
+function qcAddShareRows(){document.querySelectorAll('.section,.info-page').forEach((sec,i)=>{if(i>2||sec.querySelector('.share-row'))return;if(sec.id==='tools'||sec.id==='appPanel')return;const row=document.createElement('div');row.className='share-row';row.innerHTML='<button type="button" class="soft qc-share-page">Share this page</button><button type="button" class="soft qc-copy-page">Copy link</button>';sec.appendChild(row)});document.querySelectorAll('.qc-share-page').forEach(b=>b.onclick=qcShareSite);document.querySelectorAll('.qc-copy-page').forEach(b=>b.onclick=async()=>{try{await navigator.clipboard.writeText(location.href);qcToast('Page link copied')}catch{}})}
+window.addEventListener('beforeinstallprompt',event=>{event.preventDefault();deferredInstallPrompt=event;const btn=document.getElementById('installAppBtn');if(btn)btn.textContent='Install app'});
+window.addEventListener('appinstalled',()=>{localStorage.setItem('qc_installed','yes');document.getElementById('pwaPanel')?.remove();qcApplyAppMode();qcToast('QuickCheck installed')});
+if('serviceWorker'in navigator){window.addEventListener('load',()=>{navigator.serviceWorker.register('/QuickCheck-UK/service-worker.js').catch(()=>null)})}
+function notifyResult(title,body){if(!('Notification'in window))return;if(Notification.permission!=='granted')return;try{new Notification(title,{body,icon:'assets/icon.svg'})}catch{}}
+document.addEventListener('DOMContentLoaded',()=>{qcApplyAppMode();if(localStorage.getItem('qc_hide_install')!=='yes')createInstallPanel();qcAddShareRows();document.addEventListener('click',event=>{if(event.target&&event.target.id==='copyResult')notifyResult('QuickCheck result copied','Your calculation result is ready to paste or save.')})});

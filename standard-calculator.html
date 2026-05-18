@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Standard Calculator - QuickCheck UK</title>
+  <meta name="description" content="A simple free standard calculator for quick everyday maths.">
+  <link rel="stylesheet" href="assets/styles.css?v=5">
+  <style>
+    .calc-shell{max-width:520px;margin:0 auto;background:rgba(7,17,31,.72);border:1px solid var(--line);border-radius:28px;padding:20px;box-shadow:0 25px 80px rgba(0,0,0,.25)}
+    .display{width:100%;background:#020617;border:1px solid var(--line);border-radius:20px;color:#fff;font-size:34px;padding:18px;text-align:right;margin-bottom:14px;min-height:78px;overflow:auto}
+    .keys{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.keys button{font-size:22px;padding:18px;border-radius:18px;background:rgba(255,255,255,.08);color:#fff;border:1px solid var(--line)}.keys button.op{background:rgba(59,130,246,.35)}.keys button.equal{background:linear-gradient(135deg,var(--blue),var(--green));grid-column:span 2}.keys button.clear{background:rgba(251,113,133,.3)}
+  </style>
+</head>
+<body>
+<header class="topbar"><a class="brand" href="./"><span class="logo">QC</span><span><strong>QuickCheck UK</strong><small>Standard calculator</small></span></a><nav class="topnav"><a href="./#tools">Tools</a><a href="privacy.html">Privacy</a></nav></header>
+<main>
+<section class="info-page">
+  <h1>Standard Calculator</h1>
+  <p>Quick everyday maths without opening another app.</p>
+  <div class="calc-shell">
+    <div id="display" class="display">0</div>
+    <div class="keys">
+      <button class="clear" data-action="clear">C</button><button data-action="back">⌫</button><button data-value="%">%</button><button class="op" data-value="/">÷</button>
+      <button data-value="7">7</button><button data-value="8">8</button><button data-value="9">9</button><button class="op" data-value="*">×</button>
+      <button data-value="4">4</button><button data-value="5">5</button><button data-value="6">6</button><button class="op" data-value="-">−</button>
+      <button data-value="1">1</button><button data-value="2">2</button><button data-value="3">3</button><button class="op" data-value="+">+</button>
+      <button data-value="0">0</button><button data-value=".">.</button><button class="equal" data-action="equals">=</button>
+    </div>
+  </div>
+</section>
+</main>
+<footer class="footer"><a href="./">Home</a><a href="about.html">About</a><a href="contact.html">Contact</a></footer>
+<script>
+const display=document.getElementById('display');let expression='';function show(){display.textContent=expression||'0'}function safeEval(expr){if(!/^[0-9+\-*/().% ]+$/.test(expr))throw new Error('Invalid');return Function('return ('+expr.replace(/%/g,'/100')+')')()}document.querySelectorAll('.keys button').forEach(btn=>{btn.addEventListener('click',()=>{const value=btn.dataset.value,action=btn.dataset.action;if(action==='clear'){expression='';show();return}if(action==='back'){expression=expression.slice(0,-1);show();return}if(action==='equals'){try{const result=safeEval(expression);expression=Number.isFinite(result)?String(Math.round(result*100000000)/100000000):''}catch{expression='Error'}show();return}if(expression==='Error')expression='';expression+=value;show()})});
+</script>
+</body>
+</html>

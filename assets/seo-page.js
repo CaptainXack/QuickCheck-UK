@@ -9,16 +9,7 @@ const qcSeoCategories={
   tech:{label:'Tech calculators',url:'tech-calculators.html',icon:'📱'},
   housing:{label:'Housing calculators',url:'housing-calculators.html',icon:'🏘️'}
 };
-const qcSeoToolCats={
-  budgetplanner:'money',weeklybudget:'money',paydaybudget:'money',billpayday:'money',loan:'money',creditcard:'money',debtfree:'money',savings:'money',emergencyfund:'money',loanoverpay:'money',savingsinterest:'money',breakeven:'money',monthlytoyearly:'money',inflationimpact:'money',splitbill:'money',holiday:'money',christmas:'money',mortgage:'housing',rent:'housing',rentincrease:'housing',moving:'housing',caravan:'housing',rentsplit:'housing',
-  electricity:'bills',gas:'bills',energydd:'bills',energycompare:'bills',prepaymeter:'bills',boilerrun:'bills',heating:'bills',airfryeroven:'bills',tumbledryer:'bills',washingmachine:'bills',electricblanket:'bills',standbycost:'bills',council:'bills',water:'bills',
-  distance:'travel',fuel:'travel',commute:'travel',worktravelwage:'travel',busvscar:'travel',taxivbus:'travel',parkingcost:'travel',roadtripsplit:'travel',breakdown:'travel',carinscompare:'travel',motbudget:'travel',
-  schooluniform:'family',packedlunch:'family',babymonthly:'family',nappycost:'family',childcare:'family',foodbudget:'family',petcost:'family',
-  takehome:'work',payrise:'work',salarytohourly:'work',weeklytomonthly:'work',secondjob:'work',annualleave:'work',selfemployedtaxpot:'work',invoicevat:'work',
-  discount:'shopping',percent:'shopping',unitprice:'shopping',priceper100g:'shopping',multibuy:'shopping',cashbackvalue:'shopping',deliverysplit:'shopping',parcel:'shopping',vat:'shopping',
-  roomsize:'diy',flooring:'diy',wallpaper:'diy',paint:'diy',tiles:'diy',fencecost:'diy',concrete:'diy',
-  broadband:'tech',phone:'tech',mobilebill:'tech',simvscontract:'tech',storage:'tech',downloadtime:'tech',tv:'tech',tvpackagecost:'tech',streamingsave:'tech'
-};
+const qcSeoToolCats={budgetplanner:'money',weeklybudget:'money',paydaybudget:'money',billpayday:'money',loan:'money',creditcard:'money',debtfree:'money',savings:'money',emergencyfund:'money',loanoverpay:'money',savingsinterest:'money',breakeven:'money',monthlytoyearly:'money',inflationimpact:'money',splitbill:'money',holiday:'money',christmas:'money',mortgage:'housing',rent:'housing',rentincrease:'housing',moving:'housing',caravan:'housing',rentsplit:'housing',electricity:'bills',gas:'bills',energydd:'bills',energycompare:'bills',prepaymeter:'bills',boilerrun:'bills',heating:'bills',airfryeroven:'bills',tumbledryer:'bills',washingmachine:'bills',electricblanket:'bills',standbycost:'bills',council:'bills',water:'bills',distance:'travel',fuel:'travel',commute:'travel',worktravelwage:'travel',busvscar:'travel',taxivbus:'travel',parkingcost:'travel',roadtripsplit:'travel',breakdown:'travel',carinscompare:'travel',motbudget:'travel',schooluniform:'family',packedlunch:'family',babymonthly:'family',nappycost:'family',childcare:'family',foodbudget:'family',petcost:'family',takehome:'work',payrise:'work',salarytohourly:'work',weeklytomonthly:'work',secondjob:'work',annualleave:'work',selfemployedtaxpot:'work',invoicevat:'work',discount:'shopping',percent:'shopping',unitprice:'shopping',priceper100g:'shopping',multibuy:'shopping',cashbackvalue:'shopping',deliverysplit:'shopping',parcel:'shopping',vat:'shopping',roomsize:'diy',flooring:'diy',wallpaper:'diy',paint:'diy',tiles:'diy',fencecost:'diy',concrete:'diy',broadband:'tech',phone:'tech',mobilebill:'tech',simvscontract:'tech',storage:'tech',downloadtime:'tech',tv:'tech',tvpackagecost:'tech',streamingsave:'tech'};
 const qcSeoRelatedByCat={
   money:[['Budget Planner','budget-planner.html'],['Weekly Budget','weekly-budget-calculator.html'],['Loan Payment','loan-payment-calculator.html'],['Credit Card Payoff','credit-card-payoff-calculator.html'],['Savings Goal','savings-goal-calculator.html'],['Monthly to Yearly Cost','monthly-cost-to-yearly-calculator.html']],
   bills:[['Electricity Running Cost','electricity-running-cost-calculator.html'],['Gas Bill Cost','gas-bill-cost-calculator.html'],['Council Tax Monthly','council-tax-monthly-calculator.html'],['Energy Direct Debit','energy-direct-debit-calculator.html'],['Tumble Dryer Cost','tumble-dryer-cost-calculator.html'],['Water Bill Monthly','water-bill-monthly-calculator.html']],
@@ -33,30 +24,13 @@ const qcSeoRelatedByCat={
 function qcSeoLinks(items,current){return items.filter(x=>x[1]!==current).slice(0,6).map(x=>`<a href="${x[1]}">${x[0]}</a>`).join('')}
 function qcSeoCurrentUrl(){return location.pathname.split('/').pop()||'index.html'}
 function qcSeoToolName(){return document.title.replace(' - QuickCheck UK','').replace(' UK','')}
+function qcSeoLoadMobile(){if(document.querySelector('script[src*="mobile-polish.js"]'))return;const s=document.createElement('script');s.src='assets/mobile-polish.js?v=1';s.defer=true;document.body.appendChild(s)}
 function qcSeoEnhancePage(){
-  const body=document.body;
-  const tool=body?.dataset?.openTool||body?.dataset?.seoTool||'';
-  const main=document.querySelector('main');
-  const hero=document.querySelector('.info-page');
-  if(!main)return;
-  const current=qcSeoCurrentUrl();
-  const catKey=qcSeoToolCats[tool]||'money';
-  const cat=qcSeoCategories[catKey];
-  const pageName=qcSeoToolName();
-  if(hero&&!hero.querySelector('.hub-breadcrumbs')){
-    hero.insertAdjacentHTML('afterbegin',`<div class="hub-breadcrumbs"><a href="./">Home</a><span>›</span><a href="calculator-directory.html">Directory</a><span>›</span><a href="${cat.url}">${cat.label}</a><span>›</span><span>${pageName}</span></div><span class="hub-kicker">${cat.icon} ${cat.label}</span>`);
-    hero.insertAdjacentHTML('beforeend',`<div class="hub-callout"><strong>Quick estimate mode</strong><p>Use the nearest preset if you do not know the exact figure. The answer is designed to help planning and comparison, not replace a formal quote or professional advice.</p></div>`);
-  }
-  if(!document.getElementById('seoExtraInfo')){
-    const section=document.createElement('section');
-    section.id='seoExtraInfo';
-    section.className='info-page';
-    section.innerHTML=`<h2>How to use this calculator</h2><ul><li>Enter the figures you know, or choose the nearest preset.</li><li>Press calculate to see the main result and extra breakdown lines.</li><li>Use copy or print if you want to save the answer.</li></ul><h2>Related calculators</h2><div class="guide-grid">${qcSeoLinks(qcSeoRelatedByCat[catKey]||qcSeoRelatedByCat.money,current)}</div><h2>Other useful sections</h2><div class="guide-grid"><a href="${cat.url}">${cat.label}</a><a href="calculator-directory.html">Full calculator directory</a><a href="./#tools">Search all tools</a></div><h2>Quick questions</h2><ul><li><strong>Is this exact?</strong> No, it is a practical estimate.</li><li><strong>Can I print the result?</strong> Yes, use the print button after calculating.</li><li><strong>Can I copy the result?</strong> Yes, use the copy button after calculating.</li></ul>`;
-    main.appendChild(section);
-  }
-  try{
-    const data={"@context":"https://schema.org","@type":"SoftwareApplication","name":pageName,"applicationCategory":"UtilitiesApplication","operatingSystem":"Any","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"GBP"},"url":location.href.split('#')[0]};
-    const s=document.createElement('script');s.type='application/ld+json';s.textContent=JSON.stringify(data);document.head.appendChild(s);
-  }catch{}
+  const body=document.body,tool=body?.dataset?.openTool||body?.dataset?.seoTool||'',main=document.querySelector('main'),hero=document.querySelector('.info-page');
+  if(!main)return;const current=qcSeoCurrentUrl(),catKey=qcSeoToolCats[tool]||'money',cat=qcSeoCategories[catKey],pageName=qcSeoToolName();
+  if(hero&&!hero.querySelector('.hub-breadcrumbs')){hero.insertAdjacentHTML('afterbegin',`<div class="hub-breadcrumbs"><a href="./">Home</a><span>›</span><a href="calculator-directory.html">Directory</a><span>›</span><a href="${cat.url}">${cat.label}</a><span>›</span><span>${pageName}</span></div><span class="hub-kicker">${cat.icon} ${cat.label}</span>`);hero.insertAdjacentHTML('beforeend',`<div class="hub-callout"><strong>Quick estimate mode</strong><p>Use the nearest preset if you do not know the exact figure. The answer is designed to help planning and comparison, not replace a formal quote or professional advice.</p></div>`)}
+  if(!document.getElementById('seoExtraInfo')){const section=document.createElement('section');section.id='seoExtraInfo';section.className='info-page';section.innerHTML=`<h2>How to use this calculator</h2><ul><li>Enter the figures you know, or choose the nearest preset.</li><li>Press calculate to see the main result and extra breakdown lines.</li><li>Use copy or print if you want to save the answer.</li></ul><h2>Related calculators</h2><div class="guide-grid">${qcSeoLinks(qcSeoRelatedByCat[catKey]||qcSeoRelatedByCat.money,current)}</div><h2>Other useful sections</h2><div class="guide-grid"><a href="${cat.url}">${cat.label}</a><a href="calculator-directory.html">Full calculator directory</a><a href="./#tools">Search all tools</a></div><h2>Quick questions</h2><ul><li><strong>Is this exact?</strong> No, it is a practical estimate.</li><li><strong>Can I print the result?</strong> Yes, use the print button after calculating.</li><li><strong>Can I copy the result?</strong> Yes, use the copy button after calculating.</li></ul>`;main.appendChild(section)}
+  try{const data={"@context":"https://schema.org","@type":"SoftwareApplication","name":pageName,"applicationCategory":"UtilitiesApplication","operatingSystem":"Any","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"GBP"},"url":location.href.split('#')[0]};const s=document.createElement('script');s.type='application/ld+json';s.textContent=JSON.stringify(data);document.head.appendChild(s)}catch{}
+  qcSeoLoadMobile();
 }
 document.addEventListener('DOMContentLoaded',()=>setTimeout(qcSeoEnhancePage,450));

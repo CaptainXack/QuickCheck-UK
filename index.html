@@ -7,7 +7,7 @@
   <meta name="description" content="QuickCheck UK gives fast everyday calculators and checkers for bills, rent, moving, broadband, subscriptions, TV, fuel, caravan costs and household decisions." />
   <meta name="theme-color" content="#0b1220" />
   <link rel="canonical" href="https://captainxack.github.io/QuickCheck-UK/" />
-  <link rel="stylesheet" href="assets/styles.css?v=4" />
+  <link rel="stylesheet" href="assets/styles.css?v=5" />
 </head>
 <body>
   <header class="topbar">
@@ -23,49 +23,35 @@
   </header>
 
   <main>
-    <section class="hero">
+    <section class="hero compact-hero">
       <div>
-        <span class="pill">Free static site · no backend · ad-ready</span>
-        <h1>Useful UK calculators people can search, use and share.</h1>
-        <p>Quick checks for bills, rent, moving costs, subscriptions, broadband, TV upgrades, fuel, caravans and everyday household money decisions.</p>
+        <span class="pill">No signup · instant answers</span>
+        <h1>Quick calculators for real UK costs.</h1>
+        <p>Check bills, rent, moving costs, broadband, subscriptions, phone contracts, fuel and caravan costs without hunting through spreadsheets.</p>
         <div class="hero-actions">
-          <a class="button primary" href="#tools">Open calculators</a>
-          <a class="button soft" href="#guides">Read guides</a>
+          <a class="button primary" href="#tools">Use the calculators</a>
+          <a class="button soft" href="#guides">Read quick guides</a>
         </div>
       </div>
-      <aside class="hero-card">
-        <h2>Built to be lightweight</h2>
-        <ul>
-          <li>Works on GitHub Pages</li>
-          <li>Works on Cloudflare Pages</li>
-          <li>Advertising areas are ready for your approved ad network</li>
-          <li>No database or paid API required</li>
-        </ul>
+      <aside class="hero-card helpful-card">
+        <h2>Not sure of the figures?</h2>
+        <p>Many tools include presets, rough estimates and plain-English results so you can still get a useful answer.</p>
       </aside>
-    </section>
-
-    <section class="ad-slot" aria-label="advertising area">
-      <span>Advertising area</span>
-      <p>This space is reserved for your approved display ads.</p>
     </section>
 
     <section id="tools" class="section">
       <div class="section-head">
         <div>
-          <h2>All calculators and checkers</h2>
-          <p>Choose a tool, enter your figures, and get a rough answer instantly.</p>
+          <h2>Calculators and checkers</h2>
+          <p>Pick a tool. Use the presets if you do not know every exact number.</p>
         </div>
         <input id="searchBox" class="search" placeholder="Search calculators..." />
       </div>
       <div id="toolGrid" class="tool-grid">
-        <button class="tool-card" type="button" data-id="electricity"><span>⚡</span><b>Electricity Running Cost</b><em class="category">Energy</em><p>Estimate appliance running costs from watts, hours and kWh price.</p></button>
-        <button class="tool-card" type="button" data-id="rent"><span>🏠</span><b>Rent Affordability</b><em class="category">Housing</em><p>Check rent and bills against monthly income.</p></button>
-        <button class="tool-card" type="button" data-id="moving"><span>📦</span><b>Moving Cost</b><em class="category">Housing</em><p>Estimate deposit, first rent, removals and setup costs.</p></button>
-        <button class="tool-card" type="button" data-id="broadband"><span>📡</span><b>Broadband Speed Needs</b><em class="category">Tech</em><p>Estimate sensible broadband speed for your home.</p></button>
-        <button class="tool-card" type="button" data-id="phone"><span>📱</span><b>Phone Contract Total Cost</b><em class="category">Tech</em><p>See the full cost of a phone contract.</p></button>
-        <button class="tool-card" type="button" data-id="subscriptions"><span>🧾</span><b>Subscription Cost</b><em class="category">Money</em><p>Add up monthly and yearly subscriptions.</p></button>
-        <button class="tool-card" type="button" data-id="caravan"><span>🏕️</span><b>Static Caravan Yearly Cost</b><em class="category">Lifestyle</em><p>Estimate annual static caravan ownership costs.</p></button>
-        <button class="tool-card" type="button" data-id="fuel"><span>⛽</span><b>Fuel Trip Cost</b><em class="category">Travel</em><p>Estimate petrol or diesel trip costs.</p></button>
+        <button class="tool-card" type="button" data-id="electricity"><span>⚡</span><b>Appliance Running Cost</b><em class="category">Bills</em><p>Pick an appliance and estimate running costs.</p></button>
+        <button class="tool-card" type="button" data-id="rent"><span>🏠</span><b>Rent Affordability Check</b><em class="category">Housing</em><p>Check rent against income and rough essentials.</p></button>
+        <button class="tool-card" type="button" data-id="moving"><span>📦</span><b>Moving Money Needed</b><em class="category">Housing</em><p>Estimate deposit, first rent and setup costs.</p></button>
+        <button class="tool-card" type="button" data-id="broadband"><span>📡</span><b>Broadband Speed Needed</b><em class="category">Tech</em><p>Estimate the speed your home may need.</p></button>
       </div>
     </section>
 
@@ -75,14 +61,14 @@
     </section>
 
     <section id="guides" class="section">
-      <div class="section-head"><h2>Useful guides</h2><p>Short evergreen pages to grow into proper search landing pages.</p></div>
+      <div class="section-head"><h2>Quick guides</h2><p>Short pages that explain common UK costs in plain English.</p></div>
       <div class="guide-grid">
-        <a href="guides/cheap-hosting.html">How to host this site free</a>
-        <a href="guides/adsense-setup.html">Where to place ads safely</a>
         <a href="guides/uk-household-costs.html">UK household cost checklist</a>
         <a href="guides/static-caravan-costs.html">Static caravan ownership costs</a>
         <a href="guides/broadband-speed.html">Broadband speed explained</a>
         <a href="guides/moving-house-costs.html">Moving house cost checklist</a>
+        <a href="guides/cheap-hosting.html">How this site can be hosted cheaply</a>
+        <a href="guides/adsense-setup.html">Advertising setup notes</a>
       </div>
     </section>
   </main>
@@ -95,6 +81,6 @@
     <span>© QuickCheck UK</span>
   </footer>
 
-  <script src="assets/app.js?v=4" defer></script>
+  <script src="assets/app.js?v=5" defer></script>
 </body>
 </html>

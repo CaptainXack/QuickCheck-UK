@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Feedback - QuickCheck UK</title>
+  <meta name="description" content="Send QuickCheck UK feedback, report calculator issues, suggest improvements and include automatic debug information." />
+  <meta name="theme-color" content="#07111f" />
+  <link rel="manifest" href="site.webmanifest" />
+  <link rel="icon" href="assets/icon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="assets/styles.css?v=10" />
+  <link rel="stylesheet" href="assets/pro-app.css?v=2" />
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="./"><span class="logo">QC</span><span><strong>QuickCheck UK</strong><small>Feedback</small></span></a>
+    <nav class="topnav"><a href="./">Home</a><a href="calculator-directory.html">Directory</a><a href="contact.html">Contact</a></nav>
+  </header>
+
+  <main class="app-home">
+    <section class="app-hero">
+      <div class="app-panel">
+        <span class="app-kicker">Feedback and debug</span>
+        <h1 class="app-title">Tell us what needs fixing.</h1>
+        <p class="app-subtitle">Open a prefilled email with the page, device details and debug report already included in the message body.</p>
+        <div class="app-chip-row">
+          <button class="primary" id="openFeedbackEmail" type="button">Open email with debug info</button>
+          <button class="soft" id="copyDebug" type="button">Copy debug info</button>
+          <button class="soft" id="downloadDebug" type="button">Download debug file</button>
+        </div>
+      </div>
+      <div class="app-panel">
+        <div class="app-section-title"><div><h2>How it works</h2><p>Browsers do not allow websites to secretly attach files to emails. This page safely adds the debug text into the email and lets the user download or share a debug file.</p></div></div>
+        <div class="app-chip-row">
+          <button class="soft" id="shareDebug" type="button">Share debug file</button>
+          <button class="soft" id="refreshDebug" type="button">Refresh debug preview</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="app-panel">
+      <div class="app-section-title"><div><h2>Feedback details</h2><p>Fill in what you can. The email will include a friendly template.</p></div></div>
+      <form class="feedback-form" onsubmit="return false">
+        <label>Feedback type
+          <select id="feedbackType">
+            <option>General feedback</option>
+            <option>Calculator issue</option>
+            <option>Design improvement</option>
+            <option>New calculator idea</option>
+            <option>Advertising query</option>
+          </select>
+        </label>
+        <label>Page or calculator
+          <input id="feedbackPage" type="text" value="" />
+        </label>
+        <label>Your message
+          <textarea id="feedbackMessage" placeholder="Please add your feedback, the error you noticed, or your improvement idea here..."></textarea>
+        </label>
+      </form>
+    </section>
+
+    <section class="app-panel">
+      <div class="app-section-title"><div><h2>Debug preview</h2><p>This is the safe technical info that will be included. It does not include passwords or private files.</p></div></div>
+      <textarea id="debugPreview" class="debug-box" readonly></textarea>
+    </section>
+  </main>
+
+  <nav class="app-quickbar" aria-label="Quick app navigation">
+    <a href="./"><span>🏠</span>Home</a>
+    <a href="calculator-directory.html"><span>🧭</span>Tools</a>
+    <a href="feedback.html"><span>💬</span>Feedback</a>
+    <button type="button" id="qcShareAppBtn"><span>📤</span>Share</button>
+  </nav>
+
+  <footer class="footer"><a href="./">Home</a><a href="calculator-directory.html">Directory</a><a href="contact.html">Contact</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a></footer>
+  <script src="assets/feedback.js?v=1" defer></script>
+  <script src="assets/pwa.js?v=5" defer></script>
+</body>
+</html>

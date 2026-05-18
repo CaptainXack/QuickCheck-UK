@@ -168,28 +168,33 @@ document.addEventListener('DOMContentLoaded', () => {
   if (autoTool) setTimeout(() => openTool(autoTool), 80);
 });
 
-(function qcLoadMoneyProfileEverywhere(){
-  if (window.qcProfileCoreRequested || typeof qcProfileApplyToForm === 'function') return;
-  window.qcProfileCoreRequested = true;
+function qcLoadScriptOnce(flag, src, onload) {
+  if (window[flag]) return;
+  window[flag] = true;
   const script = document.createElement('script');
-  script.src = 'assets/profile-core.js?v=2';
+  script.src = src;
   script.defer = true;
-  script.onload = () => {
+  if (onload) script.onload = onload;
+  document.head.appendChild(script);
+}
+function qcLoadCssOnce(id, href) {
+  if (document.getElementById(id)) return;
+  const css = document.createElement('link');
+  css.id = id;
+  css.rel = 'stylesheet';
+  css.href = href;
+  document.head.appendChild(css);
+}
+
+(function qcLoadSmartModulesEverywhere(){
+  qcLoadScriptOnce('qcProfileCoreRequested','assets/profile-core.js?v=2',() => {
     const autoTool = document.body?.dataset?.openTool;
     if (autoTool && typeof qcProfileApplyToForm === 'function') setTimeout(() => qcProfileApplyToForm(autoTool), 250);
-  };
-  document.head.appendChild(script);
-})();
-
-(function qcLoadSmartResults(){
-  if (window.qcSmartResultsRequested) return;
-  window.qcSmartResultsRequested = true;
-  const css = document.createElement('link');
-  css.rel = 'stylesheet';
-  css.href = 'assets/smart-results.css?v=1';
-  document.head.appendChild(css);
-  const script = document.createElement('script');
-  script.src = 'assets/smart-results.js?v=1';
-  script.defer = true;
-  document.head.appendChild(script);
+  });
+  qcLoadCssOnce('qcSmartResultsCss','assets/smart-results.css?v=1');
+  qcLoadScriptOnce('qcSmartResultsRequested','assets/smart-results.js?v=1');
+  qcLoadScriptOnce('qcSavedCalcsRequested','assets/saved-calcs.js?v=1');
+  qcLoadScriptOnce('qcRecentToolsRequested','assets/recent-tools.js?v=1');
+  qcLoadCssOnce('qcPrivacyModeCss','assets/privacy-mode.css?v=1');
+  qcLoadScriptOnce('qcPrivacyModeRequested','assets/privacy-mode.js?v=1');
 })();

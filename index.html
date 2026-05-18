@@ -13,7 +13,7 @@
   <link rel="stylesheet" href="assets/styles.css?v=10" />
   <link rel="stylesheet" href="assets/ads.css?v=1" />
   <link rel="stylesheet" href="assets/app-mode.css?v=2" />
-  <link rel="stylesheet" href="assets/pro-app.css?v=2" />
+  <link rel="stylesheet" href="assets/pro-app.css?v=3" />
 </head>
 <body>
   <header class="topbar">
@@ -37,14 +37,16 @@
         <p class="app-subtitle">Search a cost, bill or money question and jump straight to the right calculator.</p>
         <div class="app-search">
           <span class="app-search-icon">🔎</span>
-          <input id="homeSearchInput" placeholder="Try rent, fuel, electric, school, phone..." autocomplete="off" />
+          <input id="homeSearchInput" placeholder="Try rent, fuel, electricity, school, phone..." autocomplete="off" />
           <button class="primary" id="homeSearchBtn" type="button">Search</button>
         </div>
+        <div id="searchSuggestions" class="search-suggestions" aria-label="Search suggestions"></div>
+        <div class="trust-line"><span>Rough estimates only</span><span>No signup</span><span>No personal data needed</span></div>
         <div class="app-chip-row">
           <a href="budget-planner.html">Budget</a>
           <a href="rent-affordability-calculator.html">Rent</a>
-          <a href="electricity-running-cost-calculator.html">Electric</a>
-          <a href="fuel-cost-calculator.html">Fuel</a>
+          <a href="electricity-running-cost-calculator.html">Electricity</a>
+          <a href="fuel-cost-calculator.html">Fuel cost</a>
           <a href="calculator-directory.html">All tools</a>
         </div>
       </div>
@@ -53,13 +55,23 @@
         <div class="app-feature-grid">
           <a class="app-feature" href="budget-planner.html"><span>📊</span><b>Budget Planner</b><small>Income, bills and leftover money</small></a>
           <a class="app-feature" href="rent-affordability-calculator.html"><span>🏠</span><b>Rent Check</b><small>See if rent is workable</small></a>
-          <a class="app-feature" href="electricity-running-cost-calculator.html"><span>⚡</span><b>Electric Cost</b><small>Appliance running costs</small></a>
+          <a class="app-feature" href="electricity-running-cost-calculator.html"><span>⚡</span><b>Electricity Cost</b><small>Appliance running costs</small></a>
           <a class="app-feature" href="fuel-cost-calculator.html"><span>⛽</span><b>Fuel Cost</b><small>Trip and mileage estimates</small></a>
         </div>
       </div>
     </section>
 
     <div data-ad-slot="home-top"></div>
+
+    <section class="app-panel">
+      <div class="app-section-title"><div><h2>Useful for</h2><p>Quick checks for everyday situations.</p></div></div>
+      <div class="for-grid">
+        <div class="for-pill"><b>Students</b><small>Budget rent, food and travel.</small></div>
+        <div class="for-pill"><b>Families</b><small>Plan bills, school costs and food.</small></div>
+        <div class="for-pill"><b>Drivers</b><small>Estimate fuel, parking and trips.</small></div>
+        <div class="for-pill"><b>Shoppers</b><small>Compare deals and unit prices.</small></div>
+      </div>
+    </section>
 
     <section class="app-panel">
       <div class="app-section-title">
@@ -71,7 +83,7 @@
         <a class="app-card" href="school-uniform-budget-calculator.html"><span>🎒</span><b>School Costs</b><small>Uniform and family planning</small></a>
         <a class="app-card" href="sim-only-vs-contract-calculator.html"><span>📱</span><b>SIM vs Contract</b><small>Compare phone costs</small></a>
         <a class="app-card" href="tumble-dryer-cost-calculator.html"><span>🧺</span><b>Tumble Dryer</b><small>Laundry energy cost</small></a>
-        <a class="app-card" href="multi-buy-deal-calculator.html"><span>🛒</span><b>Deal Checker</b><small>Check if offers are cheaper</small></a>
+        <a class="app-card" href="multi-buy-deal-calculator.html"><span>🛒</span><b>Deal checker</b><small>Check if offers are cheaper</small></a>
         <a class="app-card" href="standard-calculator.html"><span>🧮</span><b>Standard Calculator</b><small>Simple quick sums</small></a>
         <a class="app-card" href="distance-calculator.html"><span>🗺️</span><b>Distance</b><small>Place-to-place estimates</small></a>
         <a class="app-card" href="feedback.html"><span>💬</span><b>Feedback</b><small>Send ideas or report issues</small></a>
@@ -106,7 +118,7 @@
       </div>
       <div class="app-panel">
         <div class="app-section-title"><div><h2>Keep improving it</h2><p>Found a broken result or want a new calculator?</p></div></div>
-        <p class="app-subtitle">Feedback opens your email app and sends the message straight through.</p>
+        <p class="app-subtitle">Send feedback with the page details included, so it is easier to fix.</p>
         <div class="app-chip-row">
           <a href="feedback.html">Send feedback</a>
           <a href="support.html">Tip on Ko-fi</a>
@@ -138,7 +150,7 @@
     <span>© QuickCheck UK</span>
   </footer>
 
-  <script src="assets/home-routes.js?v=1" defer></script>
+  <script src="assets/home-routes.js?v=2" defer></script>
   <script src="assets/pwa.js?v=5" defer></script>
   <script src="assets/ads.js?v=1" defer></script>
   <script src="assets/mobile-polish.js?v=1" defer></script>

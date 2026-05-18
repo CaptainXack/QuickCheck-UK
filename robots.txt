@@ -1,3 +1,4 @@
 User-agent: *
 Allow: /
+
 Sitemap: https://captainxack.github.io/QuickCheck-UK/sitemap.xml

@@ -1,8 +1,9 @@
-const CACHE_NAME = 'quickcheck-uk-v21';
+const CACHE_NAME = 'quickcheck-uk-v22';
 const BASE = '/QuickCheck-UK/';
 const APP_SHELL = [
   BASE,
   BASE + 'index.html',
+  BASE + 'guides.html',
   BASE + 'calculator-directory.html',
   BASE + 'standard-calculator.html',
   BASE + 'budget-planner.html',
@@ -13,10 +14,16 @@ const APP_SHELL = [
   BASE + 'subscription-cost-calculator.html',
   BASE + 'feedback.html',
   BASE + 'support.html',
+  BASE + 'guides/how-to-budget-when-paid-weekly.html',
+  BASE + 'guides/how-to-budget-when-paid-monthly.html',
+  BASE + 'guides/track-bills-before-payday.html',
+  BASE + 'guides/money-left-after-bills.html',
+  BASE + 'guides/save-weekly-from-monthly-income.html',
+  BASE + 'guides/reduce-subscription-costs.html',
   BASE + 'assets/styles.css?v=10',
   BASE + 'assets/pro-app.css?v=5',
   BASE + 'assets/app-mode.css?v=2',
-  BASE + 'assets/pwa.js?v=16',
+  BASE + 'assets/pwa.js?v=17',
   BASE + 'assets/app.js?v=8',
   BASE + 'assets/enhance.js?v=8',
   BASE + 'assets/home-routes.js?v=3',
@@ -43,8 +50,9 @@ const APP_SHELL = [
   BASE + 'assets/data-manager.js?v=2',
   BASE + 'assets/insights.css?v=1',
   BASE + 'assets/insights.js?v=1',
-  BASE + 'assets/ads.css?v=1',
-  BASE + 'assets/ads.js?v=1',
+  BASE + 'assets/ads.css?v=2',
+  BASE + 'assets/ads.js?v=2',
+  BASE + 'assets/ad-layout.js?v=1',
   BASE + 'assets/icon.svg',
   BASE + 'site.webmanifest',
   BASE + 'version.json'

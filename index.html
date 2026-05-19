@@ -1,152 +1,55 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>QuickCheck UK - Free UK Calculators for Bills, Budgets and Everyday Costs</title>
-  <meta name="description" content="Free UK calculators for bills, budgets, rent, travel, shopping, work, family costs and everyday money decisions." />
-  <meta name="theme-color" content="#07111f" />
-  <link rel="canonical" href="https://captainxack.github.io/QuickCheck-UK/" />
-  <link rel="manifest" href="site.webmanifest" />
-  <link rel="icon" href="assets/icon.svg" type="image/svg+xml" />
-  <link rel="apple-touch-icon" href="assets/icon.svg" />
-  <link rel="stylesheet" href="assets/styles.css?v=10" />
-  <link rel="stylesheet" href="assets/ads.css?v=1" />
-  <link rel="stylesheet" href="assets/app-mode.css?v=2" />
-  <link rel="stylesheet" href="assets/pro-app.css?v=5" />
-  <link rel="stylesheet" href="assets/onboarding.css?v=1" />
-  <link rel="stylesheet" href="assets/home-dashboard.css?v=1" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>QuickCheck UK - Smart Budget Tracker and Money Tools</title>
+  <meta name="description" content="QuickCheck UK is a smart budget tracker and money app for bills, payday planning, savings tools and short UK money guides.">
+  <meta name="theme-color" content="#f7fcff">
+  <link rel="canonical" href="https://captainxack.github.io/QuickCheck-UK/">
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="assets/icon.svg">
+  <link rel="stylesheet" href="assets/orbit-carousel.css?v=1">
+  <link rel="stylesheet" href="assets/orbit-carousel-smooth.css?v=1">
+  <link rel="stylesheet" href="assets/orbit-app-shell.css?v=1">
 </head>
-<body>
-  <header class="topbar">
-    <a class="brand" href="./" aria-label="QuickCheck UK home">
-      <span class="logo">QC</span>
-      <span><strong>QuickCheck UK</strong><small>Fast UK cost tools</small></span>
-    </a>
-    <nav class="topnav">
-      <a href="money-profile.html">Money Profile</a>
-      <a href="insights.html">Insights</a>
-      <a href="bill-calendar.html">Bill Calendar</a>
-      <a href="data-manager.html">Data Manager</a>
-      <a href="calculator-directory.html">Directory</a>
-      <a href="feedback.html">Feedback</a>
-      <a href="support.html">Support</a>
-      <a href="privacy.html">Privacy</a>
-    </nav>
-  </header>
+<body class="orbit-body">
+  <main class="orbit-shell">
+    <header class="orbit-top">
+      <a class="orbit-back" href="calculator-directory.html">Tools</a>
+      <div class="orbit-brand"><span class="orbit-logo">QC</span><span><b>QuickCheck UK</b><small>smart money app</small></span></div>
+    </header>
 
-  <main class="launcher-home">
-    <section class="launcher-hero">
-      <span class="launcher-kicker">Free · UK-focused · no signup</span>
-      <h1 class="launcher-title">What do you want to check?</h1>
-      <p class="launcher-subtitle">Search rent, bills, fuel, budget, school costs, phone contracts or everyday money questions.</p>
-      <div class="launcher-search">
-        <span class="launcher-search-icon">🔎</span>
-        <input id="homeSearchInput" placeholder="Search anything..." autocomplete="off" />
-        <button class="primary" id="homeSearchBtn" type="button">Search</button>
+    <section class="orbit-stage" id="orbitStage">
+      <div class="orbit-scene" aria-live="polite">
+        <div class="orbit-rings"></div>
+        <i class="orb-sphere s1"></i><i class="orb-sphere s2"></i><i class="orb-sphere s3"></i><i class="orb-sphere s4"></i>
+        <article class="orbit-card active" data-mode="home">
+          <div><span class="orbit-kicker">Home</span><h1>Money orbit</h1><div class="orbit-value" id="homeValue">Set up</div><p class="orbit-sub">Swipe the centre. Tap to open the next action.</p><div class="orbit-pills" id="homePills"></div></div>
+        </article>
+        <article class="orbit-card" data-mode="money">
+          <div><span class="orbit-kicker">Money</span><h1>Money pulse</h1><div class="orbit-value" id="moneyValue">£0.00</div><p class="orbit-sub">Income, outgoings and what is left.</p><div class="orbit-pills" id="moneyPills"></div></div>
+        </article>
+        <article class="orbit-card" data-mode="tracker">
+          <div><span class="orbit-kicker">Tracker</span><h1>Payment river</h1><div class="orbit-value" id="trackerValue">£0.00</div><p class="orbit-sub">Bills due before payday.</p><div class="orbit-pills" id="trackerPills"></div></div>
+        </article>
+        <article class="orbit-card" data-mode="tools">
+          <div><span class="orbit-kicker">Tools</span><h1>Pick a tool</h1><div class="orbit-value">🧮</div><p class="orbit-sub">Budget, weekly money, subscriptions and savings.</p><div class="orbit-pills"><span>Budget</span><span>Weekly</span><span>Subs</span></div></div>
+        </article>
+        <article class="orbit-card" data-mode="guides">
+          <div><span class="orbit-kicker">Guides</span><h1>Learn fast</h1><div class="orbit-value">📚</div><p class="orbit-sub">Short money guides without the wall of text.</p><div class="orbit-pills"><span>Weekly</span><span>Monthly</span><span>Before payday</span></div></div>
+        </article>
+        <div class="orbit-hint">Swipe centre</div>
       </div>
-      <div id="searchSuggestions" class="search-suggestions" aria-label="Search suggestions"></div>
-      <div class="trust-line"><span>Rough estimates only</span><span>No signup</span><span>No personal data needed</span></div>
-      <div class="quick-actions" aria-label="Popular quick actions">
-        <a href="money-profile.html">Set up Money Profile</a>
-        <a href="insights.html">Smart Insights</a>
-        <a href="bill-calendar.html">Bill Calendar</a>
-        <a href="budget-planner.html">Budget Planner</a>
-        <a href="rent-affordability-calculator.html">Rent Check</a>
-        <a href="electricity-running-cost-calculator.html">Electricity Cost</a>
-        <a href="fuel-cost-calculator.html">Fuel Cost</a>
-        <a href="calculator-directory.html">All Tools</a>
+
+      <div class="orbit-actions">
+        <div class="orbit-buttons" id="orbitActions"></div>
       </div>
-    </section>
-
-    <section class="section-strip home-dashboard" id="homeDashboard"></section>
-
-    <div data-ad-slot="home-top"></div>
-
-    <section class="section-strip support-panel">
-      <div><h2>Your Money Profile</h2><p>Enter income, regular outgoings and bill dates once. QuickCheck can use those figures for smarter insights, payday planning and more useful calculator results.</p></div>
-      <div class="quick-actions"><a href="money-profile.html">Create profile</a><a href="insights.html">View insights</a><a href="bill-calendar.html">Plan bills</a><a href="data-manager.html">Back up data</a></div>
-    </section>
-
-    <section class="section-strip">
-      <div class="strip-head"><div><h2>I’m trying to...</h2><p>Pick the situation, not the calculator name.</p></div></div>
-      <div class="situation-grid">
-        <a class="situation-button" href="money-profile.html"><span>💷</span><span><b>Map my money</b><small>Income, outgoings and what is left</small></span></a>
-        <a class="situation-button" href="insights.html"><span>🧠</span><span><b>Get smart insights</b><small>Pressure points, quick wins and next steps</small></span></a>
-        <a class="situation-button" href="bill-calendar.html"><span>📅</span><span><b>Plan bills before payday</b><small>Upcoming bills, biggest bill week and safe spend</small></span></a>
-        <a class="situation-button" href="data-manager.html"><span>🗃️</span><span><b>Back up app data</b><small>Export, restore or clear local QuickCheck data</small></span></a>
-        <a class="situation-button" href="money-calculators.html"><span>💷</span><span><b>Save money</b><small>Budgets, bills, deals and savings goals</small></span></a>
-        <a class="situation-button" href="travel-calculators.html"><span>🚗</span><span><b>Plan travel</b><small>Fuel, distance, commute and journey costs</small></span></a>
-      </div>
-    </section>
-
-    <section class="section-strip">
-      <div class="strip-head"><div><h2>Tool launcher</h2><p>Rows are faster than a wall of cards. Start what you need.</p></div><a class="button soft" href="calculator-directory.html">Full directory</a></div>
-      <div class="tool-board">
-        <div class="tool-group"><h3>Money</h3>
-          <a class="tool-row" href="money-profile.html"><span><b>Money Profile</b><small>Save income and regular outgoings on this device</small></span><span class="start-link">Set up →</span></a>
-          <a class="tool-row" href="insights.html"><span><b>Smart Insights</b><small>Pressure points, quick wins and action plan</small></span><span class="start-link">View →</span></a>
-          <a class="tool-row" href="bill-calendar.html"><span><b>Bill Calendar</b><small>Plan upcoming bills around payday</small></span><span class="start-link">Plan →</span></a>
-          <a class="tool-row" href="data-manager.html"><span><b>Data Manager</b><small>Export, restore or clear local app data</small></span><span class="start-link">Open →</span></a>
-          <a class="tool-row" href="budget-planner.html"><span><b>Budget Planner</b><small>Income, bills and leftover money</small></span><span class="start-link">Start →</span></a>
-        </div>
-        <div class="tool-group"><h3>Home and bills</h3>
-          <a class="tool-row" href="rent-affordability-calculator.html"><span><b>Rent Check</b><small>Check rent against income and bills</small></span><span class="start-link">Start →</span></a>
-          <a class="tool-row" href="electricity-running-cost-calculator.html"><span><b>Electricity Cost</b><small>Estimate appliance running costs</small></span><span class="start-link">Start →</span></a>
-          <a class="tool-row" href="council-tax-monthly-calculator.html"><span><b>Council Tax Monthly</b><small>Split yearly council tax into months</small></span><span class="start-link">Start →</span></a>
-        </div>
-        <div class="tool-group"><h3>Travel and shopping</h3>
-          <a class="tool-row" href="fuel-cost-calculator.html"><span><b>Fuel Cost</b><small>Estimate petrol or diesel for a journey</small></span><span class="start-link">Start →</span></a>
-          <a class="tool-row" href="distance-calculator.html"><span><b>Distance Calculator</b><small>Place-to-place distance and route estimate</small></span><span class="start-link">Start →</span></a>
-          <a class="tool-row" href="multi-buy-deal-calculator.html"><span><b>Deal Checker</b><small>See if a multi-buy is actually cheaper</small></span><span class="start-link">Start →</span></a>
-        </div>
-      </div>
-    </section>
-
-    <div data-ad-slot="home-middle"></div>
-
-    <section class="section-strip">
-      <div class="strip-head"><div><h2>Helpful guides</h2><p>Short pages that answer common cost questions.</p></div></div>
-      <a class="guide-row" href="guides/weekly-budget-from-monthly-income.html"><span><b>Weekly budget from monthly income</b><small>Simple method for payday planning</small></span><span class="start-link">Read →</span></a>
-      <a class="guide-row" href="guides/electric-heater-running-cost.html"><span><b>Electric heater running cost</b><small>Watts, hours and unit rates explained</small></span><span class="start-link">Read →</span></a>
-      <a class="guide-row" href="guides/check-if-rent-is-affordable.html"><span><b>Check if rent is affordable</b><small>Rent plus bills, food and travel</small></span><span class="start-link">Read →</span></a>
-      <a class="guide-row" href="guides/multibuy-deals.html"><span><b>Are multi-buys cheaper?</b><small>Compare price per item before buying</small></span><span class="start-link">Read →</span></a>
-    </section>
-
-    <section class="section-strip support-panel">
-      <div><h2>Help improve QuickCheck</h2><p>Found a broken result or want a new calculator? Send feedback with page details included. You can also support the site on Ko-fi.</p></div>
-      <div class="quick-actions"><a href="feedback.html">Send feedback</a><a href="support.html">Tip on Ko-fi</a><button class="soft" type="button" data-share-app>Share site</button><button class="soft" type="button" data-install-app hidden>Install app</button></div>
     </section>
   </main>
 
-  <nav class="app-quickbar" aria-label="Quick app navigation">
-    <a href="./"><span>🏠</span>Home</a>
-    <a href="calculator-directory.html"><span>🧭</span>Tools</a>
-    <a href="money-profile.html"><span>💷</span>Profile</a>
-    <button type="button" id="qcShareAppBtn"><span>📤</span>Share</button>
-  </nav>
-
-  <footer class="footer">
-    <a href="money-profile.html">Money Profile</a>
-    <a href="insights.html">Insights</a>
-    <a href="bill-calendar.html">Bill Calendar</a>
-    <a href="data-manager.html">Data Manager</a>
-    <a href="calculator-directory.html">Directory</a>
-    <a href="about.html">About</a>
-    <a href="contact.html">Contact</a>
-    <a href="feedback.html">Feedback</a>
-    <a href="support.html">Support</a>
-    <a href="privacy.html">Privacy</a>
-    <a href="terms.html">Terms</a>
-    <a href="advertising.html">Advertising</a>
-    <span>© QuickCheck UK</span>
-  </footer>
-
-  <script src="assets/home-routes.js?v=2" defer></script>
-  <script src="assets/home-dashboard.js?v=1" defer></script>
-  <script src="assets/pwa.js?v=5" defer></script>
-  <script src="assets/ads.js?v=1" defer></script>
-  <script src="assets/onboarding.js?v=1" defer></script>
-  <script src="assets/mobile-polish.js?v=1" defer></script>
+  <script src="assets/orbit-carousel.js?v=1" defer></script>
+  <script src="assets/orbit-app-shell.js?v=1" defer></script>
 </body>
 </html>

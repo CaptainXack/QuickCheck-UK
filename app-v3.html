@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="assets/app-v3-ads.css?v=1">
   <link rel="stylesheet" href="assets/app-v3-fit.css?v=1">
   <link rel="stylesheet" href="assets/app-v3-motion.css?v=1">
+  <link rel="stylesheet" href="assets/app-v3-carousel.css?v=1">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6774225609816080" crossorigin="anonymous"></script>
 </head>
 <body class="qcv3-body">
@@ -26,7 +27,7 @@
       <div class="qcv3-pulse">
         <div class="qcv3-orbit-track"><i></i><i></i><i></i></div>
         <div class="qcv3-ring"></div>
-        <div class="qcv3-core">
+        <div class="qcv3-core" id="orbitCore">
           <div class="qcv3-core-inner">
             <span id="coreKicker">Home</span>
             <h1 id="coreTitle">Money orbit</h1>
@@ -84,10 +85,11 @@
     </div>
   </main>
 
-  <nav class="qcv3-bottom"><button data-mode="home" class="active">Home</button><button data-mode="money">Money</button><button data-mode="tracker">Tracker</button><button data-mode="tools">Tools</button><button data-mode="guides">Guides</button></nav>
+  <nav class="qcv3-bottom"><button data-mode="home" class="active"><span>🏠</span><small>Home</small></button><button data-mode="money"><span>💷</span><small>Money</small></button><button data-mode="tracker"><span>📅</span><small>Track</small></button><button data-mode="tools"><span>🧮</span><small>Tools</small></button><button data-mode="guides"><span>📚</span><small>Guides</small></button></nav>
 
   <script>
     const F={weekly:52/12,fortnightly:26/12,fourweekly:13/12,monthly:1,yearly:1/12};
+    const modes=['home','money','tracker','tools','guides'];
     const money=n=>new Intl.NumberFormat('en-GB',{style:'currency',currency:'GBP'}).format(Number(n)||0);
     const read=(k,f)=>{try{return JSON.parse(localStorage.getItem(k)||JSON.stringify(f))}catch{return f}};
     const today=()=>{const d=new Date();d.setHours(0,0,0,0);return d};
@@ -97,10 +99,16 @@
     function profile(){const p=read('qc_money_profile_v1',null);if(!p)return null;const income=Array.isArray(p.incomeSources)&&p.incomeSources.length?p.incomeSources.reduce((a,b)=>a+(Number(b.amount)||0)*(F[b.frequency]||1),0):Number(p.income)||0;const out=Object.values(p.outgoings||{}).reduce((a,b)=>a+(Number(b)||0),0)+(p.custom||[]).reduce((a,b)=>a+(Number(b.amount)||0),0);return {income,out,left:income-out,week:(income-out)*12/52}}
     function items(){const t=read('qc_bill_calendar_v2',{payday:28,items:[]});return (t.items||[]).map(x=>{let d=x.nextDate?new Date(x.nextDate):forDay(x.day||1);while(d<today())d=add(d,x.frequency||'monthly');return {...x,next:d}}).sort((a,b)=>a.next-b.next)}
     let state={p:null,all:[],before:[],inc:null,pay:null,total:0};
-    function render(){const p=profile(),all=items(),tracker=read('qc_bill_calendar_v2',{payday:28}),pay=forDay(tracker.payday||28),inc=all.find(x=>x.type==='income'),before=all.filter(x=>x.type!=='income'&&x.next<=pay),total=before.reduce((a,b)=>a+(Number(b.amount)||0),0);state={p,all,before,inc,pay,total};safeSpend.textContent=p?money(Math.max(0,p.week)):'Set up';nodeMoney.textContent=p?money(Math.max(0,p.week))+'/week':'setup';nodeTracker.textContent=before.length+' due';nextIncome.textContent=inc?dateText(inc.next):dateText(pay);beforePayday.textContent=money(total);moneyMetrics.innerHTML=['Income|'+(p?money(p.income):'£0.00'),'Outgoings|'+(p?money(p.out):'£0.00'),'Left|'+(p?money(p.left):'£0.00')].map(x=>{const [s,b]=x.split('|');return '<div class="qcv3-micro"><b>'+b+'</b><small>'+s+'</small></div>'}).join('');const drop=x=>'<div class="qcv3-drop"><b>'+(x.type==='income'?'Income: ':'')+x.name+'</b><small>'+money(x.amount)+' · '+dateText(x.next)+'</small></div>';paymentRiver.innerHTML=all.slice(0,5).map(drop).join('')||'<div class="qcv3-drop"><b>No payments yet</b><small>Add income and bills.</small></div>';setCore('home')}
-    function setCore(name){const p=state.p,before=state.before,inc=state.inc,pay=state.pay,total=state.total;const map={home:['Home','Money orbit',p?money(Math.max(0,p.week)):'Set up','Safe weekly spend',[before.length+' bills',money(total)+' due']],money:['Money','Money pulse',p?money(p.left):'£0.00','Left each month',[p?money(p.income):'£0 income',p?money(p.out):'£0 bills']],tracker:['Tracker','Payment river',money(total),'Due before payday',[before.length+' payments',inc?dateText(inc.next):dateText(pay)]],tools:['Tools','Sliding shelves','Pick a tool','Swipe the shelf',['Budget','Savings']],guides:['Guides','Guides path','Learn fast','Short answers',['Weekly','Monthly']]};const m=map[name]||map.home;coreKicker.textContent=m[0];coreTitle.textContent=m[1];coreValue.textContent=m[2];coreCopy.textContent=m[3];coreMeta.innerHTML=m[4].map(x=>'<small>'+x+'</small>').join('')}
-    function go(name){document.querySelectorAll('.qcv3-mode').forEach(x=>x.classList.toggle('active',x.id==='mode-'+name));document.querySelectorAll('[data-mode]').forEach(x=>x.classList.toggle('active',x.dataset.mode===name));setCore(name)}
-    document.querySelectorAll('[data-mode]').forEach(b=>b.addEventListener('click',()=>go(b.dataset.mode)));render();
+    let activeMode='home';
+    function render(){const p=profile(),all=items(),tracker=read('qc_bill_calendar_v2',{payday:28}),pay=forDay(tracker.payday||28),inc=all.find(x=>x.type==='income'),before=all.filter(x=>x.type!=='income'&&x.next<=pay),total=before.reduce((a,b)=>a+(Number(b.amount)||0),0);state={p,all,before,inc,pay,total};safeSpend.textContent=p?money(Math.max(0,p.week)):'Set up';nodeMoney.textContent=p?money(Math.max(0,p.week))+'/week':'setup';nodeTracker.textContent=before.length+' due';nextIncome.textContent=inc?dateText(inc.next):dateText(pay);beforePayday.textContent=money(total);moneyMetrics.innerHTML=['Income|'+(p?money(p.income):'£0.00'),'Outgoings|'+(p?money(p.out):'£0.00'),'Left|'+(p?money(p.left):'£0.00')].map(x=>{const [s,b]=x.split('|');return '<div class="qcv3-micro"><b>'+b+'</b><small>'+s+'</small></div>'}).join('');const drop=x=>'<div class="qcv3-drop"><b>'+(x.type==='income'?'Income: ':'')+x.name+'</b><small>'+money(x.amount)+' · '+dateText(x.next)+'</small></div>';paymentRiver.innerHTML=all.slice(0,5).map(drop).join('')||'<div class="qcv3-drop"><b>No payments yet</b><small>Add income and bills.</small></div>';go('home',true)}
+    function setCore(name){const p=state.p,before=state.before,inc=state.inc,pay=state.pay,total=state.total;const map={home:['Home','Money orbit',p?money(Math.max(0,p.week)):'Set up','Safe weekly spend',[before.length+' bills',money(total)+' due']],money:['Money','Money pulse',p?money(p.left):'£0.00','Left each month',[p?money(p.income):'£0 income',p?money(p.out):'£0 bills']],tracker:['Tracker','Payment river',money(total),'Due before payday',[before.length+' payments',inc?dateText(inc.next):dateText(pay)]],tools:['Tools','Sliding shelves','Pick a tool','Swipe the shelf',['Budget','Savings']],guides:['Guides','Guides path','Learn fast','Short answers',['Weekly','Monthly']]};const m=map[name]||map.home;orbitCore.classList.remove('is-changing');void orbitCore.offsetWidth;orbitCore.classList.add('is-changing');coreKicker.textContent=m[0];coreTitle.textContent=m[1];coreValue.textContent=m[2];coreCopy.textContent=m[3];coreMeta.innerHTML=m[4].map(x=>'<small>'+x+'</small>').join('')}
+    function decorateDock(){const index=modes.indexOf(activeMode);document.querySelectorAll('.qcv3-bottom [data-mode]').forEach(btn=>{const i=modes.indexOf(btn.dataset.mode),dist=Math.abs(i-index);btn.classList.toggle('active',dist===0);btn.classList.toggle('is-near',dist===1);btn.classList.toggle('is-far',dist>1)});document.querySelectorAll('.qcv3-node[data-mode]').forEach(btn=>btn.classList.toggle('active',btn.dataset.mode===activeMode))}
+    function go(name,instant=false){activeMode=name;document.querySelectorAll('.qcv3-mode').forEach(x=>x.classList.toggle('active',x.id==='mode-'+name));setCore(name);decorateDock()}
+    function shift(step){const i=modes.indexOf(activeMode);go(modes[(i+step+modes.length)%modes.length])}
+    document.querySelectorAll('[data-mode]').forEach(b=>b.addEventListener('click',()=>go(b.dataset.mode)));
+    let sx=0,sy=0;document.addEventListener('touchstart',e=>{sx=e.touches[0].clientX;sy=e.touches[0].clientY},{passive:true});document.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-sx,dy=e.changedTouches[0].clientY-sy;if(Math.abs(dx)>55&&Math.abs(dx)>Math.abs(dy)*1.4)shift(dx<0?1:-1)},{passive:true});
+    document.addEventListener('keydown',e=>{if(e.key==='ArrowRight')shift(1);if(e.key==='ArrowLeft')shift(-1)});
+    render();
   </script>
 </body>
 </html>

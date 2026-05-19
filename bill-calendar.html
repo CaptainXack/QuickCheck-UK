@@ -3,31 +3,31 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Bill Calendar and Payday Planner - QuickCheck UK</title>
-  <meta name="description" content="Plan bills around payday, see upcoming bills, biggest bill week and safe spend until payday." />
+  <title>Money Tracker and Bill Calendar - QuickCheck UK</title>
+  <meta name="description" content="Track weekly, four-weekly, monthly and yearly income and bills, mark payments as paid, and plan safe spend until payday." />
   <meta name="theme-color" content="#07111f" />
   <link rel="manifest" href="site.webmanifest" />
   <link rel="icon" href="assets/icon.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="assets/styles.css?v=10" />
   <link rel="stylesheet" href="assets/pro-app.css?v=5" />
-  <link rel="stylesheet" href="assets/bill-calendar.css?v=1" />
+  <link rel="stylesheet" href="assets/bill-calendar.css?v=2" />
   <link rel="stylesheet" href="assets/privacy-mode.css?v=1" />
 </head>
 <body>
   <header class="topbar">
-    <a class="brand" href="./"><span class="logo">QC</span><span><strong>QuickCheck UK</strong><small>Bill Calendar</small></span></a>
+    <a class="brand" href="./"><span class="logo">QC</span><span><strong>QuickCheck UK</strong><small>Money Tracker</small></span></a>
     <nav class="topnav"><a href="money-profile.html">Money Profile</a><a href="calculator-directory.html">Directory</a><a href="feedback.html">Feedback</a></nav>
   </header>
 
   <main class="launcher-home">
     <section class="section-strip">
-      <div class="strip-head"><div><h1>Bill Calendar and Payday Planner</h1><p>Add regular bills and payday to see what is due next, the biggest bill week and safe spend until payday.</p></div></div>
-      <div class="trust-line"><span>Saved only on this device</span><span>No account</span><span>Works with Money Profile</span></div>
+      <div class="strip-head"><div><h1>Money Tracker and Bill Calendar</h1><p>Add income and outgoings with their frequency and next payment date. QuickCheck works out weekly, monthly and yearly equivalents, then lets you mark payments as paid or skip them to the next date.</p></div></div>
+      <div class="trust-line"><span>Saved only on this device</span><span>Weekly or monthly</span><span>Works with Money Profile</span></div>
       <div id="billSummary" class="bill-list"></div>
     </section>
 
     <section class="section-strip">
-      <div class="strip-head"><div><h2>Payday</h2><p>Use the day of the month you normally get paid. To keep months simple, dates above 28 are treated as 28.</p></div></div>
+      <div class="strip-head"><div><h2>Payday anchor</h2><p>Use the day of the month you normally get paid if you want a payday countdown. Dates above 28 are treated as 28 to keep months simple.</p></div></div>
       <div class="bill-form-grid">
         <label>Payday day<input id="paydayDay" type="number" min="1" max="28" step="1" placeholder="28"></label>
         <button class="primary" id="savePayday" type="button">Save payday</button>
@@ -35,28 +35,30 @@
     </section>
 
     <section class="section-strip">
-      <div class="strip-head"><div><h2>Add a bill</h2><p>Add regular monthly bills like rent, phone, energy, subscriptions or council tax.</p></div></div>
-      <div class="bill-form-grid">
-        <label>Bill name<input id="billName" type="text" placeholder="e.g. Rent"></label>
+      <div class="strip-head"><div><h2>Add income or bill</h2><p>Use this for wages, benefits, rent, subscriptions, debt payments, travel, childcare or any repeating money movement.</p></div></div>
+      <div class="bill-form-grid tracker-form-grid">
+        <label>Type<select id="billType"><option value="bill">Bill / outgoing</option><option value="income">Income</option></select></label>
+        <label>Name<input id="billName" type="text" placeholder="e.g. Rent, Wages, Subscription"></label>
         <label>Amount<input id="billAmount" type="number" min="0" step="0.01" placeholder="650"></label>
-        <label>Due day<input id="billDay" type="number" min="1" max="28" step="1" placeholder="1"></label>
-        <label>Category<select id="billCategory"><option>Housing</option><option>Energy</option><option>Water</option><option>Council tax</option><option>Phone</option><option>Subscription</option><option>Travel</option><option>Debt</option><option>Other</option></select></label>
-        <button class="primary" id="addBill" type="button">Add bill</button>
+        <label>Frequency<select id="billFrequency"><option value="weekly">Weekly</option><option value="fortnightly">Fortnightly</option><option value="fourweekly">Every 4 weeks</option><option value="monthly" selected>Monthly</option><option value="yearly">Yearly</option></select></label>
+        <label>Next payment date<input id="billDate" type="date"></label>
+        <label>Category<select id="billCategory"><option>Housing</option><option>Income</option><option>Energy</option><option>Water</option><option>Council tax</option><option>Phone</option><option>Subscription</option><option>Travel</option><option>Debt</option><option>Food</option><option>Family</option><option>Other</option></select></label>
+        <button class="primary" id="addBill" type="button">Add to tracker</button>
       </div>
     </section>
 
     <section class="section-strip">
-      <div class="strip-head"><div><h2>Bills before payday</h2><p>These are the bills that need covering before your next payday.</p></div></div>
+      <div class="strip-head"><div><h2>Bills before payday</h2><p>These are the outgoings that need covering before your next payday anchor.</p></div></div>
       <div id="billsBeforePayday"></div>
     </section>
 
     <section class="section-strip">
-      <div class="strip-head"><div><h2>All upcoming bills</h2><p>Your next monthly bill dates in order.</p></div><button class="soft bill-danger" id="clearBills" type="button">Clear bills</button></div>
+      <div class="strip-head"><div><h2>All tracked payments</h2><p>Mark payments as paid when they happen. QuickCheck moves them to the next due date automatically. Delete and skip actions ask first.</p></div><button class="soft bill-danger" id="clearBills" type="button">Clear tracker</button></div>
       <div id="billList"></div>
     </section>
 
     <section class="section-strip support-panel">
-      <div><h2>Make this smarter</h2><p>Add your Money Profile so the calendar can estimate safe daily spend after regular bills.</p></div>
+      <div><h2>Make this smarter</h2><p>Add your Money Profile so calculators can use these real budget figures alongside your tracker.</p></div>
       <div class="quick-actions"><a href="money-profile.html">Open Money Profile</a><a href="budget-planner.html">Open Budget Planner</a></div>
     </section>
   </main>
@@ -69,9 +71,9 @@
   </nav>
 
   <footer class="footer"><a href="./">Home</a><a href="money-profile.html">Money Profile</a><a href="calculator-directory.html">Directory</a><a href="feedback.html">Feedback</a><a href="privacy.html">Privacy</a></footer>
-  <script src="assets/profile-core.js?v=2" defer></script>
-  <script src="assets/bill-calendar.js?v=1" defer></script>
+  <script src="assets/profile-core.js?v=3" defer></script>
+  <script src="assets/bill-calendar.js?v=2" defer></script>
   <script src="assets/privacy-mode.js?v=1" defer></script>
-  <script src="assets/pwa.js?v=5" defer></script>
+  <script src="assets/pwa.js?v=12" defer></script>
 </body>
 </html>

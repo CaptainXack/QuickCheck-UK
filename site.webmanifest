@@ -2,12 +2,12 @@
   "name": "QuickCheck UK",
   "short_name": "QuickCheck",
   "description": "Smart UK money calculators for budgets, bills, savings, debt, rent, subscriptions and everyday spending decisions.",
-  "start_url": "/QuickCheck-UK/?source=pwa",
+  "start_url": "/QuickCheck-UK/app.html?source=pwa",
   "scope": "/QuickCheck-UK/",
   "display": "standalone",
   "display_override": ["window-controls-overlay", "standalone", "browser"],
-  "background_color": "#07111f",
-  "theme_color": "#0b1220",
+  "background_color": "#f7fcff",
+  "theme_color": "#f7fcff",
   "orientation": "portrait-primary",
   "categories": ["finance", "utilities", "productivity"],
   "icons": [
@@ -19,6 +19,13 @@
     }
   ],
   "shortcuts": [
+    {
+      "name": "QuickCheck App",
+      "short_name": "App",
+      "description": "Open the QuickCheck Orbit app shell.",
+      "url": "/QuickCheck-UK/app.html",
+      "icons": [{ "src": "assets/icon.svg", "sizes": "any", "type": "image/svg+xml" }]
+    },
     {
       "name": "Money Profile",
       "short_name": "Profile",
@@ -38,13 +45,6 @@
       "short_name": "Insights",
       "description": "View pressure points, quick wins and money moves.",
       "url": "/QuickCheck-UK/insights.html",
-      "icons": [{ "src": "assets/icon.svg", "sizes": "any", "type": "image/svg+xml" }]
-    },
-    {
-      "name": "Savings Goal",
-      "short_name": "Savings",
-      "description": "Plan a savings target from your monthly money.",
-      "url": "/QuickCheck-UK/savings-goal-calculator.html",
       "icons": [{ "src": "assets/icon.svg", "sizes": "any", "type": "image/svg+xml" }]
     }
   ]

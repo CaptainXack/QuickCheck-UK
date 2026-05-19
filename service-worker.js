@@ -1,4 +1,4 @@
-const CACHE_NAME = 'quickcheck-uk-v45';
+const CACHE_NAME = 'quickcheck-uk-v46';
 const BASE = '/QuickCheck-UK/';
 const APP_SHELL = [
   BASE,
@@ -41,8 +41,8 @@ const APP_SHELL = [
   BASE + 'assets/orbit-carousel.css?v=1',
   BASE + 'assets/orbit-carousel-smooth.css?v=1',
   BASE + 'assets/orbit-app-shell.css?v=1',
-  BASE + 'assets/orbit-live-polish.css?v=1',
-  BASE + 'assets/orbit-shell.js?v=1',
+  BASE + 'assets/orbit-live-polish.css?v=2',
+  BASE + 'assets/orbit-shell.js?v=2',
   BASE + 'assets/app-mode.css?v=2',
   BASE + 'assets/pwa.js?v=23',
   BASE + 'assets/app.js?v=8',
@@ -68,7 +68,6 @@ const APP_SHELL = [
   BASE + 'assets/bill-calendar.css?v=2',
   BASE + 'assets/bill-calendar.js?v=4',
   BASE + 'assets/data-manager.css?v=1',
-  BASE + 'assets/data-manager.js?v=2',
   BASE + 'assets/insights.css?v=1',
   BASE + 'assets/insights.js?v=1',
   BASE + 'assets/ads.css?v=2',
@@ -86,9 +85,7 @@ self.addEventListener('install', event => {
 });
 
 self.addEventListener('activate', event => {
-  event.waitUntil(
-    caches.keys().then(keys => Promise.all(keys.filter(key => key !== CACHE_NAME).map(key => caches.delete(key))))
-  );
+  event.waitUntil(caches.keys().then(keys => Promise.all(keys.filter(key => key !== CACHE_NAME).map(key => caches.delete(key)))));
   self.clients.claim();
 });
 
@@ -104,16 +101,14 @@ self.addEventListener('fetch', event => {
     }).catch(() => caches.match(request).then(cached => cached || caches.match(BASE + 'index.html'))));
     return;
   }
-  event.respondWith(
-    caches.match(request).then(cached => {
-      const fresh = fetch(request).then(response => {
-        const copy = response.clone();
-        caches.open(CACHE_NAME).then(cache => cache.put(request, copy)).catch(() => null);
-        return response;
-      }).catch(() => cached);
-      return cached || fresh;
-    })
-  );
+  event.respondWith(caches.match(request).then(cached => {
+    const fresh = fetch(request).then(response => {
+      const copy = response.clone();
+      caches.open(CACHE_NAME).then(cache => cache.put(request, copy)).catch(() => null);
+      return response;
+    }).catch(() => cached);
+    return cached || fresh;
+  }));
 });
 
 self.addEventListener('message', event => {

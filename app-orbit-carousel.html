@@ -9,12 +9,13 @@
   <link rel="canonical" href="https://captainxack.github.io/QuickCheck-UK/app-orbit-carousel.html">
   <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="assets/orbit-carousel.css?v=1">
+  <link rel="stylesheet" href="assets/orbit-carousel-smooth.css?v=1">
 </head>
 <body class="orbit-body">
   <main class="orbit-shell">
     <header class="orbit-top">
       <a class="orbit-back" href="app-v3.html">Orbit v3</a>
-      <div class="orbit-brand"><span class="orbit-logo">QC</span><span><b>QuickCheck Orbit</b><small>carousel preview</small></span></div>
+      <div class="orbit-brand"><span class="orbit-logo">QC</span><span><b>QuickCheck Orbit</b><small>smooth carousel</small></span></div>
     </header>
 
     <section class="orbit-stage" id="orbitStage">
@@ -22,7 +23,7 @@
         <div class="orbit-rings"></div>
         <i class="orb-sphere s1"></i><i class="orb-sphere s2"></i><i class="orb-sphere s3"></i><i class="orb-sphere s4"></i>
         <article class="orbit-card active" data-mode="home">
-          <div><span class="orbit-kicker">Home</span><h1>Money orbit</h1><div class="orbit-value" id="homeValue">Set up</div><p class="orbit-sub">One focused view. Swipe the dock to bring a mode forward.</p><div class="orbit-pills" id="homePills"></div></div>
+          <div><span class="orbit-kicker">Home</span><h1>Money orbit</h1><div class="orbit-value" id="homeValue">Set up</div><p class="orbit-sub">Swipe the centre or dock. Tap the centre for detail.</p><div class="orbit-pills" id="homePills"></div></div>
         </article>
         <article class="orbit-card" data-mode="money">
           <div><span class="orbit-kicker">Money</span><h1>Money pulse</h1><div class="orbit-value" id="moneyValue">£0.00</div><p class="orbit-sub">Income, outgoings and what is left.</p><div class="orbit-pills" id="moneyPills"></div></div>
@@ -36,7 +37,7 @@
         <article class="orbit-card" data-mode="guides">
           <div><span class="orbit-kicker">Guides</span><h1>Learn fast</h1><div class="orbit-value">📚</div><p class="orbit-sub">Short money guides without the wall of text.</p><div class="orbit-pills"><span>Weekly</span><span>Monthly</span><span>Before payday</span></div></div>
         </article>
-        <div class="orbit-hint">Swipe left or right</div>
+        <div class="orbit-hint">Swipe centre</div>
       </div>
 
       <div class="orbit-actions">
@@ -55,34 +56,6 @@
     <button type="button" data-mode="guides"><span>📚</span><small>Guides</small></button>
   </nav>
 
-  <script>
-    const modes=['home','money','tracker','tools','guides'];
-    const labels={home:'Home',money:'Money',tracker:'Tracker',tools:'Tools',guides:'Guides'};
-    const actions={
-      home:[['Plan payday','bill-calendar.html','primary'],['Update profile','money-profile.html','']],
-      money:[['Open Money Profile','money-profile.html','primary'],['Backup','data-manager.html','']],
-      tracker:[['Full tracker','bill-calendar.html','primary']],
-      tools:[['Budget','budget-planner.html','primary'],['Weekly','weekly-budget-calculator.html',''],['Subs','subscription-cost-calculator.html','']],
-      guides:[['Guides hub','guides.html','primary'],['Weekly pay','guides/how-to-budget-when-paid-weekly.html','']]
-    };
-    const F={weekly:52/12,fortnightly:26/12,fourweekly:13/12,monthly:1,yearly:1/12};
-    const gbp=n=>new Intl.NumberFormat('en-GB',{style:'currency',currency:'GBP'}).format(Number(n)||0);
-    const read=(k,f)=>{try{return JSON.parse(localStorage.getItem(k)||JSON.stringify(f))}catch{return f}};
-    const today=()=>{const d=new Date();d.setHours(0,0,0,0);return d};
-    const add=(date,f)=>{const d=new Date(date);if(f==='weekly')d.setDate(d.getDate()+7);else if(f==='fortnightly')d.setDate(d.getDate()+14);else if(f==='fourweekly')d.setDate(d.getDate()+28);else if(f==='yearly')d.setFullYear(d.getFullYear()+1);else d.setMonth(d.getMonth()+1);return d};
-    const forDay=day=>{const n=today(),d=new Date(n.getFullYear(),n.getMonth(),Math.min(28,Math.max(1,Number(day)||1)));if(d<n)d.setMonth(d.getMonth()+1);return d};
-    const dateText=d=>d.toLocaleDateString('en-GB',{day:'numeric',month:'short'});
-    function profile(){const p=read('qc_money_profile_v1',null);if(!p)return null;const income=Array.isArray(p.incomeSources)&&p.incomeSources.length?p.incomeSources.reduce((a,b)=>a+(Number(b.amount)||0)*(F[b.frequency]||1),0):Number(p.income)||0;const out=Object.values(p.outgoings||{}).reduce((a,b)=>a+(Number(b)||0),0)+(p.custom||[]).reduce((a,b)=>a+(Number(b.amount)||0),0);return{income,out,left:income-out,week:(income-out)*12/52}}
-    function items(){const t=read('qc_bill_calendar_v2',{payday:28,items:[]});return(t.items||[]).map(x=>{let d=x.nextDate?new Date(x.nextDate):forDay(x.day||1);while(d<today())d=add(d,x.frequency||'monthly');return{...x,next:d}}).sort((a,b)=>a.next-b.next)}
-    let current=0;
-    function fillData(){const p=profile(),all=items(),tracker=read('qc_bill_calendar_v2',{payday:28}),pay=forDay(tracker.payday||28),inc=all.find(x=>x.type==='income'),before=all.filter(x=>x.type!=='income'&&x.next<=pay),total=before.reduce((a,b)=>a+(Number(b.amount)||0),0);homeValue.textContent=p?gbp(Math.max(0,p.week)):'Set up';homePills.innerHTML='<span>'+before.length+' bills</span><span>'+gbp(total)+' due</span>';moneyValue.textContent=p?gbp(p.left):'£0.00';moneyPills.innerHTML='<span>'+gbp(p?p.income:0)+' income</span><span>'+gbp(p?p.out:0)+' bills</span>';trackerValue.textContent=gbp(total);trackerPills.innerHTML='<span>'+before.length+' payments</span><span>'+(inc?dateText(inc.next):dateText(pay))+'</span>'}
-    function render(){document.querySelectorAll('.orbit-card').forEach(card=>{const i=modes.indexOf(card.dataset.mode);card.classList.toggle('active',i===current);card.classList.toggle('prev',i===(current-1+modes.length)%modes.length);card.classList.toggle('next',i===(current+1)%modes.length)});document.querySelectorAll('.orbit-dock button').forEach(btn=>{const i=modes.indexOf(btn.dataset.mode),dist=Math.abs(i-current);btn.classList.toggle('active',i===current);btn.classList.toggle('near',dist===1);});const mode=modes[current];dockLabel.textContent=labels[mode];orbitActions.innerHTML=(actions[mode]||[]).map(([text,url,cls])=>'<a class="'+(cls||'')+'" href="'+url+'">'+text+'</a>').join('')}
-    function go(mode){current=modes.indexOf(mode);if(current<0)current=0;render()}
-    function shift(step){current=(current+step+modes.length)%modes.length;render()}
-    document.querySelectorAll('.orbit-dock button').forEach(b=>b.onclick=()=>go(b.dataset.mode));
-    let sx=0,sy=0;document.addEventListener('touchstart',e=>{sx=e.touches[0].clientX;sy=e.touches[0].clientY},{passive:true});document.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-sx,dy=e.changedTouches[0].clientY-sy;if(Math.abs(dx)>45&&Math.abs(dx)>Math.abs(dy)*1.25)shift(dx<0?1:-1)},{passive:true});
-    document.addEventListener('keydown',e=>{if(e.key==='ArrowRight')shift(1);if(e.key==='ArrowLeft')shift(-1)});
-    fillData();render();
-  </script>
+  <script src="assets/orbit-carousel.js?v=1" defer></script>
 </body>
 </html>

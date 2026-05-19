@@ -10,12 +10,13 @@
   <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="assets/orbit-carousel.css?v=1">
   <link rel="stylesheet" href="assets/orbit-carousel-smooth.css?v=1">
+  <link rel="stylesheet" href="assets/orbit-app-shell.css?v=1">
 </head>
 <body class="orbit-body">
   <main class="orbit-shell">
     <header class="orbit-top">
       <a class="orbit-back" href="app-v3.html">Orbit v3</a>
-      <div class="orbit-brand"><span class="orbit-logo">QC</span><span><b>QuickCheck Orbit</b><small>smooth carousel</small></span></div>
+      <div class="orbit-brand"><span class="orbit-logo">QC</span><span><b>QuickCheck Orbit</b><small>centre control</small></span></div>
     </header>
 
     <section class="orbit-stage" id="orbitStage">
@@ -23,7 +24,7 @@
         <div class="orbit-rings"></div>
         <i class="orb-sphere s1"></i><i class="orb-sphere s2"></i><i class="orb-sphere s3"></i><i class="orb-sphere s4"></i>
         <article class="orbit-card active" data-mode="home">
-          <div><span class="orbit-kicker">Home</span><h1>Money orbit</h1><div class="orbit-value" id="homeValue">Set up</div><p class="orbit-sub">Swipe the centre or dock. Tap the centre for detail.</p><div class="orbit-pills" id="homePills"></div></div>
+          <div><span class="orbit-kicker">Home</span><h1>Money orbit</h1><div class="orbit-value" id="homeValue">Set up</div><p class="orbit-sub">Swipe the centre. Tap to open the next action.</p><div class="orbit-pills" id="homePills"></div></div>
         </article>
         <article class="orbit-card" data-mode="money">
           <div><span class="orbit-kicker">Money</span><h1>Money pulse</h1><div class="orbit-value" id="moneyValue">£0.00</div><p class="orbit-sub">Income, outgoings and what is left.</p><div class="orbit-pills" id="moneyPills"></div></div>
@@ -41,21 +42,12 @@
       </div>
 
       <div class="orbit-actions">
-        <div class="orbit-ad">Advertisement</div>
         <div class="orbit-buttons" id="orbitActions"></div>
       </div>
     </section>
   </main>
 
-  <div class="orbit-dock-label" id="dockLabel">Home</div>
-  <nav class="orbit-dock" aria-label="Orbit mode carousel">
-    <button type="button" data-mode="home"><span>🏠</span><small>Home</small></button>
-    <button type="button" data-mode="money"><span>💷</span><small>Money</small></button>
-    <button type="button" data-mode="tracker"><span>📅</span><small>Track</small></button>
-    <button type="button" data-mode="tools"><span>🧮</span><small>Tools</small></button>
-    <button type="button" data-mode="guides"><span>📚</span><small>Guides</small></button>
-  </nav>
-
   <script src="assets/orbit-carousel.js?v=1" defer></script>
+  <script src="assets/orbit-app-shell.js?v=1" defer></script>
 </body>
 </html>

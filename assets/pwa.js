@@ -1,5 +1,5 @@
 let deferredInstallPrompt=null;
-const QC_APP_VERSION='2026.05.18.1';
+const QC_APP_VERSION='2026.05.19.1';
 const QC_INSTALL_SEEN_KEY='qc_install_prompt_seen_v1';
 function qcIsStandalone(){return window.matchMedia('(display-mode: standalone)').matches||window.navigator.standalone===true||localStorage.getItem('qc_installed')==='yes'}
 function qcToast(text){const old=document.querySelector('.qc-toast');if(old)old.remove();const t=document.createElement('div');t.className='qc-toast';t.textContent=text;document.body.appendChild(t);setTimeout(()=>t.remove(),2600)}

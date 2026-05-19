@@ -8,7 +8,7 @@
   <meta name="theme-color" content="#030711">
   <link rel="canonical" href="https://captainxack.github.io/QuickCheck-UK/app-v3.html">
   <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="assets/app-v3.css?v=2">
+  <link rel="stylesheet" href="assets/app-v3.css?v=3">
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6774225609816080" crossorigin="anonymous"></script>
 </head>
 <body class="qcv3-body">
@@ -19,52 +19,63 @@
       <a href="./">classic</a>
     </header>
 
-    <section id="mode-home" class="qcv3-mode active">
-      <div class="qcv3-orbit">
-        <div class="qcv3-pulse">
-          <div class="qcv3-ring"></div>
-          <div class="qcv3-core"><div><span>No boxes. No wall.</span><h1>Budget by orbit.</h1><p>Your money sits in the centre. Everything else moves around it.</p></div></div>
-          <button class="qcv3-node n1" data-mode="money">Money<small id="nodeMoney">setup</small></button>
-          <button class="qcv3-node n2" data-mode="tracker">Tracker<small id="nodeTracker">0 due</small></button>
-          <button class="qcv3-node n3" data-mode="tools">Tools<small>shelves</small></button>
-          <button class="qcv3-node n4" data-mode="guides">Guides<small>learn</small></button>
-        </div>
-        <aside class="qcv3-side">
-          <div class="qcv3-glance"><h2>Less dashboard. More direction.</h2><p>This removes the stacked card feeling. It uses a central money pulse, orbit navigation, a payment river and curved tool shelves.</p></div>
-          <div class="qcv3-metrics">
-            <div class="qcv3-metric"><div><b id="safeSpend">Set up</b><small>safe weekly spend</small></div></div>
-            <div class="qcv3-metric"><div><b id="nextIncome">Payday</b><small>next income or payday anchor</small></div></div>
-            <div class="qcv3-metric"><div><b id="beforePayday">£0.00</b><small>bills before payday</small></div></div>
+    <div class="qcv3-app">
+      <div class="qcv3-pulse">
+        <div class="qcv3-ring"></div>
+        <div class="qcv3-core">
+          <div class="qcv3-core-inner">
+            <span id="coreKicker">Home</span>
+            <h1 id="coreTitle">Money orbit</h1>
+            <div class="qcv3-core-value" id="coreValue">Set up</div>
+            <p id="coreCopy">Tap a mode. The circle keeps the main figure here.</p>
+            <div class="qcv3-core-meta" id="coreMeta"></div>
           </div>
-          <div class="qcv3-native-note"><span>✨</span><div><b>Smart route</b><small>Use the tracker first, then let calculators pull from real figures.</small></div></div>
+        </div>
+        <button class="qcv3-node n1" data-mode="money">Money<small id="nodeMoney">setup</small></button>
+        <button class="qcv3-node n2" data-mode="tracker">Tracker<small id="nodeTracker">0 due</small></button>
+        <button class="qcv3-node n3" data-mode="tools">Tools<small>shelves</small></button>
+        <button class="qcv3-node n4" data-mode="guides">Guides<small>learn</small></button>
+      </div>
+
+      <aside class="qcv3-side">
+        <section id="mode-home" class="qcv3-mode active">
+          <div class="qcv3-mode-title"><div><h2>Direction, not clutter.</h2><p>One centre, one side path.</p></div></div>
+          <div class="qcv3-micro-grid">
+            <div class="qcv3-micro"><b id="safeSpend">Set up</b><small>safe weekly</small></div>
+            <div class="qcv3-micro"><b id="nextIncome">Payday</b><small>next income</small></div>
+            <div class="qcv3-micro"><b id="beforePayday">£0.00</b><small>before payday</small></div>
+          </div>
+          <div class="qcv3-native-note"><span>✨</span><div><b>Smart route</b><small>Track first, then calculators use real figures.</small></div></div>
           <div class="qcv3-sponsor-seam" data-ad-slot=""></div>
           <div class="qcv3-actions"><button class="qcv3-action" data-mode="tracker">Plan payday</button><a class="qcv3-action secondary" href="money-profile.html">Update profile</a></div>
-        </aside>
-      </div>
-    </section>
+        </section>
 
-    <section id="mode-money" class="qcv3-mode">
-      <h2 class="qcv3-panel-title">Money pulse</h2>
-      <div class="qcv3-flow">
-        <div><div class="qcv3-metrics" id="moneyMetrics"></div><div class="qcv3-sponsor-seam" data-ad-slot=""></div></div>
-        <div><p class="qcv3-glance">This screen is a readout, not a spreadsheet. Bigger signal, less noise.</p><div class="qcv3-strip"><a class="qcv3-pill" href="money-profile.html">Open Money Profile</a><a class="qcv3-pill" href="data-manager.html">Backup data</a></div></div>
-      </div>
-    </section>
+        <section id="mode-money" class="qcv3-mode">
+          <div class="qcv3-mode-title"><div><h2>Money pulse.</h2><p>Core figures only.</p></div></div>
+          <div class="qcv3-micro-grid" id="moneyMetrics"></div>
+          <div class="qcv3-sponsor-seam" data-ad-slot=""></div>
+          <div class="qcv3-strip"><a class="qcv3-pill" href="money-profile.html">Open Money Profile</a><a class="qcv3-pill" href="data-manager.html">Backup</a></div>
+        </section>
 
-    <section id="mode-tracker" class="qcv3-mode">
-      <h2 class="qcv3-panel-title">Payment river</h2>
-      <div class="qcv3-flow"><div><div class="qcv3-river" id="paymentRiver"></div><div class="qcv3-sponsor-seam" data-ad-slot=""></div></div><div><h3>Before payday</h3><div class="qcv3-river" id="beforeRiver"></div><div class="qcv3-strip"><a class="qcv3-pill" href="bill-calendar.html">Open full tracker</a></div></div></div>
-    </section>
+        <section id="mode-tracker" class="qcv3-mode">
+          <div class="qcv3-mode-title"><div><h2>Payment river.</h2><p>Next movements only.</p></div></div>
+          <div class="qcv3-river" id="paymentRiver"></div>
+          <div class="qcv3-sponsor-seam" data-ad-slot=""></div>
+          <div class="qcv3-strip"><a class="qcv3-pill" href="bill-calendar.html">Full tracker</a></div>
+        </section>
 
-    <section id="mode-tools" class="qcv3-mode">
-      <h2 class="qcv3-panel-title">Sliding shelves</h2><p class="qcv3-glance">Tools become horizontal lanes, not a block pile.</p>
-      <div class="qcv3-shelf"><a href="budget-planner.html"><span>📊</span><b>Budget Planner</b><small>Income and costs.</small></a><a href="weekly-budget-calculator.html"><span>📅</span><b>Weekly Budget</b><small>Monthly to weekly.</small></a><div class="qcv3-sponsor-card" data-ad-slot=""></div><a href="subscription-cost-calculator.html"><span>🔁</span><b>Subscriptions</b><small>Repeat payments.</small></a><a href="savings-goal-calculator.html"><span>🌱</span><b>Savings Goal</b><small>Target planning.</small></a><a href="debt-free-date-calculator.html"><span>💳</span><b>Debt Free Date</b><small>Payoff estimate.</small></a></div>
-    </section>
+        <section id="mode-tools" class="qcv3-mode">
+          <div class="qcv3-mode-title"><div><h2>Sliding shelves.</h2><p>Swipe sideways.</p></div></div>
+          <div class="qcv3-shelf"><a href="budget-planner.html"><span>📊</span><b>Budget</b><small>Income and costs.</small></a><a href="weekly-budget-calculator.html"><span>📅</span><b>Weekly</b><small>Monthly to weekly.</small></a><div class="qcv3-sponsor-card" data-ad-slot=""></div><a href="subscription-cost-calculator.html"><span>🔁</span><b>Subs</b><small>Repeat payments.</small></a><a href="savings-goal-calculator.html"><span>🌱</span><b>Savings</b><small>Target planning.</small></a></div>
+        </section>
 
-    <section id="mode-guides" class="qcv3-mode">
-      <h2 class="qcv3-panel-title">Guides path</h2>
-      <div class="qcv3-shelf"><a href="guides/how-to-budget-when-paid-weekly.html"><span>🗓️</span><b>Paid weekly</b><small>Make weekly pay work.</small></a><a href="guides/how-to-budget-when-paid-monthly.html"><span>🌙</span><b>Paid monthly</b><small>Split payday calmly.</small></a><div class="qcv3-sponsor-card" data-ad-slot=""></div><a href="guides/track-bills-before-payday.html"><span>📍</span><b>Bills before payday</b><small>Track what is due.</small></a><a href="guides/reduce-subscription-costs.html"><span>✂️</span><b>Subscriptions</b><small>Cut repeat costs.</small></a></div><div class="qcv3-strip"><a class="qcv3-pill" href="guides.html">Open guides hub</a></div>
-    </section>
+        <section id="mode-guides" class="qcv3-mode">
+          <div class="qcv3-mode-title"><div><h2>Guides path.</h2><p>Short answers.</p></div></div>
+          <div class="qcv3-shelf"><a href="guides/how-to-budget-when-paid-weekly.html"><span>🗓️</span><b>Weekly pay</b><small>Make it work.</small></a><a href="guides/how-to-budget-when-paid-monthly.html"><span>🌙</span><b>Monthly pay</b><small>Split payday.</small></a><div class="qcv3-sponsor-card" data-ad-slot=""></div><a href="guides/track-bills-before-payday.html"><span>📍</span><b>Before payday</b><small>Track due bills.</small></a></div>
+          <div class="qcv3-strip"><a class="qcv3-pill" href="guides.html">Guides hub</a></div>
+        </section>
+      </aside>
+    </div>
   </main>
 
   <nav class="qcv3-bottom"><button data-mode="home" class="active">Home</button><button data-mode="money">Money</button><button data-mode="tracker">Tracker</button><button data-mode="tools">Tools</button><button data-mode="guides">Guides</button></nav>
@@ -79,8 +90,10 @@
     const dateText=d=>d.toLocaleDateString('en-GB',{day:'numeric',month:'short'});
     function profile(){const p=read('qc_money_profile_v1',null);if(!p)return null;const income=Array.isArray(p.incomeSources)&&p.incomeSources.length?p.incomeSources.reduce((a,b)=>a+(Number(b.amount)||0)*(F[b.frequency]||1),0):Number(p.income)||0;const out=Object.values(p.outgoings||{}).reduce((a,b)=>a+(Number(b)||0),0)+(p.custom||[]).reduce((a,b)=>a+(Number(b.amount)||0),0);return {income,out,left:income-out,week:(income-out)*12/52}}
     function items(){const t=read('qc_bill_calendar_v2',{payday:28,items:[]});return (t.items||[]).map(x=>{let d=x.nextDate?new Date(x.nextDate):forDay(x.day||1);while(d<today())d=add(d,x.frequency||'monthly');return {...x,next:d}}).sort((a,b)=>a.next-b.next)}
-    function render(){const p=profile(),all=items(),tracker=read('qc_bill_calendar_v2',{payday:28}),pay=forDay(tracker.payday||28),inc=all.find(x=>x.type==='income'),before=all.filter(x=>x.type!=='income'&&x.next<=pay),total=before.reduce((a,b)=>a+(Number(b.amount)||0),0);safeSpend.textContent=p?money(Math.max(0,p.week)):'Set up';nodeMoney.textContent=p?money(Math.max(0,p.week))+'/week':'setup';nodeTracker.textContent=before.length+' due';nextIncome.textContent=inc?dateText(inc.next):dateText(pay);beforePayday.textContent=money(total);moneyMetrics.innerHTML=['monthly income|'+(p?money(p.income):'£0.00'),'monthly outgoings|'+(p?money(p.out):'£0.00'),'left each month|'+(p?money(p.left):'£0.00')].map(x=>{const [s,b]=x.split('|');return '<div class="qcv3-metric"><div><b>'+b+'</b><small>'+s+'</small></div></div>'}).join('');const drop=x=>'<div class="qcv3-drop"><b>'+(x.type==='income'?'Income: ':'')+x.name+'</b><small>'+money(x.amount)+' · '+(x.frequency||'monthly')+' · '+dateText(x.next)+'</small></div>';paymentRiver.innerHTML=all.slice(0,8).map(drop).join('')||'<div class="qcv3-drop"><b>No payments yet</b><small>Add income and bills to make the river flow.</small></div>';beforeRiver.innerHTML=before.slice(0,5).map(drop).join('')||'<div class="qcv3-drop"><b>Clear water</b><small>No tracked bills before payday.</small></div>'}
-    function go(name){document.querySelectorAll('.qcv3-mode').forEach(x=>x.classList.toggle('active',x.id==='mode-'+name));document.querySelectorAll('[data-mode]').forEach(x=>x.classList.toggle('active',x.dataset.mode===name));window.scrollTo({top:0,behavior:'smooth'})}
+    let state={p:null,all:[],before:[],inc:null,pay:null,total:0};
+    function render(){const p=profile(),all=items(),tracker=read('qc_bill_calendar_v2',{payday:28}),pay=forDay(tracker.payday||28),inc=all.find(x=>x.type==='income'),before=all.filter(x=>x.type!=='income'&&x.next<=pay),total=before.reduce((a,b)=>a+(Number(b.amount)||0),0);state={p,all,before,inc,pay,total};safeSpend.textContent=p?money(Math.max(0,p.week)):'Set up';nodeMoney.textContent=p?money(Math.max(0,p.week))+'/week':'setup';nodeTracker.textContent=before.length+' due';nextIncome.textContent=inc?dateText(inc.next):dateText(pay);beforePayday.textContent=money(total);moneyMetrics.innerHTML=['Income|'+(p?money(p.income):'£0.00'),'Outgoings|'+(p?money(p.out):'£0.00'),'Left|'+(p?money(p.left):'£0.00')].map(x=>{const [s,b]=x.split('|');return '<div class="qcv3-micro"><b>'+b+'</b><small>'+s+'</small></div>'}).join('');const drop=x=>'<div class="qcv3-drop"><b>'+(x.type==='income'?'Income: ':'')+x.name+'</b><small>'+money(x.amount)+' · '+dateText(x.next)+'</small></div>';paymentRiver.innerHTML=all.slice(0,5).map(drop).join('')||'<div class="qcv3-drop"><b>No payments yet</b><small>Add income and bills.</small></div>';setCore('home')}
+    function setCore(name){const p=state.p,before=state.before,inc=state.inc,pay=state.pay,total=state.total;const map={home:['Home','Money orbit',p?money(Math.max(0,p.week)):'Set up','Safe weekly spend',[before.length+' bills',money(total)+' due']],money:['Money','Money pulse',p?money(p.left):'£0.00','Left each month',[p?money(p.income):'£0 income',p?money(p.out):'£0 bills']],tracker:['Tracker','Payment river',money(total),'Due before payday',[before.length+' payments',inc?dateText(inc.next):dateText(pay)]],tools:['Tools','Sliding shelves','Pick a tool','Swipe the shelf',['Budget','Savings']],guides:['Guides','Guides path','Learn fast','Short answers',['Weekly','Monthly']]};const m=map[name]||map.home;coreKicker.textContent=m[0];coreTitle.textContent=m[1];coreValue.textContent=m[2];coreCopy.textContent=m[3];coreMeta.innerHTML=m[4].map(x=>'<small>'+x+'</small>').join('')}
+    function go(name){document.querySelectorAll('.qcv3-mode').forEach(x=>x.classList.toggle('active',x.id==='mode-'+name));document.querySelectorAll('[data-mode]').forEach(x=>x.classList.toggle('active',x.dataset.mode===name));setCore(name)}
     document.querySelectorAll('[data-mode]').forEach(b=>b.addEventListener('click',()=>go(b.dataset.mode)));render();
   </script>
 </body>

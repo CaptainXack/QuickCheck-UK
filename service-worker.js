@@ -1,4 +1,4 @@
-const CACHE_NAME = 'quickcheck-uk-v36';
+const CACHE_NAME = 'quickcheck-uk-v37';
 const BASE = '/QuickCheck-UK/';
 const APP_SHELL = [
   BASE,
@@ -37,6 +37,8 @@ const APP_SHELL = [
   BASE + 'assets/orbit-carousel.css?v=1',
   BASE + 'assets/orbit-carousel-smooth.css?v=1',
   BASE + 'assets/orbit-carousel.js?v=1',
+  BASE + 'assets/orbit-app-shell.css?v=1',
+  BASE + 'assets/orbit-app-shell.js?v=1',
   BASE + 'assets/app-mode.css?v=2',
   BASE + 'assets/pwa.js?v=20',
   BASE + 'assets/app.js?v=8',

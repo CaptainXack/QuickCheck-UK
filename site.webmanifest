@@ -1,8 +1,8 @@
 {
   "name": "QuickCheck UK",
   "short_name": "QuickCheck",
-  "description": "Smart UK money calculators for budgets, bills, savings, debt, rent, subscriptions and everyday spending decisions.",
-  "start_url": "/QuickCheck-UK/app.html?source=pwa",
+  "description": "Smart UK money app for budget tracking, bills, savings, calculators and everyday money decisions.",
+  "start_url": "/QuickCheck-UK/?source=pwa",
   "scope": "/QuickCheck-UK/",
   "display": "standalone",
   "display_override": ["window-controls-overlay", "standalone", "browser"],
@@ -23,28 +23,28 @@
       "name": "QuickCheck App",
       "short_name": "App",
       "description": "Open the QuickCheck Orbit app shell.",
-      "url": "/QuickCheck-UK/app.html",
+      "url": "/QuickCheck-UK/",
       "icons": [{ "src": "assets/icon.svg", "sizes": "any", "type": "image/svg+xml" }]
     },
     {
       "name": "Money Profile",
       "short_name": "Profile",
-      "description": "Save income and regular costs for smarter calculator results.",
-      "url": "/QuickCheck-UK/money-profile.html",
+      "description": "Open the Orbit money setup panel.",
+      "url": "/QuickCheck-UK/",
       "icons": [{ "src": "assets/icon.svg", "sizes": "any", "type": "image/svg+xml" }]
     },
     {
       "name": "Budget Planner",
       "short_name": "Budget",
-      "description": "Check income, bills and leftover money.",
-      "url": "/QuickCheck-UK/budget-planner.html",
+      "description": "Open the Orbit budget tool panel.",
+      "url": "/QuickCheck-UK/",
       "icons": [{ "src": "assets/icon.svg", "sizes": "any", "type": "image/svg+xml" }]
     },
     {
       "name": "Smart Insights",
       "short_name": "Insights",
-      "description": "View pressure points, quick wins and money moves.",
-      "url": "/QuickCheck-UK/insights.html",
+      "description": "Open QuickCheck Orbit insights.",
+      "url": "/QuickCheck-UK/",
       "icons": [{ "src": "assets/icon.svg", "sizes": "any", "type": "image/svg+xml" }]
     }
   ]

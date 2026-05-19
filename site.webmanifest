@@ -1,7 +1,7 @@
 {
   "name": "QuickCheck UK",
   "short_name": "QuickCheck",
-  "description": "Fast everyday UK calculators and checkers for bills, rent, moving, broadband, subscriptions and household costs.",
+  "description": "Smart UK money calculators for budgets, bills, savings, debt, rent, subscriptions and everyday spending decisions.",
   "start_url": "/QuickCheck-UK/?source=pwa",
   "scope": "/QuickCheck-UK/",
   "display": "standalone",
@@ -20,24 +20,31 @@
   ],
   "shortcuts": [
     {
+      "name": "Money Profile",
+      "short_name": "Profile",
+      "description": "Save income and regular costs for smarter calculator results.",
+      "url": "/QuickCheck-UK/money-profile.html",
+      "icons": [{ "src": "assets/icon.svg", "sizes": "any", "type": "image/svg+xml" }]
+    },
+    {
       "name": "Budget Planner",
       "short_name": "Budget",
-      "description": "Open the budget planner calculator.",
+      "description": "Check income, bills and leftover money.",
       "url": "/QuickCheck-UK/budget-planner.html",
       "icons": [{ "src": "assets/icon.svg", "sizes": "any", "type": "image/svg+xml" }]
     },
     {
-      "name": "Standard Calculator",
-      "short_name": "Calculator",
-      "description": "Open the standard calculator.",
-      "url": "/QuickCheck-UK/standard-calculator.html",
+      "name": "Smart Insights",
+      "short_name": "Insights",
+      "description": "View pressure points, quick wins and money moves.",
+      "url": "/QuickCheck-UK/insights.html",
       "icons": [{ "src": "assets/icon.svg", "sizes": "any", "type": "image/svg+xml" }]
     },
     {
-      "name": "Rent Affordability",
-      "short_name": "Rent",
-      "description": "Open the rent affordability calculator.",
-      "url": "/QuickCheck-UK/rent-affordability-calculator.html",
+      "name": "Savings Goal",
+      "short_name": "Savings",
+      "description": "Plan a savings target from your monthly money.",
+      "url": "/QuickCheck-UK/savings-goal-calculator.html",
       "icons": [{ "src": "assets/icon.svg", "sizes": "any", "type": "image/svg+xml" }]
     }
   ]

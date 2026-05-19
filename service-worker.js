@@ -1,4 +1,4 @@
-const CACHE_NAME = 'quickcheck-uk-v42';
+const CACHE_NAME = 'quickcheck-uk-v43';
 const BASE = '/QuickCheck-UK/';
 const APP_SHELL = [
   BASE,
@@ -122,5 +122,5 @@ self.addEventListener('message', event => {
 
 self.addEventListener('notificationclick', event => {
   event.notification.close();
-  event.waitUntil(clients.openWindow(BASE + 'app.html'));
+  event.waitUntil(clients.openWindow(BASE));
 });

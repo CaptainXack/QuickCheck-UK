@@ -1,9 +1,10 @@
-const CACHE_NAME = 'quickcheck-uk-v26';
+const CACHE_NAME = 'quickcheck-uk-v27';
 const BASE = '/QuickCheck-UK/';
 const APP_SHELL = [
   BASE,
   BASE + 'index.html',
   BASE + 'app-v2.html',
+  BASE + 'app-v3.html',
   BASE + 'guides.html',
   BASE + 'calculator-directory.html',
   BASE + 'standard-calculator.html',
@@ -27,6 +28,7 @@ const APP_SHELL = [
   BASE + 'assets/fresh-ui.js?v=1',
   BASE + 'assets/app-v2.css?v=1',
   BASE + 'assets/app-v2.js?v=1',
+  BASE + 'assets/app-v3.css?v=1',
   BASE + 'assets/app-mode.css?v=2',
   BASE + 'assets/pwa.js?v=20',
   BASE + 'assets/app.js?v=8',

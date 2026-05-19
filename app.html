@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>QuickCheck UK App - Smart Budget Tracker and Money Tools</title>
+  <meta name="description" content="Open the QuickCheck UK app shell for budget tracking, money profile, bill planning, savings tools and short UK money guides.">
+  <meta name="theme-color" content="#f7fcff">
+  <link rel="canonical" href="https://captainxack.github.io/QuickCheck-UK/app.html">
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="assets/icon.svg">
+  <link rel="stylesheet" href="assets/orbit-carousel.css?v=1">
+  <link rel="stylesheet" href="assets/orbit-carousel-smooth.css?v=1">
+  <link rel="stylesheet" href="assets/orbit-app-shell.css?v=1">
+</head>
+<body class="orbit-body">
+  <main class="orbit-shell">
+    <header class="orbit-top">
+      <a class="orbit-back" href="./">Home</a>
+      <div class="orbit-brand"><span class="orbit-logo">QC</span><span><b>QuickCheck UK</b><small>smart money app</small></span></div>
+    </header>
+
+    <section class="orbit-stage" id="orbitStage">
+      <div class="orbit-scene" aria-live="polite">
+        <div class="orbit-rings"></div>
+        <i class="orb-sphere s1"></i><i class="orb-sphere s2"></i><i class="orb-sphere s3"></i><i class="orb-sphere s4"></i>
+        <article class="orbit-card active" data-mode="home">
+          <div><span class="orbit-kicker">Home</span><h1>Money orbit</h1><div class="orbit-value" id="homeValue">Set up</div><p class="orbit-sub">Swipe the centre. Tap to open the next action.</p><div class="orbit-pills" id="homePills"></div></div>
+        </article>
+        <article class="orbit-card" data-mode="money">
+          <div><span class="orbit-kicker">Money</span><h1>Money pulse</h1><div class="orbit-value" id="moneyValue">£0.00</div><p class="orbit-sub">Income, outgoings and what is left.</p><div class="orbit-pills" id="moneyPills"></div></div>
+        </article>
+        <article class="orbit-card" data-mode="tracker">
+          <div><span class="orbit-kicker">Tracker</span><h1>Payment river</h1><div class="orbit-value" id="trackerValue">£0.00</div><p class="orbit-sub">Bills due before payday.</p><div class="orbit-pills" id="trackerPills"></div></div>
+        </article>
+        <article class="orbit-card" data-mode="tools">
+          <div><span class="orbit-kicker">Tools</span><h1>Pick a tool</h1><div class="orbit-value">🧮</div><p class="orbit-sub">Budget, weekly money, subscriptions and savings.</p><div class="orbit-pills"><span>Budget</span><span>Weekly</span><span>Subs</span></div></div>
+        </article>
+        <article class="orbit-card" data-mode="guides">
+          <div><span class="orbit-kicker">Guides</span><h1>Learn fast</h1><div class="orbit-value">📚</div><p class="orbit-sub">Short money guides without the wall of text.</p><div class="orbit-pills"><span>Weekly</span><span>Monthly</span><span>Before payday</span></div></div>
+        </article>
+        <div class="orbit-hint">Swipe centre</div>
+      </div>
+
+      <div class="orbit-actions">
+        <div class="orbit-buttons" id="orbitActions"></div>
+      </div>
+    </section>
+  </main>
+
+  <script src="assets/orbit-carousel.js?v=1" defer></script>
+  <script src="assets/orbit-app-shell.js?v=1" defer></script>
+</body>
+</html>

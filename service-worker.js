@@ -1,4 +1,4 @@
-const CACHE_NAME = 'quickcheck-uk-v40';
+const CACHE_NAME = 'quickcheck-uk-v41';
 const BASE = '/QuickCheck-UK/';
 const APP_SHELL = [
   BASE,
@@ -25,7 +25,8 @@ const APP_SHELL = [
   BASE + 'guides/save-weekly-from-monthly-income.html',
   BASE + 'guides/reduce-subscription-costs.html',
   BASE + 'assets/styles.css?v=11',
-  BASE + 'assets/orbit-global.css?v=1',
+  BASE + 'assets/orbit-global.css?v=2',
+  BASE + 'assets/orbit-global.js?v=1',
   BASE + 'assets/pro-app.css?v=5',
   BASE + 'assets/fresh-ui.css?v=1',
   BASE + 'assets/fresh-ui.js?v=1',
@@ -42,7 +43,7 @@ const APP_SHELL = [
   BASE + 'assets/orbit-app-shell.css?v=1',
   BASE + 'assets/orbit-app-shell.js?v=1',
   BASE + 'assets/app-mode.css?v=2',
-  BASE + 'assets/pwa.js?v=21',
+  BASE + 'assets/pwa.js?v=22',
   BASE + 'assets/app.js?v=8',
   BASE + 'assets/enhance.js?v=8',
   BASE + 'assets/home-routes.js?v=3',
